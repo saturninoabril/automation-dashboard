@@ -1,0 +1,19 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+    db:
+        image: postgres
+        restart: always
+        environment:
+            POSTGRES_USER: mmuser
+            POSTGRES_PASSWORD: mostest
+            POSTGRES_DB: automation_dashboard_db
+        ports:
+            - 5433:5432
+
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - 5434:8080
