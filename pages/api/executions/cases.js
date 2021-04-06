@@ -65,9 +65,8 @@ async function saveCaseExecution(req, res) {
     if (query.cycle_id && query.spec_id) {
         const { body } = req;
 
-        const knex = getKnex();
-
         try {
+            const knex = getKnex();
             const execution = await knex('case_executions')
                 .insert({
                     cycle_id: query.cycle_id,
