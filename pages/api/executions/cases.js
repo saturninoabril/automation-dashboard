@@ -84,7 +84,7 @@ async function saveCaseExecution(req, res) {
                 })
                 .returning('*');
 
-            return res.status(200).json(execution);
+            return res.status(201).json(execution);
         } catch (e) {
             return res
                 .status(404)

@@ -71,5 +71,5 @@ exports.up = async function (knex) {
 exports.down = async function (knex) {
     await knex.raw('DROP TABLE cycles CASCADE');
     await knex.raw('DROP TABLE spec_executions CASCADE');
-    await knex.raw('DROP TABLE test_executions CASCADE');
+    await knex.raw('DROP TABLE case_executions CASCADE');
 };

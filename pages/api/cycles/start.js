@@ -41,8 +41,9 @@ async function startCycle(req, res) {
             return { cycle, executions };
         });
 
-        return res.status(200).json(started);
+        return res.status(201).json(started);
     } catch (e) {
+        console.log('cycles/start e', e);
         return res.status(501).json({ error: true });
     }
 }

@@ -72,7 +72,7 @@ async function endSpecExecution(req, res) {
                 return { cycle: updatedCycle[0], spec: updatedExecution[0] };
             });
 
-            return res.status(200).json(started);
+            return res.status(201).json(started);
         } catch (e) {
             return res.status(501).json({ error: true });
         }

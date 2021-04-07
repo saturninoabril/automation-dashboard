@@ -5,7 +5,7 @@ import auth from '../../../../middleware/auth';
 
 async function startSpecExecutions(req, res) {
     const {
-        query: { repo, branch, build, last = false },
+        query: { repo, branch, build, test_last_first },
     } = req;
 
     if (repo && branch && build) {
@@ -21,7 +21,7 @@ async function startSpecExecutions(req, res) {
                     .first();
 
                 if (!cycle) {
-                    return null;
+                    return { status: 404, message: 'Cycle not found.' };
                 }
 
                 if (!cycle.state) {
@@ -37,16 +37,17 @@ async function startSpecExecutions(req, res) {
                     cycle = updatedCycle[0];
                 }
 
+                const testLastFirst = test_last_first === 'true';
                 const origExecution = await knex('spec_executions')
                     .transacting(trx)
                     .where('cycle_id', cycle.id)
                     .whereNull('server')
-                    .orderBy('sort_weight', last ? 'desc' : 'asc')
-                    .orderBy('file', last ? 'desc' : 'asc')
+                    .orderBy('sort_weight', testLastFirst ? 'desc' : 'asc')
+                    .orderBy('file', testLastFirst ? 'desc' : 'asc')
                     .first();
 
                 if (!origExecution) {
-                    return null;
+                    return { status: 200, message: 'No more spec file available to test.', execution: {}, cycle };
                 }
 
                 const updatedExecution = await knex('spec_executions')
@@ -60,27 +61,26 @@ async function startSpecExecutions(req, res) {
                     })
                     .returning('*');
 
-                return { execution: updatedExecution[0], cycle };
+                return { status: 200, message: 'Found spec file to test.', execution: updatedExecution[0], cycle };
             });
 
-            if (!data) {
-                return res.status(404).json({ error: true });
+            const { message, execution, cycle } = data;
+
+            let summary;
+            if (execution && data.execution.cycle_id) {
+                summary = await knex('spec_executions')
+                    .where('cycle_id', execution.cycle_id)
+                    .select('server', 'state', knex.raw('COUNT(server), COUNT(state)'))
+                    .groupBy('server', 'state');
             }
 
-            const { execution, cycle } = data;
-
-            const summary = await knex('spec_executions')
-                .where('cycle_id', execution.cycle_id)
-                .select('server', 'state', knex.raw('COUNT(server), COUNT(state)'))
-                .groupBy('server', 'state');
-
-            return res.status(200).json({ execution, cycle, summary });
+            return res.status(data.status).json({ message, execution, cycle, summary });
         } catch (e) {
-            return res.status(501).json({ error: true });
+            return res.status(501).json({ message: 'Internal error. Failed to get spec file to test.' });
         }
     }
 
-    return res.status(400).json({ errorMessage: 'No repo, branch and build found in request query.' });
+    return res.status(400).json({ message: 'No repo, branch and build found in request query.' });
 }
 
 const handler = nextConnect();
