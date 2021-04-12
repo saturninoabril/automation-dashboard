@@ -1,6 +1,7 @@
 import nextConnect from 'next-connect';
 
 import { getKnex } from '../../../knex';
+import Cycle from '../../../lib/schema/cycle';
 import auth from '../../../middleware/auth';
 
 async function startCycle(req, res) {
@@ -9,15 +10,20 @@ async function startCycle(req, res) {
             body: { branch, build, repo, files = [] },
         } = req;
 
+        const { value, error } = Cycle.schema.validate({ branch, build, repo, specs_registered: files.length });
+        if (error) {
+            return res.status(400).json({ error: true, message: `Invalid cycle patch: ${error}` });
+        }
+
         const knex = getKnex();
         const started = await knex.transaction(async (trx) => {
             const cycle = await knex('cycles')
                 .transacting(trx)
                 .insert({
-                    branch,
-                    build,
-                    repo,
-                    specs_registered: files.length,
+                    branch: value.branch,
+                    build: value.build,
+                    repo: value.repo,
+                    specs_registered: value.specs_registered,
                 })
                 .returning('*');
 
@@ -43,7 +49,6 @@ async function startCycle(req, res) {
 
         return res.status(201).json(started);
     } catch (e) {
-        console.log('cycles/start e', e);
         return res.status(501).json({ error: true });
     }
 }

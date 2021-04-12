@@ -37,7 +37,7 @@ yarn migrate:latest
 yarn dev
 ```
 
-Your app should now be up and running on [http://localhost:3000](http://localhost:3000)!
+Your app should now be up and running on [http://localhost:4000](http://localhost:4000)!
 
 ## Deploy your own
 

@@ -5,7 +5,7 @@ import auth from '../../../../middleware/auth';
 
 async function startSpecExecutions(req, res) {
     const {
-        query: { repo, branch, build, test_last_first },
+        query: { repo, branch, build },
     } = req;
 
     if (repo && branch && build) {
@@ -37,13 +37,12 @@ async function startSpecExecutions(req, res) {
                     cycle = updatedCycle[0];
                 }
 
-                const testLastFirst = test_last_first === 'true';
                 const origExecution = await knex('spec_executions')
                     .transacting(trx)
                     .where('cycle_id', cycle.id)
                     .whereNull('server')
-                    .orderBy('sort_weight', testLastFirst ? 'desc' : 'asc')
-                    .orderBy('file', testLastFirst ? 'desc' : 'asc')
+                    .orderBy('sort_weight', 'asc')
+                    .orderBy('file', 'asc')
                     .first();
 
                 if (!origExecution) {
@@ -67,9 +66,9 @@ async function startSpecExecutions(req, res) {
             const { message, execution, cycle } = data;
 
             let summary;
-            if (execution && data.execution.cycle_id) {
+            if (cycle && cycle.id) {
                 summary = await knex('spec_executions')
-                    .where('cycle_id', execution.cycle_id)
+                    .where('cycle_id', cycle.id)
                     .select('server', 'state', knex.raw('COUNT(server), COUNT(state)'))
                     .groupBy('server', 'state');
             }

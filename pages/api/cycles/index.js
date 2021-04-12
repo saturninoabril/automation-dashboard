@@ -8,7 +8,6 @@ async function getCycles(req, res) {
         const cycles = await knex('cycles').orderBy('create_at', 'desc');
         return res.status(200).json(cycles);
     } catch (e) {
-        console.log('error', e);
         return res.status(501).json({ error: true });
     }
 }
