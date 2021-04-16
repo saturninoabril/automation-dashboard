@@ -1,6 +1,7 @@
 import nextConnect from 'next-connect';
 
 import { getKnex } from '../../../knex';
+import CaseExecution from '../../../lib/schema/case_execution';
 import auth from '../../../middleware/auth';
 
 async function getCaseExecutions(req, res) {
@@ -66,23 +67,27 @@ async function saveCaseExecution(req, res) {
         const { body } = req;
 
         try {
+            const caseDraft = {
+                cycle_id: query.cycle_id,
+                spec_execution_id: query.spec_id,
+                title: body.title,
+                full_title: body.full_title,
+                key: body.key,
+                key_step: body.key_step,
+                state: body.state,
+                duration: body.duration,
+                pass: body.pass,
+                fail: body.fail,
+                pending: body.pending,
+                skipped: body.skipped,
+            };
+            const { value, error } = CaseExecution.schema.validate(caseDraft);
+            if (error) {
+                return { status: 400, error: true, message: `Invalid case execution: ${error}` };
+            }
+
             const knex = getKnex();
-            const execution = await knex('case_executions')
-                .insert({
-                    cycle_id: query.cycle_id,
-                    spec_execution_id: query.spec_id,
-                    title: body.title,
-                    full_title: body.full_title,
-                    key: body.key,
-                    key_step: body.key_step,
-                    state: body.state,
-                    duration: body.duration,
-                    pass: body.pass,
-                    fail: body.fail,
-                    pending: body.pending,
-                    skipped: body.skipped,
-                })
-                .returning('*');
+            const execution = await knex('case_executions').insert(value).returning('*');
 
             return res.status(201).json(execution);
         } catch (e) {

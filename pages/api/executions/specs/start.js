@@ -1,6 +1,8 @@
 import nextConnect from 'next-connect';
 
 import { getKnex } from '../../../../knex';
+import Cycle from '../../../../lib/schema/cycle';
+import SpecExecution from '../../../../lib/schema/spec_execution';
 import auth from '../../../../middleware/auth';
 
 async function startSpecExecutions(req, res) {
@@ -25,14 +27,17 @@ async function startSpecExecutions(req, res) {
                 }
 
                 if (!cycle.state) {
+                    const cycleDraft = {
+                        state: 'started',
+                    };
+                    const { value: cyclePatch, error } = Cycle.toPatch(cycleDraft);
+                    if (error) {
+                        return { status: 400, error: true, message: `Invalid cycle patch: ${error}` };
+                    }
                     const updatedCycle = await knex('cycles')
                         .transacting(trx)
                         .where('id', cycle.id)
-                        .update({
-                            state: 'started',
-                            start_at: knex.fn.now(),
-                            update_at: knex.fn.now(),
-                        })
+                        .update({ ...cyclePatch, start_at: knex.fn.now(), update_at: knex.fn.now() })
                         .returning('*');
                     cycle = updatedCycle[0];
                 }
@@ -49,12 +54,19 @@ async function startSpecExecutions(req, res) {
                     return { status: 200, message: 'No more spec file available to test.', execution: {}, cycle };
                 }
 
+                const specDraft = {
+                    server: req.body.server,
+                    state: 'started',
+                };
+                const { value: specPatch, error } = SpecExecution.toPatch(specDraft);
+                if (error) {
+                    return { status: 400, error: true, message: `Invalid spec execution patch: ${error}` };
+                }
                 const updatedExecution = await knex('spec_executions')
                     .transacting(trx)
                     .where('id', origExecution.id)
                     .update({
-                        server: req.body.server,
-                        state: 'started',
+                        ...specPatch,
                         start_at: knex.fn.now(),
                         update_at: knex.fn.now(),
                     })

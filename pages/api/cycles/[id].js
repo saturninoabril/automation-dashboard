@@ -18,11 +18,7 @@ async function getCycle(req, res) {
 async function updateCycle(req, res) {
     try {
         const { body, query } = req;
-        const { value, error } = Cycle.toPatch(body);
-        console.log('updateCycle query.id', query.id);
-        console.log('updateCycle body', body);
-        console.log('updateCycle value', value);
-        console.log('updateCycle error', error);
+        const { value: cyclePatch, error } = Cycle.toPatch(body);
         if (error) {
             return res.status(400).json({ error: true, message: `Invalid cycle patch: ${error}` });
         }
@@ -31,10 +27,7 @@ async function updateCycle(req, res) {
             const updatedCycle = await knex('cycles')
                 .transacting(trx)
                 .where('id', query.id)
-                .update({
-                    ...value,
-                    update_at: knex.fn.now(),
-                })
+                .update({ ...cyclePatch, update_at: knex.fn.now() })
                 .returning('*');
 
             return updatedCycle;

@@ -2,6 +2,7 @@ import nextConnect from 'next-connect';
 
 import { getKnex } from '../../../knex';
 import Cycle from '../../../lib/schema/cycle';
+import SpecExecution from '../../../lib/schema/spec_execution';
 import auth from '../../../middleware/auth';
 
 async function startCycle(req, res) {
@@ -30,13 +31,18 @@ async function startCycle(req, res) {
             let executions;
             if (files.length > 0) {
                 const chunkSize = 30;
-                const newExecutions = files.map((f) => {
-                    return {
-                        file: f.file,
-                        sort_weight: f.sortWeight,
-                        cycle_id: cycle[0].id,
-                    };
-                });
+                const newExecutions = files
+                    .map((f) => {
+                        return {
+                            file: f.file,
+                            sort_weight: f.sortWeight,
+                            cycle_id: cycle[0].id,
+                        };
+                    })
+                    .map((ne) => {
+                        const { value } = SpecExecution.schema.validate(ne);
+                        return value;
+                    });
 
                 executions = await knex
                     .batchInsert('spec_executions', newExecutions, chunkSize)
