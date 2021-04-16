@@ -3,6 +3,9 @@
 /.pnp
 .pnp.js
 
+# ignore since this project is using yarn
+package-lock.json
+
 # testing
 /coverage
 

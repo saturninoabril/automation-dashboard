@@ -1,21 +1,13 @@
 import nextConnect from 'next-connect';
 
-import { uploadFile } from '../../lib/upload';
+import { uploadRequest } from '../../lib/upload';
 import auth from '../../middleware/auth';
-
-export const config = {
-    api: {
-        bodyParser: {
-            sizeLimit: '5mb',
-        },
-    },
-};
 
 async function upload(req, res) {
     const { body } = req;
 
     if (body) {
-        const data = await uploadFile(body);
+        const data = await uploadRequest(body);
         return res.status(200).json(data);
     }
 
