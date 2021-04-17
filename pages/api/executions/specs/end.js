@@ -88,13 +88,13 @@ async function endSpecExecution(req, res) {
                     caseExecutions.push({ ...value, update_at: knex.fn.now() });
                 });
 
-                await Promise.all(
-                    caseExecutions.map(async (ce) => {
-                        await knex('case_executions').transacting(trx).insert(ce).returning('*');
+                const cases = await Promise.all(
+                    caseExecutions.map((ce) => {
+                        return knex('case_executions').transacting(trx).insert(ce).returning('*');
                     })
                 );
 
-                return { status: 201, cycle: updatedCycle[0], spec: updatedExecution[0] };
+                return { status: 201, cycle: updatedCycle[0], spec: updatedExecution[0], cases };
             });
             return res.status(started.status).json(started);
         } catch (e) {

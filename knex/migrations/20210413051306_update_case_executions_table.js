@@ -1,8 +1,8 @@
 exports.up = async function (knex) {
     await knex.schema.table('case_executions', (table) => {
-        table.string('code', 1000);
-        table.string('error_display', 1000);
-        table.string('error_frame', 1000);
+        table.string('code', 5000);
+        table.string('error_display', 5000);
+        table.string('error_frame', 5000);
         table.jsonb('screenshot');
     });
 };
