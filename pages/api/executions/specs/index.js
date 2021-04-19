@@ -29,7 +29,12 @@ async function getSpecExecutions(req, res) {
         'c.repo',
     ];
 
-    const queryBuilder = knex('spec_executions as se').join('cycles as c', 'c.id', '=', 'se.cycle_id');
+    const queryBuilder = knex('spec_executions as se').join(
+        'cycles as c',
+        'c.id',
+        '=',
+        'se.cycle_id'
+    );
 
     if (query.cycle_id) {
         queryBuilder.where('se.cycle_id', query.cycle_id);

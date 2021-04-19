@@ -97,11 +97,15 @@ async function saveCaseExecution(req, res) {
         } catch (e) {
             return res
                 .status(404)
-                .json(`No case found for cycle: ${query.cycle_id} and spec execution: ${query.spec_id}.`);
+                .json(
+                    `No case found for cycle: ${query.cycle_id} and spec execution: ${query.spec_id}.`
+                );
         }
     }
 
-    return res.status(400).json({ errorMessage: 'No cycle and spec execution IDs found in request query.' });
+    return res
+        .status(400)
+        .json({ errorMessage: 'No cycle and spec execution IDs found in request query.' });
 }
 
 const handler = nextConnect();

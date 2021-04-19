@@ -11,7 +11,12 @@ async function startCycle(req, res) {
             body: { branch, build, repo, files = [] },
         } = req;
 
-        const { value, error } = Cycle.schema.validate({ branch, build, repo, specs_registered: files.length });
+        const { value, error } = Cycle.schema.validate({
+            branch,
+            build,
+            repo,
+            specs_registered: files.length,
+        });
         if (error) {
             return res.status(400).json({ error: true, message: `Invalid cycle patch: ${error}` });
         }

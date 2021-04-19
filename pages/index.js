@@ -11,7 +11,9 @@ export default function Home() {
             <main>
                 <h1 className="title">
                     Welcome to{' '}
-                    <a href="https://github.com/saturninoabril/automation-dashboard">Automation Dashboard!</a>
+                    <a href="https://github.com/saturninoabril/automation-dashboard">
+                        Automation Dashboard!
+                    </a>
                 </h1>
             </main>
 
@@ -166,8 +168,8 @@ export default function Home() {
                 body {
                     padding: 0;
                     margin: 0;
-                    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
-                        Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+                    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+                        Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
                 }
 
                 * {

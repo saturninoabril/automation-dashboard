@@ -32,12 +32,20 @@ async function startSpecExecutions(req, res) {
                     };
                     const { value: cyclePatch, error } = Cycle.toPatch(cycleDraft);
                     if (error) {
-                        return { status: 400, error: true, message: `Invalid cycle patch: ${error}` };
+                        return {
+                            status: 400,
+                            error: true,
+                            message: `Invalid cycle patch: ${error}`,
+                        };
                     }
                     const updatedCycle = await knex('cycles')
                         .transacting(trx)
                         .where('id', cycle.id)
-                        .update({ ...cyclePatch, start_at: knex.fn.now(), update_at: knex.fn.now() })
+                        .update({
+                            ...cyclePatch,
+                            start_at: knex.fn.now(),
+                            update_at: knex.fn.now(),
+                        })
                         .returning('*');
                     cycle = updatedCycle[0];
                 }
@@ -51,7 +59,12 @@ async function startSpecExecutions(req, res) {
                     .first();
 
                 if (!origExecution) {
-                    return { status: 200, message: 'No more spec file available to test.', execution: {}, cycle };
+                    return {
+                        status: 200,
+                        message: 'No more spec file available to test.',
+                        execution: {},
+                        cycle,
+                    };
                 }
 
                 const specDraft = {
@@ -60,7 +73,11 @@ async function startSpecExecutions(req, res) {
                 };
                 const { value: specPatch, error } = SpecExecution.toPatch(specDraft);
                 if (error) {
-                    return { status: 400, error: true, message: `Invalid spec execution patch: ${error}` };
+                    return {
+                        status: 400,
+                        error: true,
+                        message: `Invalid spec execution patch: ${error}`,
+                    };
                 }
                 const updatedExecution = await knex('spec_executions')
                     .transacting(trx)
@@ -72,7 +89,12 @@ async function startSpecExecutions(req, res) {
                     })
                     .returning('*');
 
-                return { status: 200, message: 'Found spec file to test.', execution: updatedExecution[0], cycle };
+                return {
+                    status: 200,
+                    message: 'Found spec file to test.',
+                    execution: updatedExecution[0],
+                    cycle,
+                };
             });
 
             const { message, execution, cycle } = data;
@@ -87,7 +109,9 @@ async function startSpecExecutions(req, res) {
 
             return res.status(data.status).json({ message, execution, cycle, summary });
         } catch (e) {
-            return res.status(501).json({ message: 'Internal error. Failed to get spec file to test.' });
+            return res
+                .status(501)
+                .json({ message: 'Internal error. Failed to get spec file to test.' });
         }
     }
 

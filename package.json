@@ -1,6 +1,8 @@
 {
-    "name": "with-knex",
-    "version": "0.1.0",
+    "name": "automation-dashboard",
+    "author": "Saturnino Abril",
+    "version": "0.2.0",
+    "license": "MIT",
     "scripts": {
         "dev": "next dev -p 4000",
         "build": "next build",
@@ -12,13 +14,16 @@
         "migrate:status": "knex migrate:status",
         "seed:create": "knex seed:make",
         "seed:run": "knex seed:run",
-        "format": "prettier --write .",
+        "format": "yarn format:check --write",
+        "format:check": "prettier --check \"**/*.md\" \"*.js\" \"*.json\" \"{components,knex,lib,middleware,pages,public,script,types}/**/*.{js,ts,jsx,tsx}\" \"{components,knex,lib,middleware,pages,public,script,types}/*.{js,ts,jsx,tsx}\"",
         "lint": "eslint . --ext jsx --ext js --resolve-plugins-relative-to .",
         "db:start": "docker-compose -f docker/docker-compose.yml up -d",
         "db:stop": "docker-compose -f docker/docker-compose.yml down",
         "db:remove": "docker-compose -f docker/docker-compose.yml rm"
     },
     "dependencies": {
+        "@tailwindcss/ui": "0.7.2",
+        "autoprefixer": "10.2.5",
         "eslint": "7.23.0",
         "eslint-config-prettier": "8.1.0",
         "eslint-plugin-react": "7.23.1",
@@ -30,12 +35,19 @@
         "next": "10.1.3",
         "next-connect": "0.10.1",
         "pg": "8.5.1",
+        "postcss-import": "14.0.1",
         "react": "17.0.2",
-        "react-dom": "17.0.2"
+        "react-dom": "17.0.2",
+        "swr": "0.5.5",
+        "tailwindcss": "2.1.1",
+        "tailwindcss-hyphens": "0.1.0",
+        "timeago-react": "3.0.2"
     },
-    "license": "MIT",
     "devDependencies": {
-        "babel-eslint": "^10.1.0",
-        "prettier": "2.2.1"
+        "@types/react": "17.0.3",
+        "babel-eslint": "10.1.0",
+        "postcss": "8.2.10",
+        "prettier": "2.2.1",
+        "typescript": "4.2.4"
     }
 }

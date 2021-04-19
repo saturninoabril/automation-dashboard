@@ -28,7 +28,11 @@ async function endSpecExecution(req, res) {
                 };
                 const { value: specPatch, error } = SpecExecution.toPatch(specDraft);
                 if (error) {
-                    return { status: 400, error: true, message: `Invalid spec execution patch: ${error}` };
+                    return {
+                        status: 400,
+                        error: true,
+                        message: `Invalid spec execution patch: ${error}`,
+                    };
                 }
 
                 const updatedExecution = await knex('spec_executions')
@@ -38,7 +42,9 @@ async function endSpecExecution(req, res) {
                     .update({ ...specPatch, end_at: knex.fn.now(), update_at: knex.fn.now() })
                     .returning('*');
 
-                const origCycle = await knex('cycles').where('id', updatedExecution[0].cycle_id).select('*');
+                const origCycle = await knex('cycles')
+                    .where('id', updatedExecution[0].cycle_id)
+                    .select('*');
 
                 const specsDone = origCycle[0].specs_done + 1;
                 const isDone = origCycle[0].specs_registered === specsDone;
@@ -54,13 +60,21 @@ async function endSpecExecution(req, res) {
                 };
                 const { value: cyclePatch, error: cycleError } = Cycle.toPatch(cycleDraft);
                 if (cycleError) {
-                    return { status: 400, error: true, message: `Invalid cycle patch: ${cycleError}` };
+                    return {
+                        status: 400,
+                        error: true,
+                        message: `Invalid cycle patch: ${cycleError}`,
+                    };
                 }
 
                 const updatedCycle = await knex('cycles')
                     .transacting(trx)
                     .where('id', updatedExecution[0].cycle_id)
-                    .update({ ...cyclePatch, end_at: isDone ? knex.fn.now() : null, update_at: knex.fn.now() })
+                    .update({
+                        ...cyclePatch,
+                        end_at: isDone ? knex.fn.now() : null,
+                        update_at: knex.fn.now(),
+                    })
                     .returning('*');
 
                 const caseExecutions = [];
@@ -82,7 +96,11 @@ async function endSpecExecution(req, res) {
                     };
                     const { value, error } = CaseExecution.schema.validate(caseDraft);
                     if (error) {
-                        return { status: 400, error: true, message: `Invalid case execution: ${error}` };
+                        return {
+                            status: 400,
+                            error: true,
+                            message: `Invalid case execution: ${error}`,
+                        };
                     }
 
                     caseExecutions.push({ ...value, update_at: knex.fn.now() });
