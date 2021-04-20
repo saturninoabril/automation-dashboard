@@ -50,9 +50,7 @@ function CycleList({ cycles }: Props) {
                                                 <span>
                                                     {pass} / {totalCases} cases passed{' '}
                                                     {totalCases
-                                                        ? `(${((pass / totalCases) * 100).toFixed(
-                                                              2
-                                                          )}%)`
+                                                        ? `(${((pass / totalCases) * 100).toFixed(2)}%)` // prettier-ignore
                                                         : ''}
                                                 </span>
                                             </div>
@@ -62,9 +60,7 @@ function CycleList({ cycles }: Props) {
                                                     <>
                                                         <span
                                                             className="truncate"
-                                                            title={new Date(
-                                                                update_at
-                                                            ).toLocaleString()}
+                                                            title={new Date(update_at).toLocaleString()} // prettier-ignore
                                                         >
                                                             <TimeAgo
                                                                 live={true}
@@ -129,7 +125,7 @@ function formatDuration(startAt: string, updateAt: string) {
     const minuteStr = inMinute ? ` ${inMinute}m` : '';
     const secondStr = inSecond ? ` ${inSecond}s` : '';
 
-    return inHour || inMinute || inSecond ? `in${hourStr}${minuteStr}${secondStr}` : '';
+    return (inHour || inMinute || inSecond) ? `in${hourStr}${minuteStr}${secondStr}` : ''; // prettier-ignore
 }
 
 export default CycleList;
