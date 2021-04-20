@@ -20,18 +20,18 @@ function CycleListLoading({ perPage }: Props): React.ReactElement {
                                 <div className="min-w-0 flex-1 flex items-center">
                                     <div className="min-w-0 flex-1">
                                         <div className="text-sm leading-5">
-                                            <div className="h-3 bg-blue-100 w-1/3 sm:w-1/5 md:w-1/6"></div>
+                                            <div className="h-4 bg-blue-100 w-2/5 sm:w-2/5 md:w-2/5"></div>
                                         </div>
                                         <div className="mt-1 flex items-center">
-                                            <div className="h-3 bg-gray-100 w-5/6 sm:w-4/5 md:w-3/4"></div>
+                                            <div className="h-4 bg-gray-100 w-1/2 sm:w-1/2 md:w-1/2"></div>
                                         </div>
                                         <div className="mt-1 flex items-center">
-                                            <div className="h-3 bg-gray-100 w-5/6 sm:w-4/5 md:w-1/4"></div>
+                                            <div className="h-3 bg-gray-100 w-1/3 sm:w-1/3 md:w-1/3"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="ml-6 mr-4 flex items-center text-gray-100">
-                                    <div className="h-3 bg-gray-100 w-4"></div>
+                                    <div className="h-3 bg-gray-100 w-10"></div>
                                     <CheckCircleIcon />
                                 </div>
                                 <div className="text-gray-100">
@@ -61,24 +61,16 @@ function CycleListLoading({ perPage }: Props): React.ReactElement {
                             <div className="-ml-px relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white rounded-l-md">
                                 <ChevronLeftIcon />
                             </div>
-                            <div className="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white">
-                                &nbsp;&nbsp;
-                            </div>
-                            <div className="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white">
-                                &nbsp;&nbsp;
-                            </div>
-                            <div className="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white">
-                                &nbsp;&nbsp;
-                            </div>
-                            <div className="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white">
-                                &nbsp;&nbsp;
-                            </div>
-                            <div className="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white">
-                                &nbsp;&nbsp;
-                            </div>
-                            <div className="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white">
-                                &nbsp;&nbsp;
-                            </div>
+                            {Array(6)
+                                .fill(null)
+                                .map((_, i) => (
+                                    <div
+                                        key={i}
+                                        className="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white"
+                                    >
+                                        &nbsp;&nbsp;
+                                    </div>
+                                ))}
                             <div className="-ml-px relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white rounded-r-md">
                                 <ChevronRightIcon />
                             </div>
