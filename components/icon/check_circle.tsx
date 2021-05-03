@@ -19,4 +19,4 @@ function CheckCircleIcon(): React.ReactElement {
     );
 }
 
-export default CheckCircleIcon;
+export { CheckCircleIcon };

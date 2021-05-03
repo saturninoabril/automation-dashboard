@@ -1,8 +1,7 @@
 import React from 'react';
 
 import * as pagination from '../lib/pagination';
-import ChevronLeftIcon from './icon/chevron_left';
-import ChevronRightIcon from './icon/chevron_right';
+import { ChevronLeftIcon, ChevronRightIcon } from './icon';
 
 type Props = {
     cycleCount: number;

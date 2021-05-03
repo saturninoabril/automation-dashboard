@@ -8,7 +8,7 @@ function Custom404(): React.ReactElement {
                     <h1 className="title">404</h1>
                     <div className="subtitle">
                         <h2 className="description">
-                            Don't panic! We're on it! Page on going construction.
+                            {`Don't panic! We're on it! Page on going construction.`}
                         </h2>
                     </div>
                 </div>

@@ -1,7 +1,9 @@
 const defaultTheme = require('tailwindcss/defaultTheme'); // eslint-disable-line
+const colors = require('tailwindcss/colors');
 
 module.exports = {
     theme: {
+        colors,
         fontFamily: {
             mono: [
                 'Menlo',

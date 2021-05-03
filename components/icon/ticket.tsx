@@ -1,6 +1,6 @@
 import React from 'react';
 
-function XCircleIcon(): React.ReactElement {
+function TicketIcon(): React.ReactElement {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -13,10 +13,10 @@ function XCircleIcon(): React.ReactElement {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"
             />
         </svg>
     );
 }
 
-export { XCircleIcon };
+export { TicketIcon };

@@ -1,5 +1,6 @@
 {
     "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
+    "plugins": ["react-hooks"],
     "parserOptions": {
         "sourceType": "module",
         "allowImportExportEverywhere": true,
@@ -11,6 +12,10 @@
         "browser": true,
         "jest": true,
         "node": true
+    },
+    "rules": {
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn"
     },
     "settings": {
         "react": {

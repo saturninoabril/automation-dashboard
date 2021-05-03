@@ -23,3 +23,5 @@ export type CaseExecution = {
     cycle_id: string;
     spec_execution_id: string;
 };
+
+export type CaseState = 'pass' | 'fail' | 'pending' | 'skipped';

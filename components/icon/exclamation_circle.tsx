@@ -19,4 +19,4 @@ function ExclamationCircleIcon(): React.ReactElement {
     );
 }
 
-export default ExclamationCircleIcon;
+export { ExclamationCircleIcon };

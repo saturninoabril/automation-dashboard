@@ -17,4 +17,4 @@ function ChevronLeftIcon(): React.ReactElement {
     );
 }
 
-export default ChevronLeftIcon;
+export { ChevronLeftIcon };

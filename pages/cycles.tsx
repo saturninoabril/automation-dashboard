@@ -35,7 +35,11 @@ function Cycles(): React.ReactElement {
             query,
         });
     }
-    const { data, error } = useSWR(`/api/cycles?page=${page}&per_page=${PER_PAGE}`, fetcher);
+    const { data } = useSWR(`/api/cycles?page=${page}&per_page=${PER_PAGE}`, fetcher);
+
+    if (!(data && data.cycles)) {
+        return <div />;
+    }
 
     return (
         <>
@@ -53,7 +57,9 @@ function Cycles(): React.ReactElement {
                         className="block w-full px-4 py-2 leading-normal bg-white border border-gray-200 rounded-lg outline-none shadow hover:shadow-sm focus:shadow-sm appearance-none focus:border-gray-300 hover:border-gray-300 mt-1"
                         type="text"
                         placeholder={
-                            !data ? 'Search (coming soon)' : `Search for ${data.total} cycles (coming soon)`
+                            !data
+                                ? 'Search (coming soon)'
+                                : `Search for ${data.total} cycles (coming soon)`
                         }
                         value={query}
                         onChange={handleSearchInput}

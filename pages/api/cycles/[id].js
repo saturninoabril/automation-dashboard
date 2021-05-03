@@ -9,7 +9,7 @@ async function getCycle(req, res) {
         const { id } = req.query;
         const knex = getKnex();
         const cycle = await knex('cycles').where('id', id).select('*');
-        return res.status(200).json(cycle);
+        return res.status(200).json(cycle[0]);
     } catch (e) {
         return res.status(501).json({ error: true, message: 'Cycle not found.' });
     }
@@ -33,7 +33,7 @@ async function updateCycle(req, res) {
             return updatedCycle;
         });
 
-        return res.status(201).json(cycle);
+        return res.status(201).json(cycle[0]);
     } catch (e) {
         return res.status(501).json({ error: true });
     }

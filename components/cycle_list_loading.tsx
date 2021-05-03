@@ -1,8 +1,6 @@
 import React from 'react';
 
-import CheckCircleIcon from '../components/icon/check_circle';
-import ChevronLeftIcon from '../components/icon/chevron_left';
-import ChevronRightIcon from '../components/icon/chevron_right';
+import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon } from '../components/icon';
 
 type Props = {
     perPage: number;
