@@ -3,7 +3,19 @@ const colors = require('tailwindcss/colors');
 
 module.exports = {
     theme: {
-        colors,
+        colors: {
+            transparent: 'transparent',
+            current: 'currentColor',
+            amber: colors.amber,
+            blue: colors.blue,
+            cyan: colors.cyan,
+            gray: colors.trueGray,
+            green: colors.green,
+            purple: colors.purple,
+            red: colors.red,
+            violet: colors.violet,
+            yellow: colors.yellow,
+        },
         fontFamily: {
             mono: [
                 'Menlo',
