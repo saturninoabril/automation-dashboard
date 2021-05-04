@@ -51,11 +51,16 @@ function SpecList({ specs, selectedSpecGroup }: Props) {
         allSpecs?: SpecExecution[],
         selected?: SpecExecution[]
     ) {
+        // prettier-ignore
+        const groups: Record<string, string> = { // eslint-disable-line
+            on_queue: 'on queue',
+            timed_out: 'timed out',
+        };
         const ratio = `${selected ? selected.length : 0} / ${allSpecs ? allSpecs.length : 0}`;
 
         let message;
         if (term && group) {
-            message = `"${term}" term from "${selectedSpecGroup}" specs`;
+            message = `"${term}" term from "${groups[group] || group}" specs`;
         } else if (term) {
             message = `"${term}" term`;
         }
@@ -106,11 +111,13 @@ function SpecList({ specs, selectedSpecGroup }: Props) {
 
                                         if (state === 'done') {
                                             const threeMinutes = 3 * 60 * 1000;
-                                            const checkIconColor =
-                                                duration > threeMinutes ? 'amber-500' : 'gray-400';
                                             return (
                                                 <span
-                                                    className={`flex space-x-1 text-${checkIconColor}`}
+                                                    className={`flex space-x-1 ${
+                                                        duration > threeMinutes
+                                                            ? 'text-amber-500'
+                                                            : 'text-gray-400'
+                                                    }`}
                                                 >
                                                     <ClockIcon />
                                                     <span>
@@ -153,9 +160,9 @@ function SpecList({ specs, selectedSpecGroup }: Props) {
                                     return (
                                         <tr
                                             key={i}
-                                            className={`table-row hover:bg-gray-100${
+                                            className={`table-row hover:bg-gray-100 ${
                                                 i !== selectedSpecs.length - 1
-                                                    ? ' border-b border-gray-200'
+                                                    ? 'border-b border-gray-200'
                                                     : ''
                                             }`}
                                         >
