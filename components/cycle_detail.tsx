@@ -10,12 +10,13 @@ import {
     DocumentIcon,
     DocumentReportIcon,
     DocumentTextIcon,
-    RefreshIcon,
+    SpinIcon,
     StopIcon,
     ExclamationCircleIcon,
     XCircleIcon,
 } from '../components/icon';
 import Divider from '../components/divider';
+import Spinner from '../components/spinner';
 import { getCycleSummary, formatDate, formatDuration } from '../lib/utils';
 import { CaseState, Cycle, SpecExecutionGroup } from '../types';
 
@@ -154,14 +155,14 @@ function CycleDetail({
                         <div
                             className={`flex space-x-2 cursor-pointer hover:bg-gray-200 ${
                                 !selectedSpecGroup || selectedSpecGroup === 'started'
-                                    ? 'text-violet-400'
+                                    ? 'text-blue-400'
                                     : 'text-gray-300'
                             }`}
                             data-group="started"
                             onClick={setSelectedGroup}
                         >
-                            <RefreshIcon />
-                            <p>{`${specsGroup.started} started`}</p>
+                            <Spinner />
+                            <p>{`${specsGroup.started} processing`}</p>
                         </div>
                     )}
                     {specsGroup && specsGroup.timed_out > 0 && (

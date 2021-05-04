@@ -18,6 +18,7 @@ export { PhotographIcon } from './photograph';
 export { PlusIcon } from './plus';
 export { RefreshIcon } from './refresh';
 export { SearchIcon } from './search';
+export { SpinIcon } from './spin';
 export { StopIcon } from './stop';
 export { TicketIcon } from './ticket';
 export { TrashIcon } from './trash';

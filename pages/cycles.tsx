@@ -35,7 +35,9 @@ function Cycles(): React.ReactElement {
             query,
         });
     }
-    const { data } = useSWR(`/api/cycles?page=${page}&per_page=${PER_PAGE}`, fetcher);
+    const { data } = useSWR(`/api/cycles?page=${page}&per_page=${PER_PAGE}`, fetcher, {
+        refreshInterval: 5000,
+    });
 
     if (!(data && data.cycles)) {
         return <div />;

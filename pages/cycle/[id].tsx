@@ -76,7 +76,7 @@ function Cycle(): React.ReactElement {
     const [selectedSpecGroup, setSelectedSpecGroup] = useState<SpecExecutionGroup>();
     const [selectedCaseState, setSelectedCaseState] = useState<CaseState>();
 
-    const cycleRes = useSWR(`/api/cycles/${cycleId}`, fetcher);
+    const cycleRes = useSWR(`/api/cycles/${cycleId}`, fetcher, { refreshInterval: 5000 });
     const cycle = cycleRes.data;
     const title = cycle ? `Cycle for ${cycle.repo} / ${cycle.branch} / ${cycle.build}` : '';
 
@@ -84,7 +84,8 @@ function Cycle(): React.ReactElement {
     const PER_PAGE = 1000;
     const specsRes = useSWR(
         `/api/executions/specs?cycle_id=${cycleId}&per_page=${PER_PAGE}`,
-        fetcher
+        fetcher,
+        { refreshInterval: 5000 }
     );
 
     let specs: SpecExecution[] | undefined;

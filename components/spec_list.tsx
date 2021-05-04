@@ -7,12 +7,12 @@ import {
     ClockIcon,
     CheckCircleIcon,
     ExclamationCircleIcon,
-    RefreshIcon,
     SearchIcon,
     StopIcon,
     XCircleIcon,
 } from '../components/icon';
 import SpecListLoading from '../components/spec_list_loading';
+import Spinner from '../components/spinner';
 import { formatDuration, isTimeout } from '../lib/utils';
 import { SpecExecution, SpecExecutionGroup } from '../types';
 
@@ -54,6 +54,7 @@ function SpecList({ specs, selectedSpecGroup }: Props) {
         // prettier-ignore
         const groups: Record<string, string> = { // eslint-disable-line
             on_queue: 'on queue',
+            started: 'processing',
             timed_out: 'timed out',
         };
         const ratio = `${selected ? selected.length : 0} / ${allSpecs ? allSpecs.length : 0}`;
@@ -76,7 +77,7 @@ function SpecList({ specs, selectedSpecGroup }: Props) {
                 <div className="inline-block min-w-full shadow-sm rounded-lg border border-gray-200 overflow-hidden">
                     <table className="min-w-full table-fixed w-full">
                         <colgroup>
-                            <col className="w-24" />
+                            <col className="w-20" />
                             <col className="w-max-content" />
                             <col className="w-32" />
                             <col className="w-5" />
@@ -144,8 +145,14 @@ function SpecList({ specs, selectedSpecGroup }: Props) {
 
                                         if (state === 'started') {
                                             return (
-                                                <span className="text-yellow-400">
-                                                    <RefreshIcon />
+                                                <span className="flex">
+                                                    <Spinner />
+                                                    <span className="ml-1">
+                                                        {formatDuration({
+                                                            updateAt,
+                                                            format: 'm:ss',
+                                                        })}
+                                                    </span>
                                                 </span>
                                             );
                                         }

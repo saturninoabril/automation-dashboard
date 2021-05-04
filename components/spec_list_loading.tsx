@@ -23,7 +23,7 @@ function SpecListLoading({ perPage = 50 }: Props): React.ReactElement {
                         </td>
                         <td className="leading-5">
                             <div className="flex content-start h-7">
-                                <div className="ml-4 mt-2 h-3 w-3/5 bg-blue-100" />
+                                <div className="ml-2 mt-2 h-3 w-3/5 bg-blue-100" />
                             </div>
                         </td>
                         <td className="leading-5">

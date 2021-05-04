@@ -84,6 +84,13 @@ export function formatDuration({
         return dayjs.duration(update.diff(start)).format(format);
     }
 
+    if (updateAt) {
+        const now = dayjs();
+        const update = dayjs(updateAt);
+
+        return dayjs.duration(now.diff(update)).format(format);
+    }
+
     if (durationInMs) {
         return dayjs.duration(durationInMs).format(format);
     }
