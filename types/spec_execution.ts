@@ -17,6 +17,7 @@ export type SpecExecution = {
     create_at: string;
     update_at: string;
     cycle_id: string;
+    cases: Array<any>;
 };
 
 export type SpecExecutionGroup = 'passed' | 'failed' | 'started' | 'timed_out' | 'on_queue';

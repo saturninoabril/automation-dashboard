@@ -3,16 +3,17 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 
-import CycleList from '../components/cycle_list';
-import CycleListLoading from '../components/cycle_list_loading';
-import Header from '../components/header';
-import Pagination from '../components/pagination';
-import fetcher from '../lib/fetcher';
+import Breadcrumb from '../../components/bread_crumb';
+import CycleList from '../../components/cycle_list';
+import CycleListLoading from '../../components/cycle_list_loading';
+import Header from '../../components/header';
+import Pagination from '../../components/pagination';
+import fetcher from '../../lib/fetcher';
 
 const PER_PAGE = 20;
 
 function Cycles(): React.ReactElement {
-    const { query: routerQuery, replace } = useRouter();
+    const { asPath, query: routerQuery, replace } = useRouter();
 
     const page = parseInt(
         (Array.isArray(routerQuery.page) ? routerQuery.page[0] : routerQuery.page) || '1'
@@ -36,7 +37,7 @@ function Cycles(): React.ReactElement {
         });
     }
     const { data } = useSWR(`/api/cycles?page=${page}&per_page=${PER_PAGE}`, fetcher, {
-        refreshInterval: 5000,
+        refreshInterval: 10000,
     });
 
     if (!(data && data.cycles)) {
@@ -51,6 +52,9 @@ function Cycles(): React.ReactElement {
             <div className="bg-gray">
                 <div className="max-w-screen-lg mx-auto px-4 sm:px-6 md:px-8 mt-8">
                     <Header widerContent={true} />
+                    <div className="pb-8 pt-4">
+                    <Breadcrumb asPath={asPath} />
+                    </div>
                     <label htmlFor="query" className="font-medium sr-only">
                         Search
                     </label>

@@ -10,14 +10,17 @@ import {
     DocumentIcon,
     DocumentReportIcon,
     DocumentTextIcon,
-    SpinIcon,
     StopIcon,
     ExclamationCircleIcon,
     XCircleIcon,
 } from '../components/icon';
 import Divider from '../components/divider';
 import Spinner from '../components/spinner';
-import { getCycleSummary, formatDate, formatDuration } from '../lib/utils';
+import TimeElapse from '../components/time_elapse';
+import {
+    getCycleSummary,
+    formatDate,
+} from '../lib/utils';
 import { CaseState, Cycle, SpecExecutionGroup } from '../types';
 
 type Props = {
@@ -72,6 +75,7 @@ function CycleDetail({
         repo,
         branch,
         build,
+        state,
         pass,
         fail,
         pending,
@@ -89,7 +93,6 @@ function CycleDetail({
 
     const { totalCases, passingRate, color } = getCycleSummary(cycle);
     const formattedStartDate = formatDate(start_at);
-    const formattedDuration = formatDuration({ startAt: start_at, updateAt: update_at });
 
     return (
         <div className="col-span-1 row-start-1 md:row-start-auto flex flex-col sm:flex-row md:flex-col gap-4">
@@ -101,12 +104,14 @@ function CycleDetail({
                         <DocumentReportIcon />
                         <p>{`${passingRate}% passed`}</p>
                     </div>
-                    {formattedDuration && (
-                        <div className="flex space-x-2">
-                            <ClockIcon />
-                            <p>{formattedDuration}</p>
-                        </div>
-                    )}
+                    <div className="flex space-x-2">
+                        <ClockIcon />
+                        <TimeElapse
+                            start={start_at}
+                            lastUpdate={update_at}
+                            isDone={state === 'done'}
+                        />
+                    </div>
                     {formattedStartDate && (
                         <div className="flex space-x-2">
                             <CalendarIcon />

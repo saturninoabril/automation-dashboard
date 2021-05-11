@@ -13,7 +13,7 @@ async function endSpecExecution(req, res) {
         const { spec, tests } = req.body;
 
         try {
-            const knex = getKnex();
+            const knex = await getKnex();
 
             const started = await knex.transaction(async (trx) => {
                 const specDraft = {

@@ -10,9 +10,11 @@ import {
     StopIcon,
     XCircleIcon,
 } from '../components/icon';
+import Spinner from '../components/spinner';
+import TimeElapse from '../components/time_elapse';
 
 import { Cycle } from '../types';
-import { getCycleSummary, formatDate, formatDuration } from '../lib/utils';
+import { getCycleSummary, formatDate, formatDuration, isWithinTimeDuration } from '../lib/utils';
 
 type Props = {
     cycles: Array<Cycle>;
@@ -43,10 +45,9 @@ function CycleList({ cycles }: Props) {
                     startAt: start_at,
                     updateAt: update_at,
                 });
-
                 return (
                     <li className={i !== 0 ? 'border-t border-gray-200' : ''} key={i}>
-                        <Link href={`/cycle/${id}`}>
+                        <Link href={`/cycles/${id}`}>
                             <a className="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
                                 <div className="flex items-center px-4 sm:px-6 py-2">
                                     <div className="min-w-0 flex-1 flex items-center">
@@ -77,8 +78,20 @@ function CycleList({ cycles }: Props) {
                                                         )}
                                                         {formattedDuration && (
                                                             <p className="flex space-x-1">
-                                                                <ClockIcon />
-                                                                <span>{formattedDuration}</span>
+                                                                {cycle.state !== 'done' &&
+                                                                isWithinTimeDuration(
+                                                                    cycle.update_at,
+                                                                    { m: 10 }
+                                                                ) ? (
+                                                                    <Spinner />
+                                                                ) : (
+                                                                    <ClockIcon />
+                                                                )}
+                                                                <TimeElapse
+                                                                    start={cycle.start_at}
+                                                                    lastUpdate={cycle.update_at}
+                                                                    isDone={cycle.state === 'done'}
+                                                                />
                                                             </p>
                                                         )}
                                                     </>

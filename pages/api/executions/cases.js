@@ -8,7 +8,7 @@ async function getCaseExecutions(req, res) {
     const { query } = req;
 
     try {
-        const knex = getKnex();
+        const knex = await getKnex();
 
         const fields = [
             'ce.id',
@@ -90,7 +90,7 @@ async function saveCaseExecution(req, res) {
                 return { status: 400, error: true, message: `Invalid case execution: ${error}` };
             }
 
-            const knex = getKnex();
+            const knex = await getKnex();
             const execution = await knex('case_executions').insert(value).returning('*');
 
             return res.status(201).json(execution);

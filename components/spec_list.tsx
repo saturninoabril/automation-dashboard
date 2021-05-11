@@ -1,19 +1,8 @@
 import React, { useState, createRef, useEffect } from 'react';
-import Link from 'next/link';
 
-import {
-    ChevronRightIcon,
-    ClipboardIcon,
-    ClockIcon,
-    CheckCircleIcon,
-    ExclamationCircleIcon,
-    SearchIcon,
-    StopIcon,
-    XCircleIcon,
-} from '../components/icon';
+import { SearchIcon } from '../components/icon';
 import SpecListLoading from '../components/spec_list_loading';
-import Spinner from '../components/spinner';
-import { formatDuration, isTimeout } from '../lib/utils';
+import SpecRow from '../components/spec_row';
 import { SpecExecution, SpecExecutionGroup } from '../types';
 
 type Props = {
@@ -77,7 +66,7 @@ function SpecList({ specs, selectedSpecGroup }: Props) {
                 <div className="inline-block min-w-full shadow-sm rounded-lg border border-gray-200 overflow-hidden">
                     <table className="min-w-full table-fixed w-full">
                         <colgroup>
-                            <col className="w-20" />
+                            <col className="w-24" />
                             <col className="w-max-content" />
                             <col className="w-32" />
                             <col className="w-5" />
@@ -107,135 +96,13 @@ function SpecList({ specs, selectedSpecGroup }: Props) {
                             {!specs && <SpecListLoading />}
                             {selectedSpecs &&
                                 selectedSpecs.map((spec, i) => {
-                                    const statusIcon = (spec: SpecExecution) => {
-                                        const { duration, state, update_at: updateAt } = spec;
-
-                                        if (state === 'done') {
-                                            const threeMinutes = 3 * 60 * 1000;
-                                            return (
-                                                <span
-                                                    className={`flex space-x-1 ${
-                                                        duration > threeMinutes
-                                                            ? 'text-amber-500'
-                                                            : 'text-gray-400'
-                                                    }`}
-                                                >
-                                                    <ClockIcon />
-                                                    <span>
-                                                        {formatDuration({
-                                                            durationInMs: duration,
-                                                            format: 'm:ss',
-                                                        })}
-                                                    </span>
-                                                </span>
-                                            );
-                                        }
-
-                                        const tenMinutes = 10 * 60 * 1000;
-                                        if (
-                                            state === 'started' &&
-                                            isTimeout(updateAt, tenMinutes)
-                                        ) {
-                                            return (
-                                                <span className="text-red-400">
-                                                    <ClipboardIcon />
-                                                </span>
-                                            );
-                                        }
-
-                                        if (state === 'started') {
-                                            return (
-                                                <span className="flex">
-                                                    <Spinner />
-                                                    <span className="ml-1">
-                                                        {formatDuration({
-                                                            updateAt,
-                                                            format: 'm:ss',
-                                                        })}
-                                                    </span>
-                                                </span>
-                                            );
-                                        }
-
-                                        return (
-                                            <span className="text-gray-400">
-                                                <ClipboardIcon />
-                                            </span>
-                                        );
-                                    };
-
                                     return (
-                                        <tr
-                                            key={i}
-                                            className={`table-row hover:bg-gray-100 ${
-                                                i !== selectedSpecs.length - 1
-                                                    ? 'border-b border-gray-200'
-                                                    : ''
-                                            }`}
-                                        >
-                                            <td className="whitespace-no-wrap text-sm leading-5 text-gray-400">
-                                                <Link href={`/specs/${spec.id}`}>
-                                                    <a
-                                                        className={
-                                                            'px-2 sm:pl-3 md:pl-4 py-1 w-full block text-gray-300'
-                                                        }
-                                                        tabIndex={-1}
-                                                    >
-                                                        {statusIcon(spec)}
-                                                    </a>
-                                                </Link>
-                                            </td>
-                                            <td className="whitespace-no-wrap text-sm text-blue-500 leading-5">
-                                                <Link href={`/specs/${spec.id}`}>
-                                                    <a className="pl-2 py-1 w-full block truncate">
-                                                        <span className="font-light">
-                                                            {`${i + 1}. ${spec.file.replace(
-                                                                'cypress/integration/',
-                                                                ''
-                                                            )}`}
-                                                        </span>
-                                                    </a>
-                                                </Link>
-                                            </td>
-                                            <td className="whitespace-no-wrap text-sm leading-5 text-gray-500 text-right">
-                                                <Link href={`/specs/${spec.id}`}>
-                                                    <a
-                                                        className="px-4 py-1 pl-1 w-full h-full block flex flex-row-reverse"
-                                                        tabIndex={-1}
-                                                    >
-                                                        <span className="flex space-x-2 text-right">
-                                                            {spec.pass > 0 && (
-                                                                <span className="flex w-10 space-x-1 text-green-600">
-                                                                    <CheckCircleIcon />
-                                                                    <span>{spec.pass}</span>
-                                                                </span>
-                                                            )}
-                                                            {spec.fail > 0 && (
-                                                                <span className="flex w-10 space-x-1 text-red-400">
-                                                                    <XCircleIcon />
-                                                                    <span>{spec.fail}</span>
-                                                                </span>
-                                                            )}
-                                                            {spec.skipped > 0 && (
-                                                                <span className="flex w-10 space-x-1 text-purple-700">
-                                                                    <StopIcon />
-                                                                    <span>{spec.skipped}</span>
-                                                                </span>
-                                                            )}
-                                                            {spec.pending > 0 && (
-                                                                <span className="flex w-10 space-x-1 text-blue-700">
-                                                                    <ExclamationCircleIcon />
-                                                                    <span>{spec.pending}</span>
-                                                                </span>
-                                                            )}
-                                                        </span>
-                                                    </a>
-                                                </Link>
-                                            </td>
-                                            <td className="text-sm text-gray-500">
-                                                <ChevronRightIcon />
-                                            </td>
-                                        </tr>
+                                        <SpecRow
+                                            key={spec.id}
+                                            spec={spec}
+                                            index={i}
+                                            last={selectedSpecs.length - 1 === i}
+                                        />
                                     );
                                 })}
                         </tbody>

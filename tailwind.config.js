@@ -38,6 +38,7 @@ module.exports = {
                 'text-cyan-600',
                 'text-green-700',
                 'text-red-600',
+                'bg-green-100',
             ],
         },
     },

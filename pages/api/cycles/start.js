@@ -21,7 +21,7 @@ async function startCycle(req, res) {
             return res.status(400).json({ error: true, message: `Invalid cycle patch: ${error}` });
         }
 
-        const knex = getKnex();
+        const knex = await getKnex();
         const started = await knex.transaction(async (trx) => {
             const cycle = await knex('cycles')
                 .transacting(trx)

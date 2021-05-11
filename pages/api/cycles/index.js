@@ -6,7 +6,7 @@ import { params } from '../../../lib/params';
 async function getCycles(req, res) {
     try {
         const { limit, offset, page, perPage } = params(req.query);
-        const knex = getKnex();
+        const knex = await getKnex();
         const queryBuilder = knex('cycles')
             .orderBy('create_at', 'desc')
             .limit(limit)

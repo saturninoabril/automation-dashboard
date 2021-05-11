@@ -12,7 +12,7 @@ async function startSpecExecutions(req, res) {
 
     if (repo && branch && build) {
         try {
-            const knex = getKnex();
+            const knex = await getKnex();
 
             const data = await knex.transaction(async (trx) => {
                 let cycle = await knex('cycles')

@@ -39,15 +39,21 @@ export function getCycleSummary(cycle: Cycle) {
  * @param duration in milliseconds
  * @returns boolean - true when it reached timeout, otherwise false
  */
-export function isTimeout(startAt: string, durationInMs: number) {
-    if (!startAt || !durationInMs) {
+export function isWithinTimeDuration(startAt: string, duration: Record<string, number>) {
+    if (!startAt || !duration) {
         return false;
     }
 
     const now = dayjs();
     const start = dayjs(startAt);
 
-    return now.subtract(dayjs.duration(durationInMs)) > start;
+    if (start.add(dayjs.duration(duration)) > now) {
+        console.log('startAt', startAt);
+        console.log('start+duration', start.add(dayjs.duration(duration)));
+        console.log('now', now);
+    }
+
+    return start.add(dayjs.duration(duration)) > now;
 }
 
 export function formatDate(startAt: string) {
@@ -57,7 +63,7 @@ export function formatDate(startAt: string) {
 
     const now = dayjs();
     const start = dayjs(startAt);
-    const maxDays = 7;
+    const maxDays = 6;
 
     if (now.subtract(maxDays, 'd') < start) {
         return start.fromNow();
@@ -96,4 +102,17 @@ export function formatDuration({
     }
 
     return '';
+}
+
+export function getTimeElapse({
+    startAt,
+    format = 'H:mm:ss',
+}: {
+    startAt: string;
+    format?: string;
+}) {
+    const now = dayjs();
+    const started = dayjs(startAt);
+
+    return dayjs.duration(now.diff(started)).format(format);
 }

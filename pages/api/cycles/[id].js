@@ -7,7 +7,7 @@ import auth from '../../../middleware/auth';
 async function getCycle(req, res) {
     try {
         const { id } = req.query;
-        const knex = getKnex();
+        const knex = await getKnex();
         const cycle = await knex('cycles').where('id', id).select('*');
         return res.status(200).json(cycle[0]);
     } catch (e) {
@@ -22,7 +22,7 @@ async function updateCycle(req, res) {
         if (error) {
             return res.status(400).json({ error: true, message: `Invalid cycle patch: ${error}` });
         }
-        const knex = getKnex();
+        const knex = await getKnex();
         const cycle = await knex.transaction(async (trx) => {
             const updatedCycle = await knex('cycles')
                 .transacting(trx)
