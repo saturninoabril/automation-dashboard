@@ -10,7 +10,7 @@ import {
     DocumentIcon,
     DocumentReportIcon,
     DocumentTextIcon,
-    StopIcon,
+    FastForwardIcon,
     ExclamationCircleIcon,
     XCircleIcon,
 } from '../components/icon';
@@ -239,7 +239,7 @@ function CycleDetail({
                             data-state="skipped"
                             onClick={setSelectedState}
                         >
-                            <StopIcon />
+                            <FastForwardIcon />
                             <p>{`${skipped} skipped`}</p>
                         </div>
                     )}

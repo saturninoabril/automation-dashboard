@@ -8,7 +8,7 @@ import {
     CheckCircleIcon,
     ClockIcon,
     ExclamationCircleIcon,
-    StopIcon,
+    FastForwardIcon,
     XCircleIcon,
 } from '../components/icon';
 import Codeblock from '../components/code_block';
@@ -103,7 +103,7 @@ function SpecSummaryView({
                         )}
                         {spec.skipped > 0 && (
                             <span className="flex w-10 space-x-1 text-purple-700">
-                                <StopIcon />
+                                <FastForwardIcon />
                                 <span>{spec.skipped}</span>
                             </span>
                         )}
@@ -258,7 +258,7 @@ function CaseSummaryView({
                         )}
                         {state === 'skipped' && (
                             <span className="flex w-10 space-x-1 text-purple-700">
-                                <StopIcon />
+                                <FastForwardIcon />
                             </span>
                         )}
                         {state === 'pending' && (

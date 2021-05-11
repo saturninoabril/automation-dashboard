@@ -15,6 +15,7 @@ export { DocumentTextIcon } from './document_text';
 export { ExclamationCircleIcon } from './exclamation_circle';
 export { ExternalLinkIcon } from './external_link';
 export { ExclamationIcon } from './exclamation';
+export { FastForwardIcon } from './fast_forward';
 export { HomeIcon } from './home';
 export { MinusIcon } from './minus';
 export { PhotographIcon } from './photograph';

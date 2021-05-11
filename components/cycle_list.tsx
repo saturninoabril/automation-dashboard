@@ -7,7 +7,7 @@ import {
     ChevronRightIcon,
     ClockIcon,
     ExclamationCircleIcon,
-    StopIcon,
+    FastForwardIcon,
     XCircleIcon,
 } from '../components/icon';
 import Spinner from '../components/spinner';
@@ -120,7 +120,7 @@ function CycleList({ cycles }: Props) {
                                     {skipped ? (
                                         <div className="ml-1 mr-1 lg:ml-2 lg:mr-2 flex space-x-1 items-center text-purple-700">
                                             <div>{skipped}</div>
-                                            <StopIcon />
+                                            <FastForwardIcon />
                                         </div>
                                     ) : null}
                                     <div className="text-gray-600">
