@@ -53,7 +53,7 @@ function Cycles(): React.ReactElement {
                 <div className="max-w-screen-lg mx-auto px-4 sm:px-6 md:px-8 mt-8">
                     <Header widerContent={true} />
                     <div className="pb-8 pt-4">
-                    <Breadcrumb asPath={asPath} />
+                        <Breadcrumb asPath={asPath} />
                     </div>
                     <label htmlFor="query" className="font-medium sr-only">
                         Search

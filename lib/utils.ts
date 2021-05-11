@@ -47,12 +47,6 @@ export function isWithinTimeDuration(startAt: string, duration: Record<string, n
     const now = dayjs();
     const start = dayjs(startAt);
 
-    if (start.add(dayjs.duration(duration)) > now) {
-        console.log('startAt', startAt);
-        console.log('start+duration', start.add(dayjs.duration(duration)));
-        console.log('now', now);
-    }
-
     return start.add(dayjs.duration(duration)) > now;
 }
 

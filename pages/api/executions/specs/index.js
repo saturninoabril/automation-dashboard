@@ -34,8 +34,6 @@ async function getSpecExecutions(req, res) {
         )
         GROUP BY se.id
         ORDER BY sort_weight ASC, file ASC`);
-    console.log('offset', offset);
-    console.log('limit', limit);
 
     const count = await knex('spec_executions').where('cycle_id', query.cycle_id).count('id');
 

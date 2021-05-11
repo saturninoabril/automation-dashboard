@@ -29,7 +29,9 @@ function SpecRow({ spec, index, last }: Props) {
     return (
         <>
             <SpecSummaryView spec={spec} index={index} last={last} open={open} setOpen={setOpen} />
-            {open && <SpecDetailView spec={spec} />}
+            {open && spec.cases && spec.cases.length && spec.cases[0].id && (
+                <SpecDetailView spec={spec} />
+            )}
         </>
     );
 }
@@ -49,15 +51,23 @@ function SpecSummaryView({
     open,
     setOpen,
 }: SpecSummaryViewProps): React.ReactElement {
+    if (!spec) {
+        return <span />;
+    }
     const [hover, setHover] = useState(false);
+
+    const withCase = Boolean(spec?.cases?.length && spec.cases[0].id);
 
     return (
         <tr
-            className={`table-row cursor-pointer hover:bg-gray-100
+            className={`table-row
+                ${withCase ? ' cursor-pointer hover:bg-gray-100' : ''}
                 ${last && !open ? '' : ' border-b border-gray-200'}
                 ${open ? ' bg-gray-200' : ''}
             `}
-            onClick={() => setOpen(!open)}
+            onClick={() => {
+                if (withCase) setOpen(!open);
+            }}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
         >
@@ -106,15 +116,19 @@ function SpecSummaryView({
                     </span>
                 </span>
             </td>
-            <td
-                className={`text-sm text-gray-500
-                ${!open ? ' opacity-20' : ''}
-                ${!open && hover ? ' opacity-100' : ''}
-            `}
-            >
-                {open && <ChevronUpIcon />}
-                {!open && <ChevronDownIcon />}
-            </td>
+            {withCase ? (
+                <td
+                    className={`text-sm text-gray-500
+                    ${!open ? ' opacity-20' : ''}
+                    ${!open && hover ? ' opacity-100' : ''}
+                `}
+                >
+                    {open && <ChevronUpIcon />}
+                    {!open && <ChevronDownIcon />}
+                </td>
+            ) : (
+                <td />
+            )}
         </tr>
     );
 }
@@ -126,33 +140,32 @@ type SpecDetailViewProps = {
 function SpecDetailView({ spec }: SpecDetailViewProps): React.ReactElement {
     return (
         <>
-            {spec.cases
-                // prettier-ignore
-                .sort((a: Partial<CaseExecution>, b: Partial<CaseExecution>) => { // eslint-disable-line
-                    if (!a.test_start_at) {
-                        return 1;
-                    }
-                    if (!b.test_start_at) {
-                        return -1;
-                    }
+            {spec.cases &&
+                spec.cases
+                    // prettier-ignore
+                    .sort((a: Partial<CaseExecution>, b: Partial<CaseExecution>) => {
+                        // eslint-disable-line
+                        if (!a.test_start_at) {
+                            return 1;
+                        }
+                        if (!b.test_start_at) {
+                            return -1;
+                        }
 
-                    const aStart = new Date(a.test_start_at);
-                    const bStart = new Date(b.test_start_at);
-                    return aStart.getTime() - bStart.getTime();
-                })
-                .map((c) => (
-                    <CaseRow key={c.id} case_execution={c} />
-                ))}
+                        const aStart = new Date(a.test_start_at);
+                        const bStart = new Date(b.test_start_at);
+                        return aStart.getTime() - bStart.getTime();
+                    })
+                    .map((c) => <CaseRow key={c.id} case_execution={c} />)}
         </>
     );
 }
 
 type CaseRowProps = {
     case_execution: CaseExecution;
-    last?: boolean;
 };
 
-function CaseRow({ case_execution, last }: CaseRowProps) {
+function CaseRow({ case_execution }: CaseRowProps) {
     const [open, setOpen] = useState(false);
 
     return (
@@ -182,7 +195,12 @@ function CaseSummaryView({
     setOpen,
 }: CaseSummaryViewProps): React.ReactElement {
     const [hover, setHover] = useState(false);
+
+    if (!case_execution?.id) {
+        return <span />;
+    }
     const { id, duration, state, title } = case_execution;
+
     return (
         <tr
             key={id}
@@ -275,7 +293,6 @@ function CaseDetailView({ case_execution }: CaseDetailViewProps): React.ReactEle
     if (!caseExecution) {
         return <span />;
     }
-    console.log('CaseDetailView caseExecution', caseExecution.screenshot);
 
     return (
         <tr key={case_execution.id} className={'table-row'}>

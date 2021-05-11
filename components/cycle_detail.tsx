@@ -17,10 +17,7 @@ import {
 import Divider from '../components/divider';
 import Spinner from '../components/spinner';
 import TimeElapse from '../components/time_elapse';
-import {
-    getCycleSummary,
-    formatDate,
-} from '../lib/utils';
+import { getCycleSummary, formatDate } from '../lib/utils';
 import { CaseState, Cycle, SpecExecutionGroup } from '../types';
 
 type Props = {

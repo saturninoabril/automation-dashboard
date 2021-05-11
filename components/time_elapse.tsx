@@ -23,7 +23,9 @@ function TimeElapse({
         updateAt: lastUpdate,
         format: timeFormat,
     });
-    const [timeElapse, setTimeElapse] = useState<string>(initialTimeElapse);
+    const [timeElapse, setTimeElapse] = useState<string>(
+        !start || !lastUpdate ? '' : initialTimeElapse
+    );
     useEffect(() => {
         const timer = setTimeout(() => {
             const done = isDone || !isWithinTimeDuration(lastUpdate, { m: 10 });
