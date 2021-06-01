@@ -10,10 +10,10 @@ services:
             POSTGRES_PASSWORD: mostest
             POSTGRES_DB: automation_dashboard_db
         ports:
-            - 5433:5432
+            - 5435:5432
 
     adminer:
         image: adminer
         restart: always
         ports:
-            - 5434:8080
+            - 5436:8080

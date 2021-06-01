@@ -76,7 +76,11 @@ function SpecSummaryView({
                     <SpecStatus spec={spec} />
                 </span>
             </td>
-            <td className="whitespace-no-wrap text-sm text-blue-500">
+            <td
+                className={`whitespace-no-wrap text-sm ${
+                    withCase ? ' text-blue-500' : 'text-gray-500'
+                }`}
+            >
                 <span className="py-1 w-full block truncate">
                     <span className="">
                         {`${index + 1}. ${spec.file.replace('cypress/integration/', '')}`}
@@ -181,6 +185,13 @@ function CaseRow({ case_execution }: CaseRowProps) {
     );
 }
 
+const rowColors: Record<string, any> = {
+    passed: { bg: 'bg-green-100', hover: 'hover:bg-green-200', border: 'border-green-100' },
+    failed: { bg: 'bg-red-100', hover: 'hover:bg-red-200', border: 'border-red-100' },
+    skipped: { bg: 'bg-purple-100', hover: 'hover:bg-purple-200', border: 'border-purple-100' },
+    pending: { bg: 'bg-blue-100', hover: 'hover:bg-blue-200', border: 'border-blue-100' },
+};
+
 type CaseSummaryViewProps = {
     case_execution: CaseExecution;
     last?: boolean;
@@ -190,7 +201,6 @@ type CaseSummaryViewProps = {
 
 function CaseSummaryView({
     case_execution,
-    last,
     open,
     setOpen,
 }: CaseSummaryViewProps): React.ReactElement {
@@ -204,14 +214,7 @@ function CaseSummaryView({
     return (
         <tr
             key={id}
-            className={`table-row cursor-pointer
-                ${
-                    state === 'passed'
-                        ? ' bg-green-100 hover:bg-green-200'
-                        : ' bg-red-100 hover:bg-red-200'
-                }
-                ${last && !open ? '' : ' border-b border-gray-100'}
-            `}
+            className={`table-row cursor-pointer ${rowColors[state].bg} ${rowColors[state].hover}`}
             onClick={() => setOpen(!open)}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
@@ -220,7 +223,7 @@ function CaseSummaryView({
                 <span className={'px-2 py-1 w-full block text-gray-300'} tabIndex={-1}>
                     <span
                         className={`flex space-x-1 ${
-                            duration > 60 * 1000 ? 'text-amber-500' : 'text-gray-400'
+                            duration > 60 * 1000 ? 'text-amber-700' : 'text-gray-400'
                         }`}
                     >
                         <span className="invisible">
@@ -235,9 +238,9 @@ function CaseSummaryView({
                     </span>
                 </span>
             </td>
-            <td className="whitespace-no-wrap text-sm text-blue-500 leading-5">
+            <td className="whitespace-no-wrap text-blue-500 leading-5">
                 <span className="flex py-1 w-full block truncate">
-                    <span className="font-light">{`* ${title[title.length - 1]}`}</span>
+                    <span className="text-sm">{`* ${title[title.length - 1]}`}</span>
                 </span>
             </td>
             <td className="whitespace-no-wrap text-sm leading-5 text-gray-500 text-right">
@@ -299,18 +302,21 @@ function CaseDetailView({ case_execution }: CaseDetailViewProps): React.ReactEle
             <td colSpan={4} className="text-sm">
                 {caseExecution.error_display && (
                     <>
-                        <div className="border-l-4 border-red-200">
+                        <div className={`border-l-4 ${rowColors[caseExecution.state].border}`}>
                             <span className="pl-4 pr-4 bg-yellow-100 text-red-500">
                                 Error Display
                             </span>
-                            <Codeblock code={`  ${caseExecution.error_display}`} language="bash" />
+                            <Codeblock
+                                code={`  ${caseExecution.error_display}`}
+                                language="markdown"
+                            />
                         </div>
                         <hr />
                     </>
                 )}
                 {caseExecution.error_frame && (
                     <>
-                        <div className="border-l-4 border-red-200">
+                        <div className={`border-l-4 ${rowColors[caseExecution.state].border}`}>
                             <span className="pl-4 pr-4 bg-yellow-100 text-red-500">
                                 Error Frame
                             </span>
@@ -323,13 +329,16 @@ function CaseDetailView({ case_execution }: CaseDetailViewProps): React.ReactEle
                     </>
                 )}
                 {caseExecution.code && (
-                    <div className="border-l-4 border-gray-200">
-                        <span className="pl-4 pr-4 bg-yellow-100">Code Block</span>
-                        <Codeblock code={`  ${caseExecution.code}`} language="javascript" />
-                    </div>
+                    <>
+                        <div className={`border-l-4 ${rowColors[caseExecution.state].border}`}>
+                            <span className="pl-4 pr-4 bg-yellow-100">Code Block</span>
+                            <Codeblock code={`  ${caseExecution.code}`} language="javascript" />
+                        </div>
+                        <hr />
+                    </>
                 )}
                 {caseExecution.screenshot?.url && (
-                    <div className="border-l-4 border-gray-200">
+                    <div className={`border-l-4 ${rowColors[caseExecution.state].border}`}>
                         <span className="pl-4 pr-4 bg-yellow-100">Screenshot</span>
                         <Image
                             src={caseExecution.screenshot.url}

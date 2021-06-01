@@ -18,7 +18,7 @@ function SpecStatus({ spec }: Props): React.ReactElement {
         return (
             <span
                 className={`flex space-x-1 ${
-                    duration > threeMinutes ? 'text-amber-500' : 'text-gray-400'
+                    duration > threeMinutes ? 'text-amber-700' : 'text-gray-400'
                 }`}
             >
                 <ClockIcon />
