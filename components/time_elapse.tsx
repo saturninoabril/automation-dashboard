@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { formatDuration, getTimeElapse, isWithinTimeDuration } from '../lib/utils';
+import { formatDuration, getTimeElapse, isWithinTimeDuration } from '@lib/utils';
 
 type Props = {
     className?: string;

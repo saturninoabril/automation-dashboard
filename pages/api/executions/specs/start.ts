@@ -1,11 +1,12 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { getKnex } from '../../../../knex';
-import Cycle from '../../../../lib/schema/cycle';
-import SpecExecution from '../../../../lib/schema/spec_execution';
-import auth from '../../../../middleware/auth';
+import { getKnex } from '@knex';
+import { getPatchableCycleFields } from '@lib/schema/cycle';
+import { getPatchableSpecExecutionFields } from '@lib/schema/spec_execution';
+import auth from '@middleware/auth';
 
-async function startSpecExecutions(req, res) {
+async function startSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
     const {
         query: { repo, branch, build },
     } = req;
@@ -14,7 +15,7 @@ async function startSpecExecutions(req, res) {
         try {
             const knex = await getKnex();
 
-            const data = await knex.transaction(async (trx) => {
+            const data = await knex.transaction(async (trx: any) => {
                 let cycle = await knex('cycles')
                     .transacting(trx)
                     .where('repo', repo)
@@ -30,7 +31,7 @@ async function startSpecExecutions(req, res) {
                     const cycleDraft = {
                         state: 'started',
                     };
-                    const { value: cyclePatch, error } = Cycle.toPatch(cycleDraft);
+                    const { value: cyclePatch, error } = getPatchableCycleFields(cycleDraft);
                     if (error) {
                         return {
                             status: 400,
@@ -71,7 +72,7 @@ async function startSpecExecutions(req, res) {
                     server: req.body.server,
                     state: 'started',
                 };
-                const { value: specPatch, error } = SpecExecution.toPatch(specDraft);
+                const { value: specPatch, error } = getPatchableSpecExecutionFields(specDraft);
                 if (error) {
                     return {
                         status: 400,

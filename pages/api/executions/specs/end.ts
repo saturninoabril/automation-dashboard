@@ -1,21 +1,24 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { getKnex } from '../../../../knex';
-import Cycle from '../../../../lib/schema/cycle';
-import SpecExecution from '../../../../lib/schema/spec_execution';
-import CaseExecution from '../../../../lib/schema/case_execution';
-import auth from '../../../../middleware/auth';
+import { getKnex } from '@knex';
+import { getPatchableCycleFields } from '@lib/schema/cycle';
+import { getPatchableSpecExecutionFields } from '@lib/schema/spec_execution';
+import CaseExecutionSchema from '@lib/schema/case_execution';
+import auth from '@middleware/auth';
+import { CaseExecution, SpecExecution } from '@types';
 
-async function endSpecExecution(req, res) {
+async function endSpecExecution(req: NextApiRequest, res: NextApiResponse) {
     const { query } = req;
 
     if (query.id) {
-        const { spec, tests } = req.body;
+        const spec = req.body.spec as SpecExecution;
+        const tests = req.body.spec as CaseExecution[];
 
         try {
             const knex = await getKnex();
 
-            const started = await knex.transaction(async (trx) => {
+            const started = await knex.transaction(async (trx: any) => {
                 const specDraft = {
                     state: 'done', // explicitly set as done
                     pass: spec.pass,
@@ -26,7 +29,7 @@ async function endSpecExecution(req, res) {
                     test_start_at: spec.test_start_at,
                     test_end_at: spec.test_end_at,
                 };
-                const { value: specPatch, error } = SpecExecution.toPatch(specDraft);
+                const { value: specPatch, error } = getPatchableSpecExecutionFields(specDraft);
                 if (error) {
                     return {
                         status: 400,
@@ -58,7 +61,8 @@ async function endSpecExecution(req, res) {
                     skipped: origCycle[0].skipped + spec.skipped,
                     duration: origCycle[0].duration + spec.duration,
                 };
-                const { value: cyclePatch, error: cycleError } = Cycle.toPatch(cycleDraft);
+                const { value: cyclePatch, error: cycleError } =
+                    getPatchableCycleFields(cycleDraft);
                 if (cycleError) {
                     return {
                         status: 400,
@@ -77,7 +81,7 @@ async function endSpecExecution(req, res) {
                     })
                     .returning('*');
 
-                const caseExecutions = [];
+                const caseExecutions: CaseExecution[] = [];
                 tests.forEach((t) => {
                     const caseDraft = {
                         title: t.title,
@@ -94,7 +98,7 @@ async function endSpecExecution(req, res) {
                         cycle_id: updatedCycle[0].id,
                         spec_execution_id: updatedExecution[0].id,
                     };
-                    const { value, error } = CaseExecution.schema.validate(caseDraft);
+                    const { value, error } = CaseExecutionSchema.validate(caseDraft);
                     if (error) {
                         return {
                             status: 400,

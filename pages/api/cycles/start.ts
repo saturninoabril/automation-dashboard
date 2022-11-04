@@ -1,17 +1,35 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { getKnex } from '../../../knex';
-import Cycle from '../../../lib/schema/cycle';
-import SpecExecution from '../../../lib/schema/spec_execution';
-import auth from '../../../middleware/auth';
+import { getKnex } from '@knex';
+import cycleSchema from '@lib/schema/cycle';
+import SpecExecutionSchema from '@lib/schema/spec_execution';
+import auth from '@middleware/auth';
+import type { Cycle } from '@types';
 
-async function startCycle(req, res) {
+type CyclesResponse = {
+    cycles: Cycle[];
+    total: number;
+    limit: number;
+    offset: number;
+    page: number;
+    per_page: number;
+    error: boolean;
+    message: string;
+};
+
+type FileWithWeight = {
+    file: string;
+    sortWeight: number;
+};
+
+async function startCycle(req: NextApiRequest, res: NextApiResponse<Partial<CyclesResponse>>) {
     try {
         const {
             body: { branch, build, repo, files = [] },
         } = req;
 
-        const { value, error } = Cycle.schema.validate({
+        const { value, error } = cycleSchema.validate({
             branch,
             build,
             repo,
@@ -22,7 +40,7 @@ async function startCycle(req, res) {
         }
 
         const knex = await getKnex();
-        const started = await knex.transaction(async (trx) => {
+        const started = await knex.transaction(async (trx: any) => {
             const cycle = await knex('cycles')
                 .transacting(trx)
                 .insert({
@@ -37,15 +55,15 @@ async function startCycle(req, res) {
             if (files.length > 0) {
                 const chunkSize = 30;
                 const newExecutions = files
-                    .map((f) => {
+                    .map((f: FileWithWeight) => {
                         return {
                             file: f.file,
                             sort_weight: f.sortWeight,
                             cycle_id: cycle[0].id,
                         };
                     })
-                    .map((ne) => {
-                        const { value } = SpecExecution.schema.validate(ne);
+                    .map((ne: any) => {
+                        const { value } = SpecExecutionSchema.validate(ne);
                         return value;
                     });
 

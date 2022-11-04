@@ -1,6 +1,6 @@
 import React from 'react';
 
-import * as pagination from '../lib/pagination';
+import * as pagination from '@lib/pagination';
 import { ChevronLeftIcon, ChevronRightIcon } from './icon';
 
 type Props = {
@@ -12,16 +12,9 @@ type Props = {
 };
 
 function Pagination({ cycleCount, total, page, perPage, setPage }: Props): React.ReactElement {
-    const pageCount = pagination.pageCount({
-        total,
-        perPage,
-    });
-    const hasPrevious = pagination.hasPrevious({ page });
-    const hasNext = pagination.hasNext({
-        page,
-        total,
-        perPage,
-    });
+    const pageCount = pagination.pageCount(total, perPage);
+    const hasPrevious = pagination.hasPrevious(page);
+    const hasNext = pagination.hasNext(total, perPage, page);
     const centerPage = Math.max(4, Math.min(page, pageCount - 2));
 
     return (

@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "es6",
+        "target": "es5",
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
         "skipLibCheck": true,
@@ -12,8 +12,19 @@
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "jsx": "preserve"
+        "jsx": "preserve",
+        "incremental": true,
+        "baseUrl": ".",
+        "paths": {
+            "@components/*": ["components/*"],
+            "@components/icon": ["components/icon"],
+            "@knex": ["knex"],
+            "@lib/*": ["lib/*"],
+            "@lib/schema/*": ["lib/schema/*"],
+            "@middleware/auth": ["middleware/auth"],
+            "@types": ["types"]
+        }
     },
-    "exclude": ["node_modules", "public"],
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+    "exclude": ["node_modules"]
 }

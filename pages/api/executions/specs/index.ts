@@ -1,14 +1,22 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
+import Joi from 'joi';
 import nextConnect from 'next-connect';
 
-import { getKnex } from '../../../../knex';
-import { params } from '../../../../lib/params';
+import { getKnex } from '@knex';
+import { params } from '@lib/params';
 
-async function getSpecExecutions(req, res) {
+async function getSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
     const { query } = req;
     if (!query.cycle_id) {
         return res
             .status(400)
             .json({ errorMessage: 'Invalid request: No cycle ID found in query parameter.' });
+    }
+
+    const schema = Joi.string().guid({ version: ['uuidv4'] });
+    const { error } = schema.validate(query.cycle_id);
+    if (error) {
+        return res.status(400).json({ errorMessage: 'Invalid cycle ID' });
     }
 
     const { limit, offset, page, perPage } = params(req.query);
@@ -35,11 +43,9 @@ async function getSpecExecutions(req, res) {
         GROUP BY se.id
         ORDER BY sort_weight ASC, file ASC`);
 
-    const count = await knex('spec_executions').where('cycle_id', query.cycle_id).count('id');
-
     return res.status(200).json({
         specs: specRes.rows,
-        total: parseInt(count[0].count, 10),
+        total: specRes.rows.length,
         limit,
         offset,
         page,

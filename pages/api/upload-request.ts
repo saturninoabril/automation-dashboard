@@ -1,9 +1,10 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { uploadRequest } from '../../lib/upload';
-import auth from '../../middleware/auth';
+import { uploadRequest } from '@lib/upload';
+import auth from '@middleware/auth';
 
-async function upload(req, res) {
+async function upload(req: NextApiRequest, res: NextApiResponse) {
     const { body } = req;
 
     if (body) {

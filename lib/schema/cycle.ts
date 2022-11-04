@@ -1,7 +1,7 @@
-const Joi = require('joi');
-const pickBy = require('lodash.pickby');
+import Joi from 'joi';
+import pickBy from 'lodash.pickby';
 
-const schema = Joi.object().keys({
+const cycleSchema = Joi.object().keys({
     id: Joi.string()
         .guid({ version: ['uuidv4'] })
         .max(50),
@@ -47,8 +47,8 @@ const patchableFields = [
     'node_version',
 ];
 
-const toPatch = (data) => {
-    const { value, error } = schema.validate(data);
+export const getPatchableCycleFields = (data: Record<string, any>) => {
+    const { value, error } = cycleSchema.validate(data);
 
     if (error) {
         return { error };
@@ -61,4 +61,4 @@ const toPatch = (data) => {
     };
 };
 
-export default { schema, toPatch };
+export default cycleSchema;
