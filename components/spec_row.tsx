@@ -10,13 +10,13 @@ import {
     ExclamationCircleIcon,
     FastForwardIcon,
     XCircleIcon,
-} from '../components/icon';
-import Codeblock from '../components/code_block';
-import SpecStatus from '../components/spec_status';
-import { CaseExecution, SpecExecution } from '../types';
-import { formatDuration } from '../lib/utils';
+} from '@components/icon';
+import Codeblock from '@components/code_block';
+import SpecStatus from '@components/spec_status';
+import { CaseExecution, SpecExecution } from '@types';
+import { formatDuration } from '@lib/utils';
 
-import fetcher from '../lib/fetcher';
+import fetcher from '@lib/fetcher';
 
 type Props = {
     spec: SpecExecution;
@@ -51,10 +51,11 @@ function SpecSummaryView({
     open,
     setOpen,
 }: SpecSummaryViewProps): React.ReactElement {
+    const [hover, setHover] = useState(false);
+
     if (!spec) {
         return <span />;
     }
-    const [hover, setHover] = useState(false);
 
     const withCase = Boolean(spec?.cases?.length && spec.cases[0].id);
 

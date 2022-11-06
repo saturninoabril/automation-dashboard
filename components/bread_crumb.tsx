@@ -14,13 +14,13 @@ function Breadcrumb({ asPath = '' }: Props): React.ReactElement {
             <HomeIcon />
             {asPath &&
                 asPath.length > 0 &&
-                segments.map((p: string, i: number) => {
+                segments.map((path: string, i: number) => {
                     const link = segments.slice(0, i + 1).join('/');
                     return (
                         <span className="flex space-x-2" key={i}>
                             <span>{'/'}</span>
-                            <Link href={`${link ? `/${link}` : ''}`}>
-                                <a className="link">{p}</a>
+                            <Link href={`${link ? `/${link}` : ''}`} className="link">
+                                {path}
                             </Link>
                         </span>
                     );

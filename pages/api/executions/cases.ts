@@ -1,10 +1,11 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { getKnex } from '../../../knex';
-import CaseExecution from '../../../lib/schema/case_execution';
-import auth from '../../../middleware/auth';
+import { getKnex } from '@knex';
+import CaseExecutionSchema from '@lib/schema/case_execution';
+import auth from '@middleware/auth';
 
-async function getCaseExecutions(req, res) {
+async function getCaseExecutions(req: NextApiRequest, res: NextApiResponse) {
     const { query } = req;
 
     try {
@@ -64,7 +65,7 @@ async function getCaseExecutions(req, res) {
     }
 }
 
-async function saveCaseExecution(req, res) {
+async function saveCaseExecution(req: NextApiRequest, res: NextApiResponse) {
     const { query } = req;
 
     if (query.cycle_id && query.spec_id) {
@@ -85,7 +86,7 @@ async function saveCaseExecution(req, res) {
                 pending: body.pending,
                 skipped: body.skipped,
             };
-            const { value, error } = CaseExecution.schema.validate(caseDraft);
+            const { value, error } = CaseExecutionSchema.validate(caseDraft);
             if (error) {
                 return { status: 400, error: true, message: `Invalid case execution: ${error}` };
             }

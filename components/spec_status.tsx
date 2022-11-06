@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { ClipboardIcon, ClockIcon } from '../components/icon';
-import Spinner from '../components/spinner';
-import TimeElapse from '../components/time_elapse';
-import { isWithinTimeDuration } from '../lib/utils';
-import { SpecExecution } from '../types';
+import { ClipboardIcon, ClockIcon } from '@components/icon';
+import Spinner from '@components/spinner';
+import TimeElapse from '@components/time_elapse';
+import { isWithinTimeDuration } from '@lib/utils';
+import { SpecExecution } from '@types';
 
 type Props = {
     spec: SpecExecution;

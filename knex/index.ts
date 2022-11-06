@@ -1,3 +1,4 @@
+// @ts-nocheck
 import knex from 'knex';
 import config from '../knexfile.js';
 
@@ -7,6 +8,7 @@ import config from '../knexfile.js';
  *
  * see https://github.com/vercel/next.js/discussions/12229#discussioncomment-83372
  */
+
 let cached = global.pg;
 if (!cached) cached = global.pg = {};
 

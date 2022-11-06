@@ -3,13 +3,13 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 
-import Breadcrumb from '../../components/bread_crumb';
-import Header from '../../components/header';
-import CycleDetail from '../../components/cycle_detail';
-import SpecList from '../../components/spec_list';
-import fetcher from '../../lib/fetcher';
-import { isWithinTimeDuration } from '../../lib/utils';
-import { SpecExecution, SpecExecutionGroup, CaseState } from '../../types';
+import Breadcrumb from '@components/bread_crumb';
+import Header from '@components/header';
+import CycleDetail from '@components/cycle_detail';
+import SpecList from '@components/spec_list';
+import fetcher from '@lib/fetcher';
+import { isWithinTimeDuration } from '@lib/utils';
+import { SpecExecution, SpecExecutionGroup, CaseState } from '@types';
 
 function CyclePage(): React.ReactElement {
     const {

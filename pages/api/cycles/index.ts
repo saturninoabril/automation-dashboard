@@ -1,9 +1,21 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { getKnex } from '../../../knex';
-import { params } from '../../../lib/params';
+import { getKnex } from '@knex';
+import { params } from '@lib/params';
+import type { Cycle } from '@types';
 
-async function getCycles(req, res) {
+type CyclesResponse = {
+    cycles: Cycle[];
+    total: number;
+    limit: number;
+    offset: number;
+    page: number;
+    per_page: number;
+    error: boolean;
+};
+
+async function getCycles(req: NextApiRequest, res: NextApiResponse<Partial<CyclesResponse>>) {
     try {
         const { limit, offset, page, perPage } = params(req.query);
         const knex = await getKnex();

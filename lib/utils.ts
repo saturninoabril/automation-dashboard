@@ -3,7 +3,7 @@ import duration from 'dayjs/plugin/duration';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
-import { Cycle } from '../types';
+import { Cycle } from '@types';
 
 dayjs.extend(duration);
 dayjs.extend(localizedFormat);

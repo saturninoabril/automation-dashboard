@@ -1,9 +1,9 @@
 import React, { useState, createRef, useEffect } from 'react';
 
-import { SearchIcon } from '../components/icon';
-import SpecListLoading from '../components/spec_list_loading';
-import SpecRow from '../components/spec_row';
-import { SpecExecution, SpecExecutionGroup } from '../types';
+import { SearchIcon } from '@components/icon';
+import SpecListLoading from '@components/spec_list_loading';
+import SpecRow from '@components/spec_row';
+import { SpecExecution, SpecExecutionGroup } from '@types';
 
 type Props = {
     specs?: SpecExecution[];

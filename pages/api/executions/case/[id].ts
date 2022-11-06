@@ -1,8 +1,9 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { getKnex } from '../../../../knex';
+import { getKnex } from '@knex';
 
-async function getCaseExecution(req, res) {
+async function getCaseExecution(req: NextApiRequest, res: NextApiResponse) {
     try {
         const { id } = req.query;
         const knex = await getKnex();

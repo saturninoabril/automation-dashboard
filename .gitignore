@@ -3,8 +3,9 @@
 /.pnp
 .pnp.js
 
-# ignore since this project is using yarn
+# ignore lock files either from yarn or npm
 package-lock.json
+yarn.lock
 
 # testing
 /coverage
@@ -29,3 +30,6 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+
+# TS build info
+tsconfig.tsbuildinfo
