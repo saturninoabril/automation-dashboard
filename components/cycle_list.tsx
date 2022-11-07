@@ -35,15 +35,15 @@ function CycleList({ cycles }: Props) {
                     fail,
                     pending,
                     skipped,
-                    start_at,
-                    update_at,
+                    start_at: startAt,
+                    update_at: updateAt,
                 } = cycle;
 
                 const { totalCases, passingRate, color } = getCycleSummary(cycle);
-                const formattedStartDate = formatDate(start_at);
+                const formattedStartDate = formatDate(startAt);
                 const formattedDuration = formatDuration({
-                    startAt: start_at,
-                    updateAt: update_at,
+                    startAt,
+                    updateAt,
                 });
                 return (
                     <li className={i !== 0 ? 'border-t border-gray-200' : ''} key={i}>
@@ -71,7 +71,7 @@ function CycleList({ cycles }: Props) {
                                         </div>
 
                                         <div className="mt-1 flex items-center text-sm leading-5 text-gray-600 space-x-3">
-                                            {cycle.update_at ? (
+                                            {updateAt ? (
                                                 <>
                                                     {formattedStartDate && (
                                                         <p className="flex space-x-1">
@@ -79,10 +79,10 @@ function CycleList({ cycles }: Props) {
                                                             <span>{formattedStartDate}</span>
                                                         </p>
                                                     )}
-                                                    {formattedDuration && (
+                                                    {startAt && formattedDuration && (
                                                         <p className="flex space-x-1">
                                                             {cycle.state !== 'done' &&
-                                                            isWithinTimeDuration(cycle.update_at, {
+                                                            isWithinTimeDuration(updateAt, {
                                                                 m: 10,
                                                             }) ? (
                                                                 <Spinner />
@@ -90,8 +90,8 @@ function CycleList({ cycles }: Props) {
                                                                 <ClockIcon />
                                                             )}
                                                             <TimeElapse
-                                                                start={cycle.start_at}
-                                                                lastUpdate={cycle.update_at}
+                                                                start={startAt}
+                                                                lastUpdate={updateAt}
                                                                 isDone={cycle.state === 'done'}
                                                             />
                                                         </p>
