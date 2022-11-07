@@ -13,7 +13,7 @@ async function endSpecExecution(req: NextApiRequest, res: NextApiResponse) {
 
     if (query.id) {
         const spec = req.body.spec as SpecExecution;
-        const tests = req.body.spec as CaseExecution[];
+        const tests = req.body.tests as CaseExecution[];
 
         try {
             const knex = await getKnex();
