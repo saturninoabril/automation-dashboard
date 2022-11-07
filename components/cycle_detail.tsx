@@ -84,12 +84,12 @@ function CycleDetail({
         os_version,
         cypress_version,
         node_version,
-        start_at,
-        update_at,
+        start_at: startAt,
+        update_at: updateAt,
     } = cycle;
 
     const { totalCases, passingRate, color } = getCycleSummary(cycle);
-    const formattedStartDate = formatDate(start_at);
+    const formattedStartDate = formatDate(startAt);
 
     return (
         <div className="col-span-1 row-start-1 md:row-start-auto flex flex-col sm:flex-row md:flex-col gap-4">
@@ -101,14 +101,16 @@ function CycleDetail({
                         <DocumentReportIcon />
                         <p>{`${passingRate}% passed`}</p>
                     </div>
-                    <div className="flex space-x-2">
-                        <ClockIcon />
-                        <TimeElapse
-                            start={start_at}
-                            lastUpdate={update_at}
-                            isDone={state === 'done'}
-                        />
-                    </div>
+                    {startAt && (
+                        <div className="flex space-x-2">
+                            <ClockIcon />
+                            <TimeElapse
+                                start={startAt}
+                                lastUpdate={updateAt}
+                                isDone={state === 'done'}
+                            />
+                        </div>
+                    )}
                     {formattedStartDate && (
                         <div className="flex space-x-2">
                             <CalendarIcon />
