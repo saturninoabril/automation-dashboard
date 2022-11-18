@@ -6,7 +6,6 @@ import useSWR from 'swr';
 import Breadcrumb from '@components/bread_crumb';
 import Header from '@components/header';
 import CycleDetail from '@components/cycle_detail';
-import Custom404 from '@components/custom_404';
 import SpecList from '@components/spec_list';
 import fetcher from '@lib/fetcher';
 import { isWithinTimeDuration } from '@lib/utils';
@@ -60,10 +59,6 @@ function CyclePage(): React.ReactElement {
         fetcher,
         refreshOption
     );
-
-    if (!cycleRes?.data) {
-        return <Custom404 />;
-    }
 
     let specsGroupByCount;
     if (specsRes.data && specsRes.data.specs) {
