@@ -1,5 +1,5 @@
 // @ts-nocheck
-import knex from 'knex';
+import knex, { Knex } from 'knex';
 import config from '../knexfile.js';
 
 /**
@@ -12,7 +12,7 @@ import config from '../knexfile.js';
 let cached = global.pg;
 if (!cached) cached = global.pg = {};
 
-export async function getKnex() {
+export async function getKnex(): Knex {
     if (cached.instance) {
         try {
             // Do quick check to database

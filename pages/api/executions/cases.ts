@@ -88,7 +88,11 @@ async function saveCaseExecution(req: NextApiRequest, res: NextApiResponse) {
             };
             const { value, error } = CaseExecutionSchema.validate(caseDraft);
             if (error) {
-                return { status: 400, error: true, message: `Invalid case execution: ${error}` };
+                return {
+                    status: 400,
+                    error: true,
+                    message: `Invalid case execution: ${error}`,
+                };
             }
 
             const knex = await getKnex();
@@ -104,9 +108,9 @@ async function saveCaseExecution(req: NextApiRequest, res: NextApiResponse) {
         }
     }
 
-    return res
-        .status(400)
-        .json({ errorMessage: 'No cycle and spec execution IDs found in request query.' });
+    return res.status(400).json({
+        errorMessage: 'No cycle and spec execution IDs found in request query.',
+    });
 }
 
 const handler = nextConnect();

@@ -6,6 +6,7 @@ import useSWR from 'swr';
 import Breadcrumb from '@components/bread_crumb';
 import Header from '@components/header';
 import CycleDetail from '@components/cycle_detail';
+import Custom404 from '@components/custom_404';
 import SpecList from '@components/spec_list';
 import fetcher from '@lib/fetcher';
 import { isWithinTimeDuration } from '@lib/utils';
@@ -14,7 +15,7 @@ import { CaseState, SpecExecution, SpecExecutionState } from '@types';
 function CyclePage(): React.ReactElement {
     const {
         asPath,
-        query: { id: cycleId },
+        query: { id: cycleId, repo, branch, build },
     } = useRouter();
     const [refreshInterval, setRefreshInterval] = useState<number>(0);
     const [selectedSpecGroup, setSelectedSpecGroup] = useState<SpecExecutionState>();
@@ -22,8 +23,27 @@ function CyclePage(): React.ReactElement {
 
     const refreshOption = refreshInterval ? { refreshInterval } : {};
 
-    const cycleRes = useSWR(`/api/cycles/${cycleId}`, fetcher, refreshOption);
+    let cyclePath = '';
+    if (cycleId) {
+        cyclePath = `/api/cycles/${cycleId}`;
+    } else if (repo || branch || build) {
+        const queries = [];
+        if (repo) {
+            queries.push(`repo=${repo}`);
+        }
+        if (branch) {
+            queries.push(`branch=${branch}`);
+        }
+        if (build) {
+            queries.push(`build=${build}`);
+        }
+
+        cyclePath = `/api/cycle?${queries.join('&')}`;
+    }
+
+    const cycleRes = useSWR(cyclePath, fetcher, refreshOption);
     const cycle = cycleRes.data;
+
     const title = cycle ? `Cycle for ${cycle.repo} / ${cycle.branch} / ${cycle.build}` : '';
 
     useEffect(() => {
@@ -33,13 +53,18 @@ function CyclePage(): React.ReactElement {
 
     // Set to maximum while working on proper pagination
     const PER_PAGE = 1000;
+    let specs: SpecExecution[] | undefined;
+
     const specsRes = useSWR(
-        `/api/executions/specs?cycle_id=${cycleId}&per_page=${PER_PAGE}`,
+        `/api/executions/specs?cycle_id=${cycle?.id}&per_page=${PER_PAGE}`,
         fetcher,
         refreshOption
     );
 
-    let specs: SpecExecution[] | undefined;
+    if (!cycleRes?.data) {
+        return <Custom404 />;
+    }
+
     let specsGroupByCount;
     if (specsRes.data && specsRes.data.specs) {
         specs = specsRes.data.specs;

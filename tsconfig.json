@@ -21,6 +21,7 @@
             "@knex": ["knex"],
             "@lib/*": ["lib/*"],
             "@lib/schema/*": ["lib/schema/*"],
+            "@lib/store/*": ["lib/store/*"],
             "@middleware/auth": ["middleware/auth"],
             "@types": ["types"]
         }

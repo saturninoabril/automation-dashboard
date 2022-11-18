@@ -3,12 +3,13 @@ export type Cycle = {
     repo: string;
     branch: string;
     build: string;
-    state: string;
+    state: CycleState;
     specs_registered: number;
     specs_done: number;
     duration: number;
     pass: number;
     fail: number;
+    known_fail: number;
     pending: number;
     skipped: number;
     cypress_version: string;
@@ -23,3 +24,5 @@ export type Cycle = {
     create_at: string;
     update_at: string;
 };
+
+export type CycleState = 'done' | 'started' | 'timed_out' | 'on_queue';

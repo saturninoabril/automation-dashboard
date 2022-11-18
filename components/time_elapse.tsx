@@ -34,7 +34,11 @@ function TimeElapse({
                 setTimeElapse(getTimeElapse({ startAt: start, format: timeFormat }));
             } else {
                 setTimeElapse(
-                    formatDuration({ startAt: start, updateAt: lastUpdate, format: timeFormat })
+                    formatDuration({
+                        startAt: start,
+                        updateAt: lastUpdate,
+                        format: timeFormat,
+                    })
                 );
             }
         }, 750);

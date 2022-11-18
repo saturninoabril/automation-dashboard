@@ -42,7 +42,11 @@ async function endSpecExecution(req: NextApiRequest, res: NextApiResponse) {
                     .transacting(trx)
                     .where('id', query.id)
                     .where('file', spec.file)
-                    .update({ ...specPatch, end_at: knex.fn.now(), update_at: knex.fn.now() })
+                    .update({
+                        ...specPatch,
+                        end_at: knex.fn.now(),
+                        update_at: knex.fn.now(),
+                    })
                     .returning('*');
 
                 const origCycle = await knex('cycles')
@@ -116,7 +120,12 @@ async function endSpecExecution(req: NextApiRequest, res: NextApiResponse) {
                     })
                 );
 
-                return { status: 201, cycle: updatedCycle[0], spec: updatedExecution[0], cases };
+                return {
+                    status: 201,
+                    cycle: updatedCycle[0],
+                    spec: updatedExecution[0],
+                    cases,
+                };
             });
             return res.status(started.status).json(started);
         } catch (e) {
@@ -124,7 +133,9 @@ async function endSpecExecution(req: NextApiRequest, res: NextApiResponse) {
         }
     }
 
-    return res.status(400).json({ errorMessage: 'No ID found in request query.' });
+    return res.status(400).json({
+        errorMessage: 'No ID found in request query.',
+    });
 }
 
 const handler = nextConnect();

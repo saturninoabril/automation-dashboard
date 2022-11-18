@@ -19,16 +19,46 @@ function Cycles(): React.ReactElement {
         (Array.isArray(routerQuery.page) ? routerQuery.page[0] : routerQuery.page) || '1'
     );
 
+    const { repo, branch, build } = routerQuery;
+
+    const queries = [];
+    if (repo) {
+        queries.push(`&repo=${repo}`);
+    }
+    if (branch) {
+        queries.push(`&branch=${branch}`);
+    }
+    if (build) {
+        queries.push(`&build=${build}`);
+    }
+
     function setPage(page: number) {
-        const query = page !== 1 ? { page: page.toFixed(0) } : undefined;
+        const query: Record<string, any> = {};
+        if (page >= 1) {
+            query.page = page.toFixed(0);
+        }
+        if (repo) {
+            query.repo = repo;
+        }
+        if (branch) {
+            query.branch = branch;
+        }
+        if (build) {
+            query.build = build;
+        }
+
         replace({
             pathname: '/cycles',
             query,
         });
     }
-    const { data } = useSWR(`/api/cycles?page=${page}&per_page=${PER_PAGE}`, fetcher, {
-        refreshInterval: 10000,
-    });
+    const { data } = useSWR(
+        `/api/cycles?page=${page}&per_page=${PER_PAGE}${queries.join('')}`,
+        fetcher,
+        {
+            refreshInterval: 10000,
+        }
+    );
 
     if (!(data && data.cycles)) {
         return <div />;

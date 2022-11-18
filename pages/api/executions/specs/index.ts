@@ -2,50 +2,86 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import Joi from 'joi';
 import nextConnect from 'next-connect';
 
-import { getKnex } from '@knex';
 import { params } from '@lib/params';
+import { getSpecsWithCases } from '@lib/store/specs';
+import { getKnownIssueByCycleID } from '@lib/store/known_issue';
+import { getCaseTitle, knownIssuesToObject } from '@lib/utils';
 
 async function getSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
     const { query } = req;
     if (!query.cycle_id) {
-        return res
-            .status(400)
-            .json({ errorMessage: 'Invalid request: No cycle ID found in query parameter.' });
+        return res.status(400).json({
+            errorMessage: 'Invalid request: No cycle ID found in query parameter.',
+        });
     }
 
+    const cycleId = query.cycle_id.toString();
+
     const schema = Joi.string().guid({ version: ['uuidv4'] });
-    const { error } = schema.validate(query.cycle_id);
+    const { error } = schema.validate(cycleId);
     if (error) {
         return res.status(400).json({ errorMessage: 'Invalid cycle ID' });
     }
 
     const { limit, offset, page, perPage } = params(req.query);
-    const knex = await getKnex();
-    const specRes = await knex.raw(`
-        SELECT se.*, json_agg(
-            json_build_object(
-                'id', ce.id,
-                'title', ce.title,
-                'state', ce.state,
-                'duration', ce.duration,
-                'test_start_at', ce.test_start_at
-            )
-        ) AS "cases"
-        FROM spec_executions se
-        LEFT JOIN case_executions AS ce ON ce.spec_execution_id = se.id
-        WHERE se.id IN (
-            SELECT id from spec_executions
-            WHERE cycle_id='${query.cycle_id}'
-            ORDER BY sort_weight ASC, file ASC
-            LIMIT ${limit}
-            OFFSET ${offset}
-        )
-        GROUP BY se.id
-        ORDER BY sort_weight ASC, file ASC`);
+    const specsRes = await getSpecsWithCases(cycleId, limit, offset);
+    if (specsRes?.error || !specsRes.specs) {
+        return res.status(501).json({
+            error: true,
+            message: specsRes.error,
+        });
+    }
+
+    const { knownIssue } = await getKnownIssueByCycleID(cycleId);
+    const knownIssuesObj = knownIssuesToObject(knownIssue?.data);
+
+    for (let i = 0; i < specsRes.specs.length; i++) {
+        const spec = specsRes.specs[i];
+
+        // reset values
+        spec.pass = 0;
+        spec.fail = 0;
+        spec.known_fail = 0;
+        spec.pending = 0;
+        spec.skipped = 0;
+
+        if (!spec.cases.length) {
+            continue;
+        }
+
+        for (let j = 0; j < spec.cases.length; j++) {
+            const caseExecution = spec.cases[j];
+
+            switch (caseExecution.state) {
+                case 'passed':
+                    spec.pass += 1;
+                    break;
+                case 'failed':
+                    // prettier-ignore
+                    if (knownIssuesObj[spec.file]?.casesObj[getCaseTitle(caseExecution.title)]?.is_known) {
+                        spec.known_fail += 1;
+                        spec.cases[j].state = 'known_fail';
+                    } else {
+                        spec.fail += 1;
+                    }
+
+                    break;
+                case 'skipped':
+                    spec.skipped += 1;
+                    break;
+                case 'pending':
+                    spec.pending += 1;
+                    break;
+                default:
+                    console.log('caseExecution state not counted', caseExecution.state);
+            }
+        }
+    }
 
     return res.status(200).json({
-        specs: specRes.rows,
-        total: specRes.rows.length,
+        knownIssuesObj,
+        specs: specsRes.specs,
+        total: specsRes.total,
         limit,
         offset,
         page,

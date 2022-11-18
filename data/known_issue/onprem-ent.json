@@ -1,0 +1,22 @@
+[
+    {
+        "spec_file": "tests/integration/integrations/builtin_commands/invite_command_spec.js",
+        "cases": [
+            {
+                "title": "Integrations > MM-T660_3 /invite tests when used in DMs and GMs",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/messaging/message_reply_spec.js",
+        "cases": [
+            {
+                "title": "Message Reply > MM-T90 Reply to older message",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    }
+]

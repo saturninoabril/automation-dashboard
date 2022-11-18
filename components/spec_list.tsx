@@ -1,13 +1,13 @@
-import React, { useState, createRef, useEffect } from 'react';
+import React, { createRef, useEffect, useState } from 'react';
 
 import { SearchIcon } from '@components/icon';
 import SpecListLoading from '@components/spec_list_loading';
 import SpecRow from '@components/spec_row';
-import { SpecExecution, SpecExecutionGroup } from '@types';
+import { SpecExecution, SpecExecutionState } from '@types';
 
 type Props = {
     specs?: SpecExecution[];
-    selectedSpecGroup?: SpecExecutionGroup;
+    selectedSpecGroup?: SpecExecutionState;
 };
 
 function SpecList({ specs, selectedSpecGroup }: Props) {
@@ -42,10 +42,10 @@ function SpecList({ specs, selectedSpecGroup }: Props) {
     ) {
         // prettier-ignore
         const groups: Record<string, string> = { // eslint-disable-line
-            on_queue: 'on queue',
-            started: 'processing',
-            timed_out: 'timed out',
-        };
+      on_queue: "on queue",
+      started: "processing",
+      timed_out: "timed out",
+    };
         const ratio = `${selected ? selected.length : 0} / ${allSpecs ? allSpecs.length : 0}`;
 
         let message;
