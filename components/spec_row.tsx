@@ -3,9 +3,9 @@ import useSWR from 'swr';
 import Image from 'next/image';
 
 import {
+    CheckCircleIcon,
     ChevronDownIcon,
     ChevronUpIcon,
-    CheckCircleIcon,
     ClockIcon,
     ExclamationCircleIcon,
     FastForwardIcon,
@@ -106,6 +106,12 @@ function SpecSummaryView({
                                 <span>{spec.fail}</span>
                             </span>
                         )}
+                        {spec.known_fail > 0 && (
+                            <span className="flex w-10 space-x-1 text-amber-700">
+                                <XCircleIcon />
+                                <span>{spec.known_fail}</span>
+                            </span>
+                        )}
                         {spec.skipped > 0 && (
                             <span className="flex w-10 space-x-1 text-purple-700">
                                 <FastForwardIcon />
@@ -187,10 +193,31 @@ function CaseRow({ case_execution }: CaseRowProps) {
 }
 
 const rowColors: Record<string, any> = {
-    passed: { bg: 'bg-green-100', hover: 'hover:bg-green-200', border: 'border-green-100' },
-    failed: { bg: 'bg-red-100', hover: 'hover:bg-red-200', border: 'border-red-100' },
-    skipped: { bg: 'bg-purple-100', hover: 'hover:bg-purple-200', border: 'border-purple-100' },
-    pending: { bg: 'bg-blue-100', hover: 'hover:bg-blue-200', border: 'border-blue-100' },
+    passed: {
+        bg: 'bg-green-100',
+        hover: 'hover:bg-green-200',
+        border: 'border-green-100',
+    },
+    failed: {
+        bg: 'bg-red-100',
+        hover: 'hover:bg-red-200',
+        border: 'border-red-100',
+    },
+    known_fail: {
+        bg: 'bg-amber-100',
+        hover: 'hover:bg-amber-200',
+        border: 'border-amber-100',
+    },
+    skipped: {
+        bg: 'bg-purple-100',
+        hover: 'hover:bg-purple-200',
+        border: 'border-purple-100',
+    },
+    pending: {
+        bg: 'bg-blue-100',
+        hover: 'hover:bg-blue-200',
+        border: 'border-blue-100',
+    },
 };
 
 type CaseSummaryViewProps = {
@@ -257,6 +284,11 @@ function CaseSummaryView({
                         )}
                         {state === 'failed' && (
                             <span className="flex w-10 space-x-1 text-red-400">
+                                <XCircleIcon />
+                            </span>
+                        )}
+                        {state === 'known_fail' && (
+                            <span className="flex w-10 space-x-1 text-amber-700">
                                 <XCircleIcon />
                             </span>
                         )}

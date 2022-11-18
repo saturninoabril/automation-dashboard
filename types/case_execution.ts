@@ -24,4 +24,4 @@ export type CaseExecution = {
     spec_execution_id: string;
 };
 
-export type CaseState = 'pass' | 'fail' | 'pending' | 'skipped';
+export type CaseState = 'pass' | 'fail' | 'known_fail' | 'pending' | 'skipped';

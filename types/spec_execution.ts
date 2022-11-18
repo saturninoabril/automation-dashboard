@@ -7,6 +7,7 @@ export type SpecExecution = {
     tests: number;
     pass: number;
     fail: number;
+    known_fail: number;
     pending: number;
     skipped: number;
     sort_weight: number;
@@ -20,4 +21,10 @@ export type SpecExecution = {
     cases: Array<any>;
 };
 
-export type SpecExecutionGroup = 'passed' | 'failed' | 'started' | 'timed_out' | 'on_queue';
+export type SpecExecutionState =
+    | 'passed'
+    | 'failed'
+    | 'known_fail'
+    | 'started'
+    | 'timed_out'
+    | 'on_queue';

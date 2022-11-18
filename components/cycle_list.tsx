@@ -14,7 +14,7 @@ import Spinner from '@components/spinner';
 import TimeElapse from '@components/time_elapse';
 
 import { Cycle } from '@types';
-import { getCycleSummary, formatDate, formatDuration, isWithinTimeDuration } from '@lib/utils';
+import { formatDate, formatDuration, getCycleSummary, isWithinTimeDuration } from '@lib/utils';
 
 type Props = {
     cycles: Array<Cycle>;

@@ -10,7 +10,10 @@ async function getCaseExecution(req: NextApiRequest, res: NextApiResponse) {
         const caseExecution = await knex('case_executions').where('id', id).select('*');
         return res.status(200).json(caseExecution[0]);
     } catch (e) {
-        return res.status(501).json({ error: true, message: 'Case execution not found.' });
+        return res.status(501).json({
+            error: true,
+            message: 'Case execution not found.',
+        });
     }
 }
 

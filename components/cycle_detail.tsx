@@ -4,27 +4,27 @@ import {
     CalendarIcon,
     CheckCircleIcon,
     ClipboardCheckIcon,
-    ClipboardListIcon,
     ClipboardIcon,
+    ClipboardListIcon,
     ClockIcon,
     DocumentIcon,
     DocumentReportIcon,
     DocumentTextIcon,
-    FastForwardIcon,
     ExclamationCircleIcon,
+    FastForwardIcon,
     XCircleIcon,
 } from '@components/icon';
 import Divider from '@components/divider';
 import Spinner from '@components/spinner';
 import TimeElapse from '@components/time_elapse';
-import { getCycleSummary, formatDate } from '@lib/utils';
-import { CaseState, Cycle, SpecExecutionGroup } from '@types';
+import { formatDate, getCycleSummary } from '@lib/utils';
+import { CaseState, Cycle, SpecExecutionState } from '@types';
 
 type Props = {
     cycle: Cycle;
-    specsGroup?: Record<SpecExecutionGroup, number>;
-    selectedSpecGroup?: SpecExecutionGroup;
-    setSelectedSpecGroup: Dispatch<SetStateAction<SpecExecutionGroup | undefined>>;
+    specsGroup?: Record<SpecExecutionState, number>;
+    selectedSpecGroup?: SpecExecutionState;
+    setSelectedSpecGroup: Dispatch<SetStateAction<SpecExecutionState | undefined>>;
     selectedCaseState?: CaseState;
     setSelectedCaseState: Dispatch<SetStateAction<CaseState | undefined>>;
 };
@@ -47,7 +47,7 @@ function CycleDetail({
         const targetEl = e.target as HTMLDivElement;
         const parentEl = targetEl.parentNode as HTMLDivElement;
         const group = (targetEl.dataset.group ||
-            (parentEl && parentEl.dataset.group)) as SpecExecutionGroup;
+            (parentEl && parentEl.dataset.group)) as SpecExecutionState;
 
         if (group !== selectedSpecGroup) {
             setSelectedSpecGroup(group);
@@ -75,6 +75,7 @@ function CycleDetail({
         state,
         pass,
         fail,
+        known_fail,
         pending,
         skipped,
         specs_registered,
@@ -155,6 +156,21 @@ function CycleDetail({
                             <p>{`${specsGroup.failed} failed`}</p>
                         </div>
                     )}
+                    {specsGroup && specsGroup.known_fail > 0 && (
+                        <div
+                            className={`flex space-x-2 cursor-pointer hover:bg-gray-200 ${
+                                !selectedSpecGroup || selectedSpecGroup === 'known_fail'
+                                    ? 'text-amber-700'
+                                    : 'text-gray-300'
+                            }`}
+                            data-group="known_fail"
+                            onClick={setSelectedGroup}
+                        >
+                            <ClipboardListIcon />
+
+                            <p>{`${specsGroup.known_fail} known`}</p>
+                        </div>
+                    )}
                     {specsGroup && specsGroup.started > 0 && (
                         <div
                             className={`flex space-x-2 cursor-pointer hover:bg-gray-200 ${
@@ -219,18 +235,34 @@ function CycleDetail({
                         <CheckCircleIcon />
                         <p>{`${pass} passed`}</p>
                     </div>
-                    <div
-                        className={`flex space-x-2 cursor-pointer hover:bg-gray-200 ${
-                            !selectedCaseState || selectedCaseState === 'fail'
-                                ? 'text-red-400'
-                                : 'text-gray-300'
-                        }`}
-                        data-state="fail"
-                        onClick={setSelectedState}
-                    >
-                        <XCircleIcon />
-                        <p>{`${fail} failed`}</p>
-                    </div>
+                    {fail > 0 && (
+                        <div
+                            className={`flex space-x-2 cursor-pointer hover:bg-gray-200 ${
+                                !selectedCaseState || selectedCaseState === 'fail'
+                                    ? 'text-red-400'
+                                    : 'text-gray-300'
+                            }`}
+                            data-state="fail"
+                            onClick={setSelectedState}
+                        >
+                            <XCircleIcon />
+                            <p>{`${fail} failed`}</p>
+                        </div>
+                    )}
+                    {known_fail > 0 && (
+                        <div
+                            className={`flex space-x-2 cursor-pointer hover:bg-gray-200 ${
+                                !selectedCaseState || selectedCaseState === 'known_fail'
+                                    ? 'text-amber-700'
+                                    : 'text-gray-300'
+                            }`}
+                            data-state="known_fail"
+                            onClick={setSelectedState}
+                        >
+                            <XCircleIcon />
+                            <p>{`${known_fail} known`}</p>
+                        </div>
+                    )}
                     {skipped > 0 && (
                         <div
                             className={`flex space-x-2 cursor-pointer hover:bg-gray-200 ${

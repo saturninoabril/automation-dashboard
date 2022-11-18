@@ -36,7 +36,10 @@ async function startCycle(req: NextApiRequest, res: NextApiResponse<Partial<Cycl
             specs_registered: files.length,
         });
         if (error) {
-            return res.status(400).json({ error: true, message: `Invalid cycle patch: ${error}` });
+            return res.status(400).json({
+                error: true,
+                message: `Invalid cycle patch: ${error}`,
+            });
         }
 
         const knex = await getKnex();

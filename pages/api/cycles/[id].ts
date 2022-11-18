@@ -3,48 +3,62 @@ import nextConnect from 'next-connect';
 
 import { getKnex } from '@knex';
 import { getPatchableCycleFields } from '@lib/schema/cycle';
+import { getCycleByID, updateCycleBy } from '@lib/store/cycles';
 import auth from '@middleware/auth';
-import type { Cycle } from '@types';
 
-type CycleResponse =
-    | Cycle
-    | {
-          error: boolean;
-          message: string;
-      };
-
-async function getCycle(req: NextApiRequest, res: NextApiResponse<Partial<CycleResponse>>) {
+async function getCycle(req: NextApiRequest, res: NextApiResponse) {
     try {
         const { id } = req.query;
-        const knex = await getKnex();
-        const cycle = (await knex('cycles').where('id', id).select('*')) as unknown as Cycle[];
-        return res.status(200).json(cycle[0]);
+        const { cycle } = await getCycleByID(id?.toString());
+
+        if (!cycle) {
+            return res.status(501).json({ error: true, message: 'Cycle not found.' });
+        }
+
+        return res.status(200).json(cycle);
     } catch (e) {
         return res.status(501).json({ error: true, message: 'Cycle not found.' });
     }
 }
 
-async function updateCycle(req: NextApiRequest, res: NextApiResponse<Partial<CycleResponse>>) {
+async function updateCycle(req: NextApiRequest, res: NextApiResponse) {
     try {
         const { body, query } = req;
-        const { value: cyclePatch, error } = getPatchableCycleFields(body);
-        if (error) {
-            return res.status(400).json({ error: true, message: `Invalid cycle patch: ${error}` });
+        if (!query?.id) {
+            return res.status(400).json({
+                error: true,
+                message: 'Invalid request: No cycle ID found in query parameter.',
+            });
         }
-        const knex = await getKnex();
-        const cycle = await knex.transaction(async (trx: any) => {
-            const updatedCycle = await knex('cycles')
-                .transacting(trx)
-                .where('id', query.id)
-                .update({ ...cyclePatch, update_at: knex.fn.now() })
-                .returning('*');
 
-            return updatedCycle as Cycle;
+        const { value: cyclePatch, error: validationError } = getPatchableCycleFields(body);
+        if (validationError) {
+            return res.status(400).json({
+                error: true,
+                message: `Invalid cycle patch: ${validationError}`,
+            });
+        }
+
+        const id = query.id.toString();
+
+        const knex = await getKnex();
+        const { error: updateError, cycle } = await knex.transaction(async (trx: any) => {
+            return await updateCycleBy(id, cyclePatch, trx);
         });
 
-        return res.status(201).json(cycle[0]);
+        if (updateError) {
+            return res.status(501).json({
+                error: true,
+                message: 'Failed to update the cycle.',
+            });
+        }
+
+        return res.status(201).json(cycle);
     } catch (e) {
-        return res.status(501).json({ error: true, message: 'Failed to update the cycle.' });
+        return res.status(501).json({
+            error: true,
+            message: 'Failed to update the cycle.',
+        });
     }
 }
 

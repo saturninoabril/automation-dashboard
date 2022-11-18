@@ -4,6 +4,7 @@ import nextConnect from 'next-connect';
 import { getKnex } from '@knex';
 import { getPatchableCycleFields } from '@lib/schema/cycle';
 import { getPatchableSpecExecutionFields } from '@lib/schema/spec_execution';
+import { getCycleBy } from '@lib/store/cycles';
 import auth from '@middleware/auth';
 
 async function startSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
@@ -16,18 +17,15 @@ async function startSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
             const knex = await getKnex();
 
             const data = await knex.transaction(async (trx: any) => {
-                let cycle = await knex('cycles')
-                    .transacting(trx)
-                    .where('repo', repo)
-                    .where('branch', branch)
-                    .where('build', build)
-                    .first();
+                const out = await getCycleBy(repo.toString(), branch.toString(), build.toString());
 
-                if (!cycle) {
+                if (out.error) {
                     return { status: 404, message: 'Cycle not found.' };
                 }
 
-                if (!cycle.state) {
+                let cycle = out.cycle;
+
+                if (!cycle?.state) {
                     const cycleDraft = {
                         state: 'started',
                     };
@@ -41,7 +39,7 @@ async function startSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
                     }
                     const updatedCycle = await knex('cycles')
                         .transacting(trx)
-                        .where('id', cycle.id)
+                        .where('id', cycle?.id)
                         .update({
                             ...cyclePatch,
                             start_at: knex.fn.now(),
@@ -53,7 +51,7 @@ async function startSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
 
                 const origExecution = await knex('spec_executions')
                     .transacting(trx)
-                    .where('cycle_id', cycle.id)
+                    .where('cycle_id', cycle?.id)
                     .whereNull('server')
                     .orderBy('sort_weight', 'asc')
                     .orderBy('file', 'asc')
@@ -108,7 +106,12 @@ async function startSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
                     .groupBy('server', 'state');
             }
 
-            return res.status(data.status).json({ message, execution, cycle, summary });
+            return res.status(data.status).json({
+                message,
+                execution,
+                cycle,
+                summary,
+            });
         } catch (e) {
             return res
                 .status(501)
@@ -116,7 +119,9 @@ async function startSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
         }
     }
 
-    return res.status(400).json({ message: 'No repo, branch and build found in request query.' });
+    return res.status(400).json({
+        message: 'No repo, branch and build found in request query.',
+    });
 }
 
 const handler = nextConnect();

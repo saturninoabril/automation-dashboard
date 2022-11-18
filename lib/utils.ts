@@ -3,7 +3,7 @@ import duration from 'dayjs/plugin/duration';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
-import { Cycle } from '@types';
+import { Cycle, KnownIssue, KnownIssueObj, KnownIssueCaseObj } from '@types';
 
 dayjs.extend(duration);
 dayjs.extend(localizedFormat);
@@ -109,4 +109,24 @@ export function getTimeElapse({
     const started = dayjs(startAt);
 
     return dayjs.duration(now.diff(started)).format(format);
+}
+
+export function getCaseTitle(title: string[] = []) {
+    return title ? title.join(' > ') : '';
+}
+
+export function knownIssuesToObject(knownIssues?: KnownIssue[]) {
+    if (!knownIssues?.length) {
+        return {};
+    }
+
+    return knownIssues.reduce<KnownIssueObj>((specs, spec) => {
+        const casesObj = spec.cases.reduce<KnownIssueCaseObj>((ces, ce) => {
+            ces[ce.title] = ce;
+            return ces;
+        }, {});
+
+        specs[spec.spec_file] = { ...spec, casesObj };
+        return specs;
+    }, {});
 }
