@@ -3,7 +3,7 @@ import nextConnect from 'next-connect';
 
 import { getCycleIDsByBranchAndBuildLike } from '@lib/store/cycles';
 import { getSpecsWithCases } from '@lib/store/specs';
-import { getCaseTitle, knownIssuesToObject } from '@lib/utils';
+import { getCaseTitle, knownIssuesToObject, defaultKnownIssueType } from '@lib/server_utils';
 import type { KnownIssue } from '@types';
 
 type SpecsWithRecentRun = {
@@ -186,7 +186,7 @@ async function getRawUnstableSpecs(cycleIDs: string[], buildSuffix: string) {
                         knownIssuesObj[unstableRawSpec.spec_file].casesObj[ce.title] || {
                             ...ce,
                             is_known: false,
-                            type: 'require_verification',
+                            type: defaultKnownIssueType,
                         }
                     );
                 });
@@ -195,7 +195,7 @@ async function getRawUnstableSpecs(cycleIDs: string[], buildSuffix: string) {
             }
 
             const newCases = unstableRawSpec.cases.map((ce) => {
-                return { ...ce, is_known: false, type: 'require_verification' };
+                return { ...ce, is_known: false, type: defaultKnownIssueType };
             });
 
             return { ...unstableRawSpec, cases: newCases };

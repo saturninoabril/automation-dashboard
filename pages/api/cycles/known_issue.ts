@@ -2,16 +2,21 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
 import { getPatchableCycleFields } from '@lib/schema/cycle';
-import { getCycleByID, getCycleBy, updateCycleBy } from '@lib/store/cycles';
+import { getCycleByID, getCycleByLike, updateCycleBy } from '@lib/store/cycles';
 import { getSpecsWithCases } from '@lib/store/specs';
 import { saveKnownIssue } from '@lib/store/known_issue';
-import { getCaseTitle, knownIssuesToObject } from '@lib/utils';
+import {
+    defaultBuildSuffix,
+    getCaseTitle,
+    knownIssuesToObject,
+    parseBuild,
+} from '@lib/server_utils';
 import auth from '@middleware/auth';
 import type { KnownIssue } from '@types';
 
 async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
     const {
-        query: { repo, branch, build, cycle_id: cycleID, build_suffix: buildSuffix },
+        query: { build, cycle_id: cycleID },
     } = req;
 
     let cycle;
@@ -27,9 +32,10 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
         cycle = out.cycle;
     }
 
-    if (repo && branch && build) {
+    let buildSuffix = defaultBuildSuffix;
+    if (build) {
         // get cycle by repo, branch and build
-        const out = await getCycleBy(repo.toString(), branch.toString(), build.toString());
+        const out = await getCycleByLike({ build: build.toString() });
         if (out.error) {
             return res.status(501).json({
                 errorMessage: out.error,
@@ -37,6 +43,8 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
         }
 
         cycle = out.cycle;
+
+        ({ buildSuffix } = parseBuild(build.toString()));
     }
 
     if (!cycle?.id) {

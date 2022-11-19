@@ -14,7 +14,12 @@ import Spinner from '@components/spinner';
 import TimeElapse from '@components/time_elapse';
 
 import { Cycle } from '@types';
-import { formatDate, formatDuration, getCycleSummary, isWithinTimeDuration } from '@lib/utils';
+import {
+    formatDate,
+    formatDuration,
+    getCycleSummary,
+    isWithinTimeDuration,
+} from '@lib/client_utils';
 
 type Props = {
     cycles: Array<Cycle>;
@@ -33,6 +38,7 @@ function CycleList({ cycles }: Props) {
                     specs_registered,
                     pass,
                     fail,
+                    known_fail,
                     pending,
                     skipped,
                     start_at: startAt,
@@ -110,6 +116,12 @@ function CycleList({ cycles }: Props) {
                                 {fail ? (
                                     <div className="ml-1 mr-1 lg:ml-2 lg:mr-2 flex space-x-1 items-center text-red-400">
                                         <div>{fail}</div>
+                                        <XCircleIcon />
+                                    </div>
+                                ) : null}
+                                {known_fail ? (
+                                    <div className="ml-1 mr-1 lg:ml-2 lg:mr-2 flex space-x-1 items-center text-amber-700">
+                                        <div>{known_fail}</div>
                                         <XCircleIcon />
                                     </div>
                                 ) : null}

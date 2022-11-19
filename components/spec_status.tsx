@@ -3,7 +3,7 @@ import React from 'react';
 import { ClipboardIcon, ClockIcon } from '@components/icon';
 import Spinner from '@components/spinner';
 import TimeElapse from '@components/time_elapse';
-import { isWithinTimeDuration } from '@lib/utils';
+import { isWithinTimeDuration } from '@lib/client_utils';
 import { SpecExecution } from '@types';
 
 type Props = {

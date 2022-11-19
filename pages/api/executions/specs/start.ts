@@ -17,7 +17,11 @@ async function startSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
             const knex = await getKnex();
 
             const data = await knex.transaction(async (trx: any) => {
-                const out = await getCycleBy(repo.toString(), branch.toString(), build.toString());
+                const out = await getCycleBy({
+                    repo: repo.toString(),
+                    branch: branch.toString(),
+                    build: build.toString(),
+                });
 
                 if (out.error) {
                     return { status: 404, message: 'Cycle not found.' };
