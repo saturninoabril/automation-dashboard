@@ -89,7 +89,7 @@ async function startCycle(req: NextApiRequest, res: NextApiResponse<Partial<Cycl
 
             // save known issue to DB
             if (knownIssues?.length) {
-                await saveKnownIssue(cycle.id, knownIssues, trx);
+                await saveKnownIssue(cycle[0].id, knownIssues, trx);
             }
 
             return { cycle, executions };
