@@ -25,7 +25,9 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
         const out = await getCycleByID(cycleID.toString());
         if (out.error) {
             return res.status(501).json({
-                errorMessage: out.error,
+                all_passed: false,
+                error: true,
+                message: out.error,
             });
         }
 
@@ -38,7 +40,9 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
         const out = await getCycleByLike({ build: build.toString() });
         if (out.error) {
             return res.status(501).json({
-                errorMessage: out.error,
+                all_passed: false,
+                error: true,
+                message: out.error,
             });
         }
 
@@ -49,7 +53,9 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
 
     if (!cycle?.id) {
         return res.status(400).json({
-            errorMessage: 'No cycle found.',
+            all_passed: false,
+            error: true,
+            message: 'No cycle found.',
         });
     }
 
@@ -66,7 +72,9 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
         const { error } = await saveKnownIssue(cycle.id, knownIssues);
         if (error) {
             return res.status(400).json({
-                errorMessage: 'Failed to save known issue',
+                all_passed: false,
+                error: true,
+                message: 'Failed to save known issue',
             });
         }
     }
@@ -78,7 +86,9 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
     const out = await getSpecsWithCases(cycle.id);
     if (out?.error || !out?.specs) {
         return res.status(400).json({
-            errorMessage: `No specs found for cycle id: "${cycle.id}"`,
+            all_passed: false,
+            error: true,
+            message: `No specs found for cycle id: "${cycle.id}"`,
         });
     }
 
@@ -149,6 +159,7 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
     const { value: cyclePatch, error: validationError } = getPatchableCycleFields(patch);
     if (validationError) {
         return res.status(400).json({
+            all_passed: false,
             error: true,
             message: `Invalid cycle patch: ${validationError}`,
         });
@@ -158,12 +169,14 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
     const { cycle: updatedCycle, error: patchError } = await updateCycleBy(cycle.id, cyclePatch);
     if (patchError) {
         return res.status(400).json({
+            all_passed: false,
             error: true,
             message: `Invalid cycle patch: ${patchError}`,
         });
     }
 
     return res.status(200).json({
+        all_passed: pass > 0 && fail === 0 && pending === 0 && skipped === 0,
         cycle: updatedCycle,
     });
 }
