@@ -4,8 +4,10 @@ import nextConnect from 'next-connect';
 import { getKnex } from '@knex';
 import cycleSchema from '@lib/schema/cycle';
 import SpecExecutionSchema from '@lib/schema/spec_execution';
+import { saveKnownIssue } from '@lib/store/known_issue';
 import auth from '@middleware/auth';
-import type { Cycle } from '@types';
+import type { Cycle, KnownIssue } from '@types';
+import { defaultBuildSuffix, parseBuild } from '@lib/server_utils';
 
 type CyclesResponse = {
     cycles: Cycle[];
@@ -74,6 +76,20 @@ async function startCycle(req: NextApiRequest, res: NextApiResponse<Partial<Cycl
                     .batchInsert('spec_executions', newExecutions, chunkSize)
                     .transacting(trx)
                     .returning('*');
+            }
+
+            // get known issue by build_suffix
+            const buildSuffix = parseBuild(build.toString()).buildSuffix || defaultBuildSuffix;
+            let knownIssues: KnownIssue[] = [];
+            try {
+                knownIssues = require(`../../../data/known_issue/${buildSuffix}.json`);
+            } catch (error) {
+                // ignore error and use default empty array
+            }
+
+            // save known issue to DB
+            if (knownIssues?.length) {
+                await saveKnownIssue(cycle.id, knownIssues, trx);
             }
 
             return { cycle, executions };

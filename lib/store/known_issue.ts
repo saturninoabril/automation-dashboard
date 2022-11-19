@@ -19,12 +19,18 @@ export async function getKnownIssueByCycleID(cycleID: string) {
     }
 }
 
-export async function saveKnownIssue(cycleID: string, data: KnownIssue[]) {
+export async function saveKnownIssue(cycleID: string, data: KnownIssue[], trx?: any) {
     try {
         const hash = crypto.createHash('sha256').update(JSON.stringify(data)).digest('hex');
 
         const knex = await getKnex();
-        const savedKnownIssue = (await knex('known_issues')
+        const queryBuilder = knex('known_issues');
+
+        if (trx) {
+            queryBuilder.transacting(trx);
+        }
+
+        const savedKnownIssue = (await queryBuilder
             .insert({
                 hash,
                 data: JSON.stringify(data),
