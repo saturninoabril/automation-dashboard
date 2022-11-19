@@ -12,11 +12,11 @@ async function getCycle(req: NextApiRequest, res: NextApiResponse) {
         if (id) {
             ({ cycle } = await getCycleByID(id.toString()));
         } else if (repo || branch || build) {
-            ({ cycle } = await getCycleByLike(
-                repo?.toString(),
-                branch?.toString(),
-                build?.toString()
-            ));
+            ({ cycle } = await getCycleByLike({
+                repo: repo?.toString(),
+                branch: branch?.toString(),
+                build: build?.toString(),
+            }));
         } else {
             res.status(400).json({
                 error: true,

@@ -1,6 +1,12 @@
 import { getKnex } from '@knex';
 import type { Cycle } from '@types';
 
+type CycleByParams = {
+    repo: string;
+    branch: string;
+    build: string;
+};
+
 export async function getCycleByID(id?: string) {
     if (!id) {
         return { error: 'Require cycle ID', cycle: null };
@@ -18,19 +24,19 @@ export async function getCycleByID(id?: string) {
     }
 }
 
-export async function getCycleByLike(repo?: string, branch?: string, build?: string) {
+export async function getCycleByLike(params: Partial<CycleByParams> = {}) {
     try {
         const knex = await getKnex();
         const buildQuery = knex('cycles');
 
-        if (repo) {
-            buildQuery.where('repo', repo);
+        if (params.repo) {
+            buildQuery.where('repo', params.repo);
         }
-        if (branch) {
-            buildQuery.where('branch', branch);
+        if (params.branch) {
+            buildQuery.where('branch', params.branch);
         }
-        if (build) {
-            buildQuery.whereLike('build', `%${build}%`);
+        if (params.build) {
+            buildQuery.whereLike('build', `%${params.build}%`);
         }
         const cycle = (await buildQuery.orderBy('create_at', 'desc').first()) as Cycle;
 
@@ -42,7 +48,9 @@ export async function getCycleByLike(repo?: string, branch?: string, build?: str
     }
 }
 
-export async function getCycleBy(repo: string, branch: string, build: string) {
+export async function getCycleBy(params: CycleByParams) {
+    const { repo, branch, build } = params;
+
     try {
         const knex = await getKnex();
         const cycle = (await knex('cycles')

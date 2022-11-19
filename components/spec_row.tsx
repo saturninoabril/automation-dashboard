@@ -14,7 +14,7 @@ import {
 import Codeblock from '@components/code_block';
 import SpecStatus from '@components/spec_status';
 import { CaseExecution, SpecExecution } from '@types';
-import { formatDuration } from '@lib/utils';
+import { formatDuration } from '@lib/client_utils';
 
 import fetcher from '@lib/fetcher';
 
@@ -237,7 +237,10 @@ function CaseSummaryView({
     if (!case_execution?.id) {
         return <span />;
     }
-    const { id, duration, state, title } = case_execution;
+    const { id, duration, state, title, known_fail_type, known_fail_ticket } = case_execution;
+
+    // prettier-ignore
+    const knownPrefix = `(known${known_fail_type ? ' ' + known_fail_type : ''}${known_fail_ticket ? ', ' + known_fail_ticket : ''})`
 
     return (
         <tr
@@ -268,6 +271,7 @@ function CaseSummaryView({
             </td>
             <td className="whitespace-no-wrap text-blue-500 leading-5">
                 <span className="flex py-1 w-full block truncate">
+                    {state === 'known_fail' && <span className="text-sm pr-1">{knownPrefix}</span>}
                     <span className="text-sm">{`* ${title[title.length - 1]}`}</span>
                 </span>
             </td>

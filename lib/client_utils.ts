@@ -3,7 +3,7 @@ import duration from 'dayjs/plugin/duration';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
-import { Cycle, KnownIssue, KnownIssueObj, KnownIssueCaseObj } from '@types';
+import { Cycle, CaseState, SpecExecution, SpecExecutionState } from '@types';
 
 dayjs.extend(duration);
 dayjs.extend(localizedFormat);
@@ -111,22 +111,61 @@ export function getTimeElapse({
     return dayjs.duration(now.diff(started)).format(format);
 }
 
-export function getCaseTitle(title: string[] = []) {
-    return title ? title.join(' > ') : '';
+function getSpecGroup(spec: SpecExecution) {
+    const { update_at: updateAt } = spec;
+
+    switch (spec.state) {
+        case 'done': {
+            const { pass, fail, pending, skipped, known_fail } = spec;
+            const total = pass + fail + pending + skipped + known_fail;
+            if (total === pass) {
+                return 'passed';
+            } else if (fail === 0 && known_fail > 0) {
+                return 'known_fail';
+            } else {
+                return 'failed';
+            }
+        }
+        case 'started': {
+            if (!isWithinTimeDuration(updateAt, { m: 10 })) {
+                return 'timed_out';
+            }
+            return 'started';
+        }
+        default:
+            return 'on_queue';
+    }
 }
 
-export function knownIssuesToObject(knownIssues?: KnownIssue[]) {
-    if (!knownIssues?.length) {
-        return {};
+export function getSpecsByGroup(specsExecution: SpecExecution[] = [], group: SpecExecutionState) {
+    if (!group) {
+        return null;
     }
 
-    return knownIssues.reduce<KnownIssueObj>((specs, spec) => {
-        const casesObj = spec.cases.reduce<KnownIssueCaseObj>((ces, ce) => {
-            ces[ce.title] = ce;
-            return ces;
-        }, {});
+    return specsExecution.filter((spec) => getSpecGroup(spec) === group);
+}
 
-        specs[spec.spec_file] = { ...spec, casesObj };
-        return specs;
-    }, {});
+export function getSpecsByState(specsExecution: SpecExecution[] = [], state: CaseState) {
+    if (!state) {
+        return null;
+    }
+
+    return specsExecution.filter((spec) => Boolean(spec[state]));
+}
+
+export function getSpecsGroupByCount(specsExecution: SpecExecution[] = []) {
+    return specsExecution.reduce(
+        // prettier-ignore
+        (acc: Record<SpecExecutionState, number>, spec) => { // eslint-disable-line
+      const group = getSpecGroup(spec);
+      if (acc[group]) {
+        acc[group] += 1;
+      } else {
+        acc[group] = 1;
+      }
+
+      return acc;
+    },
+        { passed: 0, failed: 0, known_fail: 0, started: 0, timed_out: 0, on_queue: 0 }
+    );
 }

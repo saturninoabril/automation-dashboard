@@ -5,7 +5,7 @@ import nextConnect from 'next-connect';
 import { params } from '@lib/params';
 import { getSpecsWithCases } from '@lib/store/specs';
 import { getKnownIssueByCycleID } from '@lib/store/known_issue';
-import { getCaseTitle, knownIssuesToObject } from '@lib/utils';
+import { getCaseTitle, knownIssuesToObject } from '@lib/server_utils';
 
 async function getSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
     const { query } = req;
@@ -59,8 +59,16 @@ async function getSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
                 case 'failed':
                     // prettier-ignore
                     if (knownIssuesObj[spec.file]?.casesObj[getCaseTitle(caseExecution.title)]?.is_known) {
+                        const knownIssue = knownIssuesObj[spec.file].casesObj[getCaseTitle(caseExecution.title)];
                         spec.known_fail += 1;
                         spec.cases[j].state = 'known_fail';
+
+                        if (knownIssue.type) {
+                            spec.cases[j].known_fail_type = knownIssue.type;
+                        }
+                        if (knownIssue.ticket) {
+                            spec.cases[j].known_fail_ticket = knownIssue.ticket;
+                        }
                     } else {
                         spec.fail += 1;
                     }

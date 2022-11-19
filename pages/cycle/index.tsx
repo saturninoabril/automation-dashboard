@@ -8,7 +8,12 @@ import Header from '@components/header';
 import CycleDetail from '@components/cycle_detail';
 import SpecList from '@components/spec_list';
 import fetcher from '@lib/fetcher';
-import { isWithinTimeDuration } from '@lib/utils';
+import {
+    getSpecsGroupByCount,
+    getSpecsByGroup,
+    getSpecsByState,
+    isWithinTimeDuration,
+} from '@lib/client_utils';
 import { CaseState, SpecExecution, SpecExecutionState } from '@types';
 
 function CyclePage(): React.ReactElement {
@@ -105,65 +110,6 @@ function CyclePage(): React.ReactElement {
                 </div>
             </div>
         </>
-    );
-}
-
-function getSpecGroup(spec: SpecExecution) {
-    const { update_at: updateAt } = spec;
-
-    switch (spec.state) {
-        case 'done': {
-            const { pass, fail, pending, skipped, known_fail } = spec;
-            const total = pass + fail + pending + skipped + known_fail;
-            if (total === pass) {
-                return 'passed';
-            } else if (total === known_fail) {
-                return 'known_fail';
-            } else {
-                return 'failed';
-            }
-        }
-        case 'started': {
-            if (!isWithinTimeDuration(updateAt, { m: 10 })) {
-                return 'timed_out';
-            }
-            return 'started';
-        }
-        default:
-            return 'on_queue';
-    }
-}
-
-function getSpecsByGroup(specsExecution: SpecExecution[] = [], group: SpecExecutionState) {
-    if (!group) {
-        return null;
-    }
-
-    return specsExecution.filter((spec) => getSpecGroup(spec) === group);
-}
-
-function getSpecsByState(specsExecution: SpecExecution[] = [], state: CaseState) {
-    if (!state) {
-        return null;
-    }
-
-    return specsExecution.filter((spec) => Boolean(spec[state]));
-}
-
-function getSpecsGroupByCount(specsExecution: SpecExecution[] = []) {
-    return specsExecution.reduce(
-        // prettier-ignore
-        (acc: Record<SpecExecutionState, number>, spec) => { // eslint-disable-line
-      const group = getSpecGroup(spec);
-      if (acc[group]) {
-        acc[group] += 1;
-      } else {
-        acc[group] = 1;
-      }
-
-      return acc;
-    },
-        { passed: 0, failed: 0, known_fail: 0, started: 0, timed_out: 0, on_queue: 0 }
     );
 }
 

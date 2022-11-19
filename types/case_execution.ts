@@ -22,6 +22,8 @@ export type CaseExecution = {
     update_at: string;
     cycle_id: string;
     spec_execution_id: string;
+    known_fail_type: string;
+    known_fail_ticket: string;
 };
 
 export type CaseState = 'pass' | 'fail' | 'known_fail' | 'pending' | 'skipped';
