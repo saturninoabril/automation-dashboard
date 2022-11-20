@@ -6,10 +6,10 @@ import Cycle from '@components/cycle';
 function CyclePage(): React.ReactElement {
     const {
         asPath,
-        query: { id: cycleId },
+        query: { build },
     } = useRouter();
 
-    return <Cycle asPath={asPath} cycleId={cycleId?.toString()} />;
+    return <Cycle asPath={asPath} build={build?.toString()} />;
 }
 
 export default CyclePage;
