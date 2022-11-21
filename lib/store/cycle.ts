@@ -1,4 +1,5 @@
 import { getKnex } from '@knex';
+import { getPatchableCycleFields } from '@lib/schema/cycle';
 import type { Cycle } from '@types';
 
 type CycleByParams = {
@@ -94,22 +95,41 @@ export async function getCycleIDsByBranchAndBuildLike(
     }
 }
 
-export async function updateCycleBy(cycleID: string, patch: Partial<Cycle>, trx?: any) {
+export async function updateCycle(
+    patch: Partial<Cycle>,
+    trx?: any
+): Promise<{ error: string | null; cycle: Cycle | null }> {
+    if (!patch || !patch.id) {
+        return { error: 'updateCycle: Requires cycle ID', cycle: null };
+    }
+
+    const { value: cyclePatch, error } = getPatchableCycleFields(patch);
+    if (error) {
+        return {
+            error: `Invalid cycle patch: ${error}`,
+            cycle: null,
+        };
+    }
+
     try {
         const knex = await getKnex();
-        const queryBuilder = knex('cycles').where('id', cycleID);
+        const queryBuilder = knex('cycles').where('id', patch.id);
 
         if (trx) {
             queryBuilder.transacting(trx);
         }
 
-        const cycle = (await queryBuilder
-            .update({ ...patch, update_at: knex.fn.now() })
-            .returning('*')) as Cycle[];
+        if (patch.state === 'done') {
+            cyclePatch.end_at = knex.fn.now();
+        }
 
-        return { error: null, cycle: cycle[0] };
+        const cycles = await queryBuilder
+            .update({ ...cyclePatch, update_at: knex.fn.now() })
+            .returning('*');
+
+        return { error: null, cycle: cycles[0] };
     } catch (error) {
-        const message = `Failed to update cycle with id: "${cycleID}"`;
+        const message = `Failed to update cycle with id: "${patch.id}"`;
         console.log(message, error);
         return { error: message, cycle: null };
     }

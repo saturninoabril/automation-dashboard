@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { getCycleByID, getCycleByLike } from '@lib/store/cycles';
+import { getCycleByID, getCycleByLike } from '@lib/store/cycle';
 import type { Cycle } from '@types';
 
 async function getCycle(req: NextApiRequest, res: NextApiResponse) {

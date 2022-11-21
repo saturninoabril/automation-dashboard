@@ -1,58 +1,31 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { getKnex } from '@knex';
-import CaseExecutionSchema from '@lib/schema/case_execution';
+import { getCaseExecutionsBy, saveCaseExecution } from '@lib/store/case_execution';
 import auth from '@middleware/auth';
+import { CaseExecution } from '@types';
 
 async function getCaseExecutions(req: NextApiRequest, res: NextApiResponse) {
     const { query } = req;
+    if (!query.cycle_id) {
+        return res.status(400).json({
+            errorMessage: 'Invalid request: Requires cycle ID.',
+        });
+    }
 
     try {
-        const knex = await getKnex();
-
-        const fields = [
-            'ce.id',
-            'ce.title',
-            'ce.full_title',
-            'ce.key',
-            'ce.key_step',
-            'ce.state',
-            'ce.duration',
-            'ce.code',
-            'ce.error_display',
-            'ce.error_frame',
-            'ce.screenshot',
-            'ce.create_at',
-            'ce.update_at',
-            'ce.spec_execution_id',
-            'se.file',
-            'se.server',
-            'ce.cycle_id',
-            'c.branch',
-            'c.build',
-            'c.repo',
-        ];
-
-        const queryBuilder = knex('case_executions as ce')
-            .join('cycles as c', 'c.id', '=', 'ce.cycle_id')
-            .join('spec_executions as se', 'se.id', '=', 'ce.spec_execution_id');
-
-        if (query.cycle_id) {
-            queryBuilder.where('ce.cycle_id', query.cycle_id);
+        const { error, caseExecutions } = await getCaseExecutionsBy(
+            query.cycle_id.toString(),
+            query.spec_id?.toString()
+        );
+        if (error) {
+            return res.status(501).json({
+                error: true,
+                message: error,
+            });
         }
 
-        if (query.spec_id) {
-            queryBuilder.where('ce.spec_execution_id', query.spec_id);
-        }
-
-        if (query.state) {
-            queryBuilder.where('ce.state', query.state);
-        }
-
-        const executions = await queryBuilder.select(...fields);
-
-        return res.status(200).json(executions);
+        return res.status(200).json(caseExecutions);
     } catch (e) {
         let errorMessage = 'No case found';
         if (query.cycle_id && query.spec_id) {
@@ -65,38 +38,41 @@ async function getCaseExecutions(req: NextApiRequest, res: NextApiResponse) {
     }
 }
 
-async function saveCaseExecution(req: NextApiRequest, res: NextApiResponse) {
+async function postCaseExecution(req: NextApiRequest, res: NextApiResponse) {
     const { query } = req;
+    const body = req.body as CaseExecution;
 
-    if (query.cycle_id && query.spec_id) {
-        const { body } = req;
-
+    if (query.cycle_id && query.spec_id && body) {
         try {
-            const caseDraft = {
-                cycle_id: query.cycle_id,
-                spec_execution_id: query.spec_id,
-                title: body.title,
-                full_title: body.full_title,
-                key: body.key,
-                key_step: body.key_step,
-                state: body.state,
-                duration: body.duration,
-                pass: body.pass,
-                fail: body.fail,
-                pending: body.pending,
-                skipped: body.skipped,
+            const {
+                title,
+                full_title,
+                key,
+                key_step,
+                state,
+                duration,
+                code,
+                error_display,
+                error_frame,
+                screenshot,
+                test_start_at,
+            } = body;
+            const caseDraft: Partial<CaseExecution> = {
+                title,
+                full_title,
+                key,
+                key_step,
+                state,
+                duration,
+                code,
+                error_display,
+                error_frame,
+                screenshot,
+                test_start_at,
+                cycle_id: query.cycle_id.toString(),
+                spec_execution_id: query.spec_id.toString(),
             };
-            const { value, error } = CaseExecutionSchema.validate(caseDraft);
-            if (error) {
-                return {
-                    status: 400,
-                    error: true,
-                    message: `Invalid case execution: ${error}`,
-                };
-            }
-
-            const knex = await getKnex();
-            const execution = await knex('case_executions').insert(value).returning('*');
+            const execution = await saveCaseExecution(caseDraft);
 
             return res.status(201).json(execution);
         } catch (e) {
@@ -115,6 +91,6 @@ async function saveCaseExecution(req: NextApiRequest, res: NextApiResponse) {
 
 const handler = nextConnect();
 handler.get(getCaseExecutions);
-handler.use(auth).post(saveCaseExecution);
+handler.use(auth).post(postCaseExecution);
 
 export default handler;

@@ -3,8 +3,11 @@ import nextConnect from 'next-connect';
 
 import { getKnex } from '@knex';
 import { getPatchableCycleFields } from '@lib/schema/cycle';
-import { getPatchableSpecExecutionFields } from '@lib/schema/spec_execution';
-import CaseExecutionSchema from '@lib/schema/case_execution';
+import { recomputeCycleTestValues } from '@lib/server_utils';
+import { getCycleByID, updateCycle } from '@lib/store/cycle';
+import { getKnownIssueByCycleID } from '@lib/store/known_issue';
+import { saveCaseExecution } from '@lib/store/case_execution';
+import { getDoneSpecs, updateSpecsAsDone } from '@lib/store/spec_execution';
 import auth from '@middleware/auth';
 import { CaseExecution, SpecExecution } from '@types';
 
@@ -19,7 +22,8 @@ async function endSpecExecution(req: NextApiRequest, res: NextApiResponse) {
             const knex = await getKnex();
 
             const started = await knex.transaction(async (trx: any) => {
-                const specDraft = {
+                const specPatch = {
+                    id: query.id?.toString(),
                     state: 'done', // explicitly set as done
                     pass: spec.pass,
                     fail: spec.fail,
@@ -29,65 +33,87 @@ async function endSpecExecution(req: NextApiRequest, res: NextApiResponse) {
                     test_start_at: spec.test_start_at,
                     test_end_at: spec.test_end_at,
                 };
-                const { value: specPatch, error } = getPatchableSpecExecutionFields(specDraft);
-                if (error) {
+
+                // update spec as done
+                const { error: specError, spec: updatedSpecExecution } = await updateSpecsAsDone(
+                    specPatch
+                );
+                if (specError || !updatedSpecExecution) {
                     return {
                         status: 400,
                         error: true,
-                        message: `Invalid spec execution patch: ${error}`,
+                        message: `Invalid spec patch: ${specError}`,
                     };
                 }
 
-                const updatedExecution = await knex('spec_executions')
-                    .transacting(trx)
-                    .where('id', query.id)
-                    .where('file', spec.file)
-                    .update({
-                        ...specPatch,
-                        end_at: knex.fn.now(),
-                        update_at: knex.fn.now(),
-                    })
-                    .returning('*');
-
-                const origCycle = await knex('cycles')
-                    .where('id', updatedExecution[0].cycle_id)
-                    .select('*');
-
-                const specsDone = origCycle[0].specs_done + 1;
-                const isDone = origCycle[0].specs_registered === specsDone;
-
-                const cycleDraft = {
-                    state: isDone ? 'done' : 'started',
-                    specs_done: specsDone,
-                    pass: origCycle[0].pass + spec.pass,
-                    fail: origCycle[0].fail + spec.fail,
-                    pending: origCycle[0].pending + spec.pending,
-                    skipped: origCycle[0].skipped + spec.skipped,
-                    duration: origCycle[0].duration + spec.duration,
-                };
-                const { value: cyclePatch, error: cycleError } =
-                    getPatchableCycleFields(cycleDraft);
-                if (cycleError) {
+                // get cycle by ID
+                const { error: cycleError, cycle: origCycle } = await getCycleByID(
+                    updatedSpecExecution.cycle_id
+                );
+                if (cycleError || !origCycle) {
                     return {
                         status: 400,
                         error: true,
-                        message: `Invalid cycle patch: ${cycleError}`,
+                        message: cycleError || 'Error getting a cycle',
                     };
                 }
 
-                const updatedCycle = await knex('cycles')
-                    .transacting(trx)
-                    .where('id', updatedExecution[0].cycle_id)
-                    .update({
-                        ...cyclePatch,
-                        end_at: isDone ? knex.fn.now() : null,
-                        update_at: knex.fn.now(),
-                    })
-                    .returning('*');
+                // get specs that were done testing
+                const { error: doneSpecsError, specs: doneSpecs } = await getDoneSpecs(
+                    origCycle.id
+                );
+                if (doneSpecsError || !doneSpecs) {
+                    return {
+                        status: 400,
+                        error: true,
+                        message: doneSpecsError || 'Error getting specs',
+                    };
+                }
 
-                const caseExecutions: CaseExecution[] = [];
+                // get known issue of the test cycle
+                const { error: knownIssueError, knownIssue } = await getKnownIssueByCycleID(
+                    origCycle.id
+                );
+                if (knownIssueError) {
+                    return {
+                        status: 400,
+                        error: true,
+                        message: knownIssueError,
+                    };
+                }
+
+                // recompute cycle test values
+                const recomputedCycle = recomputeCycleTestValues(
+                    origCycle,
+                    doneSpecs,
+                    knownIssue?.data
+                );
+                const { error: cyclePatchError, value: cyclePatch } =
+                    getPatchableCycleFields(recomputedCycle);
+                if (cyclePatchError) {
+                    return {
+                        status: 400,
+                        error: true,
+                        message: cyclePatchError,
+                    };
+                }
+
+                // update the cycle with recomputed values
+                const { error: updateCycleError, cycle: updatedCycle } = await updateCycle(
+                    cyclePatch,
+                    trx
+                );
+                if (updateCycleError || !updatedCycle) {
+                    return {
+                        status: 400,
+                        error: true,
+                        message: updateCycleError,
+                    };
+                }
+
+                const caseExecutions: Partial<CaseExecution>[] = [];
                 tests.forEach((t) => {
-                    const caseDraft = {
+                    const caseDraft: Partial<CaseExecution> = {
                         title: t.title,
                         full_title: t.full_title,
                         key: t.key,
@@ -99,34 +125,28 @@ async function endSpecExecution(req: NextApiRequest, res: NextApiResponse) {
                         error_frame: t.error_frame,
                         screenshot: t.screenshot,
                         test_start_at: t.test_start_at,
-                        cycle_id: updatedCycle[0].id,
-                        spec_execution_id: updatedExecution[0].id,
+                        cycle_id: updatedCycle.id,
+                        spec_execution_id: updatedSpecExecution.id,
                     };
-                    const { value, error } = CaseExecutionSchema.validate(caseDraft);
-                    if (error) {
-                        return {
-                            status: 400,
-                            error: true,
-                            message: `Invalid case execution: ${error}`,
-                        };
-                    }
 
-                    caseExecutions.push({ ...value, update_at: knex.fn.now() });
+                    caseExecutions.push(caseDraft);
                 });
 
+                // save each case execution
                 const cases = await Promise.all(
                     caseExecutions.map((ce) => {
-                        return knex('case_executions').transacting(trx).insert(ce).returning('*');
+                        return saveCaseExecution(ce);
                     })
                 );
 
                 return {
                     status: 201,
-                    cycle: updatedCycle[0],
-                    spec: updatedExecution[0],
+                    cycle: updatedCycle,
+                    spec: updatedSpecExecution,
                     cases,
                 };
             });
+
             return res.status(started.status).json(started);
         } catch (e) {
             return res.status(501).json({ error: true });

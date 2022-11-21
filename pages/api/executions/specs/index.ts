@@ -3,7 +3,7 @@ import Joi from 'joi';
 import nextConnect from 'next-connect';
 
 import { params } from '@lib/params';
-import { getSpecsWithCases } from '@lib/store/specs';
+import { getSpecsWithCases } from '@lib/store/spec_execution';
 import { getKnownIssueByCycleID } from '@lib/store/known_issue';
 import { getCaseTitle, knownIssuesToObject } from '@lib/server_utils';
 

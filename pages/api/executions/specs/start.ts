@@ -4,7 +4,7 @@ import nextConnect from 'next-connect';
 import { getKnex } from '@knex';
 import { getPatchableCycleFields } from '@lib/schema/cycle';
 import { getPatchableSpecExecutionFields } from '@lib/schema/spec_execution';
-import { getCycleBy } from '@lib/store/cycles';
+import { getCycleBy } from '@lib/store/cycle';
 import auth from '@middleware/auth';
 
 async function startSpecExecutions(req: NextApiRequest, res: NextApiResponse) {

@@ -3,7 +3,7 @@ import nextConnect from 'next-connect';
 
 import { getKnex } from '@knex';
 import { getPatchableCycleFields } from '@lib/schema/cycle';
-import { getCycleByID, updateCycleBy } from '@lib/store/cycles';
+import { getCycleByID, updateCycle } from '@lib/store/cycle';
 import auth from '@middleware/auth';
 
 async function getCycle(req: NextApiRequest, res: NextApiResponse) {
@@ -21,7 +21,7 @@ async function getCycle(req: NextApiRequest, res: NextApiResponse) {
     }
 }
 
-async function updateCycle(req: NextApiRequest, res: NextApiResponse) {
+async function putCycle(req: NextApiRequest, res: NextApiResponse) {
     try {
         const { body, query } = req;
         if (!query?.id) {
@@ -43,7 +43,7 @@ async function updateCycle(req: NextApiRequest, res: NextApiResponse) {
 
         const knex = await getKnex();
         const { error: updateError, cycle } = await knex.transaction(async (trx: any) => {
-            return await updateCycleBy(id, cyclePatch, trx);
+            return await updateCycle(cyclePatch, trx);
         });
 
         if (updateError) {
@@ -64,6 +64,6 @@ async function updateCycle(req: NextApiRequest, res: NextApiResponse) {
 
 const handler = nextConnect();
 handler.get(getCycle);
-handler.use(auth).put(updateCycle);
+handler.use(auth).put(putCycle);
 
 export default handler;
