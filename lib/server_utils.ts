@@ -1,4 +1,4 @@
-import { KnownIssue, KnownIssueObj, KnownIssueCaseObj } from '@types';
+import { KnownIssue, KnownIssueObj, KnownIssueCaseObj, Cycle, SpecExecution } from '@types';
 
 export const defaultBuildSuffix = 'onprem-ent';
 export const defaultKnownIssueType = 'require_verification';
@@ -41,4 +41,82 @@ export function parseBuild(build = '') {
     }
 
     return out;
+}
+
+export function recomputeCycleTestValues(
+    cycle: Cycle,
+    specs: SpecExecution[],
+    knownIssues?: KnownIssue[]
+): Partial<Cycle> {
+    // transform as an object to easily workaround with the data
+    const knownIssuesObj = knownIssuesToObject(knownIssues);
+
+    let specsRegistered = 0;
+    let specsDone = 0;
+    let duration = 0;
+    let pass = 0;
+    let fail = 0;
+    let knownFail = 0;
+    let pending = 0;
+    let skipped = 0;
+
+    for (let i = 0; i < specs.length; i++) {
+        const spec = specs[i];
+        specsRegistered += 1;
+        duration += spec.duration;
+
+        if (!spec.cases.length) {
+            continue;
+        }
+
+        specsDone += 1;
+
+        for (let j = 0; j < spec.cases.length; j++) {
+            const caseExecution = spec.cases[j];
+
+            switch (caseExecution.state) {
+                case 'passed':
+                    pass += 1;
+                    break;
+                case 'failed':
+                    // prettier-ignore
+                    if (knownIssuesObj[spec.file]?.casesObj[getCaseTitle(caseExecution.title)]?.is_known) {
+                        knownFail += 1;
+                    } else {
+                        fail += 1;
+                    }
+
+                    break;
+                case 'skipped':
+                    skipped += 1;
+                    break;
+                case 'pending':
+                    pending += 1;
+                    break;
+                default:
+                    console.log(
+                        'recomputeCycleTestValues: caseExecution state not counted',
+                        caseExecution.state
+                    );
+            }
+        }
+    }
+
+    const recomputedCycle: Partial<Cycle> = {
+        specs_registered: specsRegistered,
+        specs_done: specsDone,
+        duration,
+        pass,
+        fail,
+        known_fail: knownFail,
+        pending,
+        skipped,
+    };
+
+    // change to "done" only once
+    if (cycle.state !== 'done' && specsRegistered === specsDone) {
+        recomputedCycle.state === 'done';
+    }
+
+    return cycle;
 }

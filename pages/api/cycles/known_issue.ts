@@ -2,8 +2,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
 import { getPatchableCycleFields } from '@lib/schema/cycle';
-import { getCycleByID, getCycleByLike, updateCycleBy } from '@lib/store/cycles';
-import { getSpecsWithCases } from '@lib/store/specs';
+import { getCycleByID, getCycleByLike, updateCycle } from '@lib/store/cycle';
+import { getSpecsWithCases } from '@lib/store/spec_execution';
 import { saveKnownIssue } from '@lib/store/known_issue';
 import {
     defaultBuildSuffix,
@@ -166,7 +166,7 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
     }
 
     // patch the cycle with recomputed data
-    const { cycle: updatedCycle, error: patchError } = await updateCycleBy(cycle.id, cyclePatch);
+    const { cycle: updatedCycle, error: patchError } = await updateCycle(cyclePatch);
     if (patchError) {
         return res.status(400).json({
             all_passed: false,

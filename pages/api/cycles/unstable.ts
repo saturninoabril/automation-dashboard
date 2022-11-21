@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { getCycleIDsByBranchAndBuildLike } from '@lib/store/cycles';
-import { getSpecsWithCases } from '@lib/store/specs';
+import { getCycleIDsByBranchAndBuildLike } from '@lib/store/cycle';
+import { getSpecsWithCases } from '@lib/store/spec_execution';
 import { getCaseTitle, knownIssuesToObject, defaultKnownIssueType } from '@lib/server_utils';
 import type { KnownIssue } from '@types';
 
