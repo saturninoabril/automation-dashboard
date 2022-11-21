@@ -69,7 +69,7 @@ function CycleList({ cycles }: Props) {
                                             <span>
                                                 {specs_done} / {specs_registered} specs
                                             </span>
-                                            {startAt && totalCases && (
+                                            {startAt && totalCases > 0 && (
                                                 <span className={`text-${color}`}>
                                                     {pass} / {totalCases} cases passed{' '}
                                                     {totalCases

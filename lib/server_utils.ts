@@ -52,7 +52,6 @@ export function recomputeCycleTestValues(
     // transform as an object to easily workaround with the data
     const knownIssuesObj = knownIssuesToObject(knownIssues);
 
-    let specsRegistered = 0;
     let specsDone = 0;
     let duration = 0;
     let pass = 0;
@@ -63,7 +62,6 @@ export function recomputeCycleTestValues(
 
     for (let i = 0; i < specs.length; i++) {
         const spec = specs[i];
-        specsRegistered += 1;
         duration += spec.duration;
 
         if (!spec.cases.length) {
@@ -108,7 +106,6 @@ export function recomputeCycleTestValues(
     }
 
     const recomputedCycle: Partial<Cycle> = {
-        specs_registered: specsRegistered,
         specs_done: specsDone,
         duration,
         pass,
@@ -119,7 +116,7 @@ export function recomputeCycleTestValues(
     };
 
     // change to "done" only once
-    if (cycle.state !== stateDone && specsRegistered === specsDone) {
+    if (cycle.state !== stateDone && cycle.specs_registered === specsDone) {
         recomputedCycle.state = stateDone;
     }
 
