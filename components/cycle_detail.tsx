@@ -38,7 +38,7 @@ function CycleDetail({
     selectedCaseState,
     setSelectedCaseState,
 }: Props): React.ReactElement {
-    if (!cycle) {
+    if (!cycle?.id) {
         return <div />;
     }
 
