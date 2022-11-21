@@ -6,6 +6,7 @@ import { getPatchableCycleFields } from '@lib/schema/cycle';
 import { getPatchableSpecExecutionFields } from '@lib/schema/spec_execution';
 import { getCycleBy } from '@lib/store/cycle';
 import auth from '@middleware/auth';
+import { stateStarted } from '@lib/constant';
 
 async function startSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
     const {
@@ -31,7 +32,7 @@ async function startSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
 
                 if (!cycle?.state) {
                     const cycleDraft = {
-                        state: 'started',
+                        state: stateStarted,
                     };
                     const { value: cyclePatch, error } = getPatchableCycleFields(cycleDraft);
                     if (error) {
@@ -72,7 +73,7 @@ async function startSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
 
                 const specDraft = {
                     server: req.body.server,
-                    state: 'started',
+                    state: stateStarted,
                 };
                 const { value: specPatch, error } = getPatchableSpecExecutionFields(specDraft);
                 if (error) {

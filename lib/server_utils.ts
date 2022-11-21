@@ -1,4 +1,5 @@
 import { KnownIssue, KnownIssueObj, KnownIssueCaseObj, Cycle, SpecExecution } from '@types';
+import { stateDone } from './constant';
 
 export const defaultBuildSuffix = 'onprem-ent';
 export const defaultKnownIssueType = 'require_verification';
@@ -74,6 +75,10 @@ export function recomputeCycleTestValues(
         for (let j = 0; j < spec.cases.length; j++) {
             const caseExecution = spec.cases[j];
 
+            if (!caseExecution.id) {
+                continue;
+            }
+
             switch (caseExecution.state) {
                 case 'passed':
                     pass += 1;
@@ -114,9 +119,9 @@ export function recomputeCycleTestValues(
     };
 
     // change to "done" only once
-    if (cycle.state !== 'done' && specsRegistered === specsDone) {
-        recomputedCycle.state === 'done';
+    if (cycle.state !== stateDone && specsRegistered === specsDone) {
+        recomputedCycle.state = stateDone;
     }
 
-    return cycle;
+    return recomputedCycle;
 }

@@ -13,6 +13,7 @@ import {
 } from '@lib/server_utils';
 import auth from '@middleware/auth';
 import type { KnownIssue } from '@types';
+import { stateDone, stateOnQueue, stateStarted } from '@lib/constant';
 
 async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
     const {
@@ -141,7 +142,8 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
         }
     }
 
-    const state = specsDone === 0 ? 'on_queue' : specsDone === specsRegistered ? 'done' : 'started';
+    const state =
+        specsDone === 0 ? stateOnQueue : specsDone === specsRegistered ? stateDone : stateStarted;
 
     const patch = {
         state,

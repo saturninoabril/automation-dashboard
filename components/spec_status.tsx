@@ -5,6 +5,7 @@ import Spinner from '@components/spinner';
 import TimeElapse from '@components/time_elapse';
 import { isWithinTimeDuration } from '@lib/client_utils';
 import { SpecExecution } from '@types';
+import { stateDone, stateStarted } from '@lib/constant';
 
 type Props = {
     spec: SpecExecution;
@@ -13,7 +14,7 @@ type Props = {
 function SpecStatus({ spec }: Props): React.ReactElement {
     const { duration, state, update_at: updateAt } = spec;
 
-    if (state === 'done') {
+    if (state === stateDone) {
         const threeMinutes = 3 * 60 * 1000;
         return (
             <span
@@ -25,14 +26,14 @@ function SpecStatus({ spec }: Props): React.ReactElement {
                 <TimeElapse
                     start={spec.start_at}
                     lastUpdate={spec.update_at}
-                    isDone={spec.state === 'done'}
+                    isDone={spec.state === stateDone}
                     timeFormat="m:ss"
                 />
             </span>
         );
     }
 
-    if (state === 'started' && !isWithinTimeDuration(updateAt, { m: 10 })) {
+    if (state === stateStarted && !isWithinTimeDuration(updateAt, { m: 10 })) {
         return (
             <span className="text-red-400">
                 <ClipboardIcon />
@@ -40,14 +41,14 @@ function SpecStatus({ spec }: Props): React.ReactElement {
         );
     }
 
-    if (state === 'started') {
+    if (state === stateStarted) {
         return (
             <span className="flex space-x-1">
                 <Spinner />
                 <TimeElapse
                     start={spec.start_at}
                     lastUpdate={spec.update_at}
-                    isDone={spec.state === 'done'}
+                    isDone={spec.state === stateDone}
                     timeFormat="m:ss"
                 />
             </span>

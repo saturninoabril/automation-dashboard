@@ -1,5 +1,6 @@
 import { getKnex } from '@knex';
 import { getPatchableSpecExecutionFields } from '@lib/schema/spec_execution';
+import { stateDone } from '@lib/constant';
 import { SpecExecution } from '@types';
 
 type GetSpecsWithCasesResponse = {
@@ -50,7 +51,9 @@ export async function getSpecsWithCases(
 }
 
 export async function getDoneSpecs(
-    cycleId: string
+    cycleId: string,
+    limit = 1000,
+    offset = 0
 ): Promise<{ error: string | null; specs: SpecExecution[] | null }> {
     if (!cycleId) {
         return { error: 'getDoneSpecs: Requires cycle ID', specs: null };
@@ -58,11 +61,29 @@ export async function getDoneSpecs(
 
     try {
         const knex = await getKnex();
-        const specs = await knex('spec_executions')
-            .where('cycle_id', cycleId)
-            .where('state', 'done')
-            .select('*');
-        return { error: null, specs };
+        const specRes = await knex.raw(`
+            SELECT se.*, json_agg(
+                json_build_object(
+                    'id', ce.id,
+                    'title', ce.title,
+                    'state', ce.state,
+                    'duration', ce.duration,
+                    'test_start_at', ce.test_start_at
+                )
+            ) AS "cases"
+            FROM spec_executions se
+            LEFT JOIN case_executions AS ce ON ce.spec_execution_id = se.id
+            WHERE se.id IN (
+                SELECT id from spec_executions
+                WHERE cycle_id='${cycleId}' AND state='${stateDone}'
+                ORDER BY sort_weight ASC, file ASC
+                LIMIT ${limit}
+                OFFSET ${offset}
+            )
+            GROUP BY se.id
+            ORDER BY sort_weight ASC, file ASC`);
+
+        return { error: null, specs: specRes.rows };
     } catch (error) {
         const message = 'Error getting done specs';
         console.log(message, error);
@@ -97,7 +118,7 @@ export async function updateSpecsAsDone(
         const specs = await queryBuilder
             .update({
                 ...specPatch,
-                state: 'done', // explicitly set as done
+                state: stateDone, // explicitly set as done
                 end_at: knex.fn.now(),
                 update_at: knex.fn.now(),
             })

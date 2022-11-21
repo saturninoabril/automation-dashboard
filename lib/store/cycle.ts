@@ -1,4 +1,5 @@
 import { getKnex } from '@knex';
+import { stateDone } from '@lib/constant';
 import { getPatchableCycleFields } from '@lib/schema/cycle';
 import type { Cycle } from '@types';
 
@@ -119,7 +120,7 @@ export async function updateCycle(
             queryBuilder.transacting(trx);
         }
 
-        if (patch.state === 'done') {
+        if (patch.state === stateDone) {
             cyclePatch.end_at = knex.fn.now();
         }
 

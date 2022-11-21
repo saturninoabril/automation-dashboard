@@ -4,6 +4,7 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
 import { Cycle, CaseState, SpecExecution, SpecExecutionState } from '@types';
+import { stateDone, stateOnQueue, stateStarted, stateTimedOut } from './constant';
 
 dayjs.extend(duration);
 dayjs.extend(localizedFormat);
@@ -115,7 +116,7 @@ function getSpecGroup(spec: SpecExecution) {
     const { update_at: updateAt } = spec;
 
     switch (spec.state) {
-        case 'done': {
+        case stateDone: {
             const { pass, fail, pending, skipped, known_fail } = spec;
             const total = pass + fail + pending + skipped + known_fail;
             if (total === pass) {
@@ -126,14 +127,14 @@ function getSpecGroup(spec: SpecExecution) {
                 return 'failed';
             }
         }
-        case 'started': {
+        case stateStarted: {
             if (!isWithinTimeDuration(updateAt, { m: 10 })) {
-                return 'timed_out';
+                return stateTimedOut;
             }
-            return 'started';
+            return stateStarted;
         }
         default:
-            return 'on_queue';
+            return stateOnQueue;
     }
 }
 

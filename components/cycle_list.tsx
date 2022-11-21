@@ -20,6 +20,7 @@ import {
     getCycleSummary,
     isWithinTimeDuration,
 } from '@lib/client_utils';
+import { stateDone } from '@lib/constant';
 
 type Props = {
     cycles: Array<Cycle>;
@@ -68,12 +69,19 @@ function CycleList({ cycles }: Props) {
                                             <span>
                                                 {specs_done} / {specs_registered} specs
                                             </span>
-                                            <span className={`text-${color}`}>
-                                                {pass} / {totalCases} cases passed{' '}
-                                                {totalCases
-                                                    ? `(${passingRate}%)` // prettier-ignore
-                                                    : ''}
-                                            </span>
+                                            {startAt && totalCases && (
+                                                <span className={`text-${color}`}>
+                                                    {pass} / {totalCases} cases passed{' '}
+                                                    {totalCases
+                                                        ? `(${passingRate}%)` // prettier-ignore
+                                                        : ''}
+                                                </span>
+                                            )}
+                                            {!startAt && (
+                                                <span className={'text-gray-600'}>
+                                                    {'(on queue)'}
+                                                </span>
+                                            )}
                                         </div>
 
                                         <div className="mt-1 flex items-center text-sm leading-5 text-gray-600 space-x-3">
@@ -87,7 +95,7 @@ function CycleList({ cycles }: Props) {
                                                     )}
                                                     {startAt && formattedDuration && (
                                                         <p className="flex space-x-1">
-                                                            {cycle.state !== 'done' &&
+                                                            {cycle.state !== stateDone &&
                                                             isWithinTimeDuration(updateAt, {
                                                                 m: 10,
                                                             }) ? (
@@ -98,7 +106,7 @@ function CycleList({ cycles }: Props) {
                                                             <TimeElapse
                                                                 start={startAt}
                                                                 lastUpdate={updateAt}
-                                                                isDone={cycle.state === 'done'}
+                                                                isDone={cycle.state === stateDone}
                                                             />
                                                         </p>
                                                     )}

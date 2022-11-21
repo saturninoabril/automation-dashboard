@@ -40,6 +40,7 @@ async function putCycle(req: NextApiRequest, res: NextApiResponse) {
         }
 
         const id = query.id.toString();
+        cyclePatch.id = id;
 
         const knex = await getKnex();
         const { error: updateError, cycle } = await knex.transaction(async (trx: any) => {

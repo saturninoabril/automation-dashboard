@@ -18,6 +18,7 @@ import Divider from '@components/divider';
 import Spinner from '@components/spinner';
 import TimeElapse from '@components/time_elapse';
 import { formatDate, getCycleSummary } from '@lib/client_utils';
+import { stateDone, stateOnQueue, stateStarted, stateTimedOut } from '@lib/constant';
 import { CaseState, Cycle, SpecExecutionState } from '@types';
 
 type Props = {
@@ -98,17 +99,19 @@ function CycleDetail({
                 <div className="bg-gray-50 p-4 text-gray-700">
                     <div className="text-xl font-bold text-gray-800">{branch}</div>
                     <div>{`${repo} / ${build}`}</div>
-                    <div className={`flex text-${color} font-bold text-sm space-x-2`}>
-                        <DocumentReportIcon />
-                        <p>{`${passingRate}% passed`}</p>
-                    </div>
+                    {totalCases > 0 && (
+                        <div className={`flex text-${color} font-bold text-sm space-x-2`}>
+                            <DocumentReportIcon />
+                            <p>{`${passingRate}% passed`}</p>
+                        </div>
+                    )}
                     {startAt && (
                         <div className="flex space-x-2">
                             <ClockIcon />
                             <TimeElapse
                                 start={startAt}
                                 lastUpdate={updateAt}
-                                isDone={state === 'done'}
+                                isDone={state === stateDone}
                             />
                         </div>
                     )}
@@ -174,7 +177,7 @@ function CycleDetail({
                     {specsGroup && specsGroup.started > 0 && (
                         <div
                             className={`flex space-x-2 cursor-pointer hover:bg-gray-200 ${
-                                !selectedSpecGroup || selectedSpecGroup === 'started'
+                                !selectedSpecGroup || selectedSpecGroup === stateStarted
                                     ? 'text-blue-400'
                                     : 'text-gray-300'
                             }`}
@@ -188,7 +191,7 @@ function CycleDetail({
                     {specsGroup && specsGroup.timed_out > 0 && (
                         <div
                             className={`flex space-x-2 cursor-pointer hover:bg-gray-200 ${
-                                !selectedSpecGroup || selectedSpecGroup === 'timed_out'
+                                !selectedSpecGroup || selectedSpecGroup === stateTimedOut
                                     ? 'text-red-400'
                                     : 'text-gray-300'
                             }`}
@@ -202,7 +205,7 @@ function CycleDetail({
                     {specsGroup && specsGroup.on_queue > 0 && (
                         <div
                             className={`flex space-x-2 cursor-pointer hover:bg-gray-200 ${
-                                !selectedSpecGroup || selectedSpecGroup === 'on_queue'
+                                !selectedSpecGroup || selectedSpecGroup === stateOnQueue
                                     ? 'text-gray-500'
                                     : 'text-gray-300'
                             }`}
@@ -223,18 +226,20 @@ function CycleDetail({
                         <DocumentTextIcon />
                         <p>{`${totalCases} tests`}</p>
                     </div>
-                    <div
-                        className={`flex space-x-2 cursor-pointer hover:bg-gray-200 ${
-                            !selectedCaseState || selectedCaseState === 'pass'
-                                ? 'text-green-600'
-                                : 'text-gray-300'
-                        }`}
-                        data-state="pass"
-                        onClick={setSelectedState}
-                    >
-                        <CheckCircleIcon />
-                        <p>{`${pass} passed`}</p>
-                    </div>
+                    {totalCases > 0 && (
+                        <div
+                            className={`flex space-x-2 cursor-pointer hover:bg-gray-200 ${
+                                !selectedCaseState || selectedCaseState === 'pass'
+                                    ? 'text-green-600'
+                                    : 'text-gray-300'
+                            }`}
+                            data-state="pass"
+                            onClick={setSelectedState}
+                        >
+                            <CheckCircleIcon />
+                            <p>{`${pass} passed`}</p>
+                        </div>
+                    )}
                     {fail > 0 && (
                         <div
                             className={`flex space-x-2 cursor-pointer hover:bg-gray-200 ${

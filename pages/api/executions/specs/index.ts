@@ -52,6 +52,10 @@ async function getSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
         for (let j = 0; j < spec.cases.length; j++) {
             const caseExecution = spec.cases[j];
 
+            if (!caseExecution.id) {
+                continue;
+            }
+
             switch (caseExecution.state) {
                 case 'passed':
                     spec.pass += 1;
