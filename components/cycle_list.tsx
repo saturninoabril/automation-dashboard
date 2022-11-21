@@ -44,6 +44,7 @@ function CycleList({ cycles }: Props) {
                     skipped,
                     start_at: startAt,
                     update_at: updateAt,
+                    create_at: createAt,
                 } = cycle;
 
                 const { totalCases, passingRate, color } = getCycleSummary(cycle);
@@ -78,14 +79,25 @@ function CycleList({ cycles }: Props) {
                                                 </span>
                                             )}
                                             {!startAt && (
-                                                <span className={'text-gray-600'}>
-                                                    {'(on queue)'}
-                                                </span>
+                                                <div className="flex space-x-1">
+                                                    <ClockIcon />
+                                                {isWithinTimeDuration(updateAt, {
+                                                    m: 10,
+                                                }) ? (
+                                                    <span className={'text-gray-600'}>
+                                                        {'on queue'}
+                                                    </span>
+                                                ) : (
+                                                    <span className={'text-red-400'}>
+                                                        {'timed out'}
+                                                    </span>
+                                                )}
+                                                </div>
                                             )}
                                         </div>
 
                                         <div className="mt-1 flex items-center text-sm leading-5 text-gray-600 space-x-3">
-                                            {updateAt ? (
+                                            {updateAt && (
                                                 <>
                                                     {formattedStartDate && (
                                                         <p className="flex space-x-1">
@@ -111,7 +123,13 @@ function CycleList({ cycles }: Props) {
                                                         </p>
                                                     )}
                                                 </>
-                                            ) : null}
+                                            )}
+                                            {!startAt && (
+                                                <p className="flex space-x-1">
+                                                    <CalendarIcon />
+                                                    <span>{formatDate(createAt)}</span>
+                                                </p>
+                                            )}
                                         </div>
                                     </div>
                                 </div>

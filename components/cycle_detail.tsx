@@ -17,7 +17,7 @@ import {
 import Divider from '@components/divider';
 import Spinner from '@components/spinner';
 import TimeElapse from '@components/time_elapse';
-import { formatDate, getCycleSummary } from '@lib/client_utils';
+import { formatDate, getCycleSummary, isWithinTimeDuration } from '@lib/client_utils';
 import { stateDone, stateOnQueue, stateStarted, stateTimedOut } from '@lib/constant';
 import { CaseState, Cycle, SpecExecutionState } from '@types';
 
@@ -88,6 +88,7 @@ function CycleDetail({
         node_version,
         start_at: startAt,
         update_at: updateAt,
+        create_at: createAt,
     } = cycle;
 
     const { totalCases, passingRate, color } = getCycleSummary(cycle);
@@ -104,6 +105,24 @@ function CycleDetail({
                             <DocumentReportIcon />
                             <p>{`${passingRate}% passed`}</p>
                         </div>
+                    )}
+                    {!startAt && (
+                        <>
+                            <div className="flex space-x-2">
+                                <ClockIcon />
+                                {isWithinTimeDuration(updateAt, {
+                                    m: 10,
+                                }) ? (
+                                    <span className={'text-gray-600'}>{'on queue'}</span>
+                                ) : (
+                                    <span className={'text-red-400'}>{'timed out'}</span>
+                                )}
+                            </div>
+                            <div className="flex space-x-2">
+                                <CalendarIcon />
+                                <p>{formatDate(createAt)}</p>
+                            </div>
+                        </>
                     )}
                     {startAt && (
                         <div className="flex space-x-2">
