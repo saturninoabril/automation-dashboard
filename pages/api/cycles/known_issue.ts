@@ -2,18 +2,14 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
 import { getPatchableCycleFields } from '@lib/schema/cycle';
+import { recomputeCycleTestValues } from '@lib/server_utils';
 import { getCycleByID, getCycleByLike, updateCycle } from '@lib/store/cycle';
 import { getSpecsWithCases } from '@lib/store/spec_execution';
 import { saveKnownIssue } from '@lib/store/known_issue';
-import {
-    defaultBuildSuffix,
-    getCaseTitle,
-    knownIssuesToObject,
-    parseBuild,
-} from '@lib/server_utils';
+import { parseBuild } from '@lib/common_utils';
+import { defaultBuildSuffix } from '@lib/server_utils';
 import auth from '@middleware/auth';
 import type { KnownIssue } from '@types';
-import { stateDone, stateOnQueue, stateStarted } from '@lib/constant';
 
 async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
     const {
@@ -80,12 +76,9 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
         }
     }
 
-    // transform as an object to easily workaround with the data
-    const knownIssuesObj = knownIssuesToObject(knownIssues);
-
     // get specs with cases
-    const out = await getSpecsWithCases(cycle.id);
-    if (out?.error || !out?.specs) {
+    const { specs, error: specsError } = await getSpecsWithCases(cycle.id);
+    if (specsError || !specs) {
         return res.status(400).json({
             all_passed: false,
             error: true,
@@ -93,72 +86,11 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
         });
     }
 
-    // recompute test details
-    let specsRegistered = 0;
-    let specsDone = 0;
-    let duration = 0;
-    let pass = 0;
-    let fail = 0;
-    let knownFail = 0;
-    let pending = 0;
-    let skipped = 0;
-
-    for (let i = 0; i < out.specs.length; i++) {
-        const spec = out.specs[i];
-        specsRegistered += 1;
-        duration += spec.duration;
-
-        if (!spec.cases.length) {
-            continue;
-        }
-
-        specsDone += 1;
-
-        for (let j = 0; j < spec.cases.length; j++) {
-            const caseExecution = spec.cases[j];
-
-            switch (caseExecution.state) {
-                case 'passed':
-                    pass += 1;
-                    break;
-                case 'failed':
-                    // prettier-ignore
-                    if (knownIssuesObj[spec.file]?.casesObj[getCaseTitle(caseExecution.title)]?.is_known) {
-                        knownFail += 1;
-                    } else {
-                        fail += 1;
-                    }
-
-                    break;
-                case 'skipped':
-                    skipped += 1;
-                    break;
-                case 'pending':
-                    pending += 1;
-                    break;
-                default:
-                    console.log('caseExecution state not counted', caseExecution.state);
-            }
-        }
-    }
-
-    const state =
-        specsDone === 0 ? stateOnQueue : specsDone === specsRegistered ? stateDone : stateStarted;
-
-    const patch = {
-        state,
-        specs_registered: specsRegistered,
-        specs_done: specsDone,
-        duration,
-        pass,
-        fail,
-        known_fail: knownFail,
-        pending,
-        skipped,
-    };
+    // recompute cycle test values
+    const recomputedCycle = recomputeCycleTestValues(cycle, specs, knownIssues);
 
     // validate cycle patch
-    const { value: cyclePatch, error: validationError } = getPatchableCycleFields(patch);
+    const { value: cyclePatch, error: validationError } = getPatchableCycleFields(recomputedCycle);
     if (validationError) {
         return res.status(400).json({
             all_passed: false,
@@ -168,8 +100,11 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
     }
 
     // patch the cycle with recomputed data
-    const { cycle: updatedCycle, error: patchError } = await updateCycle(cyclePatch);
-    if (patchError) {
+    const { cycle: updatedCycle, error: patchError } = await updateCycle({
+        ...cyclePatch,
+        id: cycle.id,
+    });
+    if (patchError || !updatedCycle) {
         return res.status(400).json({
             all_passed: false,
             error: true,
@@ -178,7 +113,11 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
     }
 
     return res.status(200).json({
-        all_passed: pass > 0 && fail === 0 && pending === 0 && skipped === 0,
+        all_passed:
+            updatedCycle.pass > 0 &&
+            updatedCycle.fail === 0 &&
+            updatedCycle.pending === 0 &&
+            updatedCycle.skipped === 0,
         cycle: updatedCycle,
     });
 }

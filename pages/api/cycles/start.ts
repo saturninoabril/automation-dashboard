@@ -7,7 +7,8 @@ import SpecExecutionSchema from '@lib/schema/spec_execution';
 import { saveKnownIssue } from '@lib/store/known_issue';
 import auth from '@middleware/auth';
 import type { Cycle, KnownIssue } from '@types';
-import { defaultBuildSuffix, parseBuild } from '@lib/server_utils';
+import { parseBuild } from '@lib/common_utils';
+import { defaultBuildSuffix } from '@lib/server_utils';
 
 type CyclesResponse = {
     cycles: Cycle[];

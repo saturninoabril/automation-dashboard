@@ -1,3 +1,5 @@
+import type { CaseExecution } from './case_execution';
+
 export type SpecExecution = {
     id: string;
     file: string;
@@ -18,7 +20,7 @@ export type SpecExecution = {
     create_at: string;
     update_at: string;
     cycle_id: string;
-    cases: Array<any>;
+    cases: CaseExecution[];
 };
 
 export type SpecExecutionState =

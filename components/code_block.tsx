@@ -4,7 +4,7 @@ import theme from 'prism-react-renderer/themes/vsLight';
 
 type Props = {
     code: string;
-    language: 'javascript' | 'markdown';
+    language: 'javascript' | 'json' | 'markdown';
 };
 
 function Codeblock({ code, language }: Props): React.ReactElement {
