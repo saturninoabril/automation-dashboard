@@ -106,7 +106,6 @@ async function endSpecExecution(req: NextApiRequest, res: NextApiResponse) {
                 doneSpecs,
                 knownIssue?.data
             );
-            console.log('end recomputedCycle', recomputedCycle);
 
             // do not update this field
             delete recomputedCycle.specs_registered;

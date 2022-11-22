@@ -81,17 +81,17 @@ function CycleList({ cycles }: Props) {
                                             {!startAt && (
                                                 <div className="flex space-x-1">
                                                     <ClockIcon />
-                                                {isWithinTimeDuration(updateAt, {
-                                                    m: 10,
-                                                }) ? (
-                                                    <span className={'text-gray-600'}>
-                                                        {'on queue'}
-                                                    </span>
-                                                ) : (
-                                                    <span className={'text-red-400'}>
-                                                        {'timed out'}
-                                                    </span>
-                                                )}
+                                                    {isWithinTimeDuration(updateAt, {
+                                                        m: 10,
+                                                    }) ? (
+                                                        <span className={'text-gray-600'}>
+                                                            {'on queue'}
+                                                        </span>
+                                                    ) : (
+                                                        <span className={'text-red-400'}>
+                                                            {'timed out'}
+                                                        </span>
+                                                    )}
                                                 </div>
                                             )}
                                         </div>

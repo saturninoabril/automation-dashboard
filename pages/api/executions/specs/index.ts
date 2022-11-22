@@ -5,7 +5,8 @@ import nextConnect from 'next-connect';
 import { params } from '@lib/params';
 import { getSpecsWithCases } from '@lib/store/spec_execution';
 import { getKnownIssueByCycleID } from '@lib/store/known_issue';
-import { getCaseTitle, knownIssuesToObject } from '@lib/server_utils';
+import { defaultKnownIssueType, getCaseTitle, knownIssuesToObject } from '@lib/server_utils';
+import { SpecExecution } from '@types';
 
 async function getSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
     const { query } = req;
@@ -32,11 +33,13 @@ async function getSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
         });
     }
 
+    const specs = specsRes.specs as SpecExecution[];
+
     const { knownIssue } = await getKnownIssueByCycleID(cycleId);
     const knownIssuesObj = knownIssuesToObject(knownIssue?.data);
 
-    for (let i = 0; i < specsRes.specs.length; i++) {
-        const spec = specsRes.specs[i];
+    for (let i = 0; i < specs.length; i++) {
+        const spec = specs[i];
 
         // reset values
         spec.pass = 0;
@@ -90,9 +93,25 @@ async function getSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
         }
     }
 
+    const requireVerification = specs
+        .filter((spec) => spec.fail > 0)
+        .map((spec) => {
+            return {
+                spec_file: spec.file,
+                cases: spec.cases
+                    .filter((ce) => ce.state === 'failed')
+                    .map((ce) => ({
+                        title: getCaseTitle(ce.title),
+                        is_known: false,
+                        type: defaultKnownIssueType,
+                    })),
+            };
+        });
+
     return res.status(200).json({
-        knownIssuesObj,
-        specs: specsRes.specs,
+        known_issues: knownIssue?.data,
+        require_verification: requireVerification,
+        specs: specs,
         total: specsRes.total,
         limit,
         offset,
