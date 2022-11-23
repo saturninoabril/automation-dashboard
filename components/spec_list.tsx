@@ -183,7 +183,7 @@ function SpecList({ specs, selectedSpecGroup, requireVerification, build }: Prop
                                                 {'automation-dashboard.'}
                                             </a>
                                             {
-                                                ' Once merged, restart the "report" job in corresponding '
+                                                ' Once merged, retry the "report" job in corresponding '
                                             }
                                             <a
                                                 className="text-blue-500"

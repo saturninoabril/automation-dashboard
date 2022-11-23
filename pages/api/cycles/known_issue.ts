@@ -89,8 +89,18 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
 
     // recompute cycle test values
     const recomputedCycle = recomputeCycleTestValues(oldCycle, specs, knownIssues);
+
+    const out = {
+        all_passed: false,
+        total: 0,
+        pass: 0,
+        fail: 0,
+        cycle: oldCycle,
+        message: 'test cycle nothing changed',
+        report_sent: false,
+    };
+
     let newCycle;
-    let message = 'test cycle nothing changed';
 
     if (
         recomputedCycle.specs_done !== oldCycle.specs_done ||
@@ -127,16 +137,15 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
         }
 
         newCycle = updateCycleRes.cycle;
-        message = 'test cycle updated';
+        out.cycle = newCycle;
+        out.message = 'test cycle updated';
     }
 
-    const out = {
-        all_passed: getCycleSummary(newCycle || oldCycle).passingRateNumber === 100,
-        old_cycle: oldCycle,
-        new_cycle: newCycle,
-        message,
-        report_sent: false,
-    };
+    const { passingRateNumber, totalCases, pass, fail } = getCycleSummary(out.cycle);
+    out.all_passed = passingRateNumber === 100;
+    out.total = totalCases;
+    out.pass = pass;
+    out.fail = fail;
 
     const {
         webhook_url: webhookUrl,

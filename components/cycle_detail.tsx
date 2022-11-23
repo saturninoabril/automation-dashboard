@@ -104,12 +104,7 @@ function CycleDetail({
 
     function renderDate(name: string, dateAt: string) {
         return (
-            <div
-                className={`flex space-x-2 cursor-pointer hover:bg-gray-200 ${
-                    !selectedCaseState ? 'text-gray-700' : 'text-gray-300'
-                }`}
-                onClick={setSelectedState}
-            >
+            <div className="flex space-x-2 text-gray-700" onClick={setSelectedState}>
                 <p className="w-14">{`${name}: `}</p>
                 <p>{dayjs(dateAt).format('lll')}</p>
             </div>

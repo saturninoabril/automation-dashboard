@@ -44,6 +44,8 @@ export function getCycleSummary(cycle: Cycle) {
 
     return {
         totalCases,
+        pass,
+        fail,
         passingRate: passingRate.toFixed(2),
         passingRateNumber: passingRate,
         color,
