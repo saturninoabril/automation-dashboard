@@ -1,4 +1,8 @@
 import React, { Dispatch, SetStateAction } from 'react';
+import dayjs from 'dayjs';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+
+dayjs.extend(localizedFormat);
 
 import {
     CalendarIcon,
@@ -17,7 +21,8 @@ import {
 import Divider from '@components/divider';
 import Spinner from '@components/spinner';
 import TimeElapse from '@components/time_elapse';
-import { formatDate, getCycleSummary, isWithinTimeDuration } from '@lib/client_utils';
+import { formatDate, isWithinTimeDuration } from '@lib/client_utils';
+import { getCycleSummary } from '@lib/common_utils';
 import { stateDone, stateOnQueue, stateStarted, stateTimedOut } from '@lib/constant';
 import { CaseState, Cycle, SpecExecutionState } from '@types';
 
@@ -87,12 +92,29 @@ function CycleDetail({
         cypress_version,
         node_version,
         start_at: startAt,
-        update_at: updateAt,
+        end_at: endAt,
         create_at: createAt,
+        update_at: updateAt,
     } = cycle;
+
+    const end = endAt || updateAt;
 
     const { totalCases, passingRate, color } = getCycleSummary(cycle);
     const formattedStartDate = formatDate(startAt);
+
+    function renderDate(name: string, dateAt: string) {
+        return (
+            <div
+                className={`flex space-x-2 cursor-pointer hover:bg-gray-200 ${
+                    !selectedCaseState ? 'text-gray-700' : 'text-gray-300'
+                }`}
+                onClick={setSelectedState}
+            >
+                <p className="w-14">{`${name}: `}</p>
+                <p>{dayjs(dateAt).format('lll')}</p>
+            </div>
+        );
+    }
 
     return (
         <div className="col-span-1 row-start-1 md:row-start-auto flex flex-col sm:flex-row md:flex-col gap-4">
@@ -110,7 +132,7 @@ function CycleDetail({
                         <>
                             <div className="flex space-x-2">
                                 <ClockIcon />
-                                {isWithinTimeDuration(updateAt, {
+                                {isWithinTimeDuration(end, {
                                     m: 10,
                                 }) ? (
                                     <span className={'text-gray-600'}>{'on queue'}</span>
@@ -129,7 +151,7 @@ function CycleDetail({
                             <ClockIcon />
                             <TimeElapse
                                 start={startAt}
-                                lastUpdate={updateAt}
+                                lastUpdate={end}
                                 isDone={state === stateDone}
                             />
                         </div>
@@ -315,13 +337,25 @@ function CycleDetail({
                             <p>{`${pending} pending`}</p>
                         </div>
                     )}
-                    <Divider />
                     {(cypress_version || browser_version || node_version || os_version) && (
                         <>
+                            <Divider />
                             {cypress_version && <p>{`cypress@${cypress_version}`}</p>}
                             {browser_version && <p>{`${browser_name}@${browser_version}`}</p>}
                             {node_version && <p>{`node@${node_version}`}</p>}
                             {os_version && <p>{`${os_name}@${os_version}`}</p>}
+                        </>
+                    )}
+                    {(createAt || startAt || endAt || updateAt) && (
+                        <>
+                            <Divider />
+                            {createAt && renderDate('created', createAt)}
+                            {startAt && renderDate('started', startAt)}
+                            {endAt && renderDate('ended', endAt)}
+                            {updateAt &&
+                                updateAt !== createAt &&
+                                updateAt !== endAt &&
+                                renderDate('updated', updateAt)}
                         </>
                     )}
                 </div>

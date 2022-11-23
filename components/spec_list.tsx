@@ -1,6 +1,7 @@
 import React, { createRef, useEffect, useState } from 'react';
 
 import { parseBuild } from '@lib/common_utils';
+import { gitlabPipelineUrl } from '@lib/constant';
 import Codeblock from '@components/code_block';
 import { SearchIcon } from '@components/icon';
 import SpecListLoading from '@components/spec_list_loading';
@@ -186,13 +187,13 @@ function SpecList({ specs, selectedSpecGroup, requireVerification, build }: Prop
                                             }
                                             <a
                                                 className="text-blue-500"
-                                                href={`https://git.internal.mattermost.com/qa/cypress-ui-automation/-/pipelines/${pipelineID}`}
+                                                href={`${gitlabPipelineUrl}/${pipelineID}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                             >
                                                 {'GitLab pipeline'}
                                             </a>
-                                            {' and see all passed.'}
+                                            {' and see if all passed.'}
                                         </span>
                                     </li>
                                 </ul>
