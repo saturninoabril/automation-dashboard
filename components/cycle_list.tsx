@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import dayjs from 'dayjs';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 
 import {
     CalendarIcon,
@@ -14,13 +16,11 @@ import Spinner from '@components/spinner';
 import TimeElapse from '@components/time_elapse';
 
 import { Cycle } from '@types';
-import {
-    formatDate,
-    formatDuration,
-    getCycleSummary,
-    isWithinTimeDuration,
-} from '@lib/client_utils';
+import { formatDate, formatDuration, isWithinTimeDuration } from '@lib/client_utils';
+import { getCycleSummary } from '@lib/common_utils';
 import { stateDone } from '@lib/constant';
+
+dayjs.extend(localizedFormat);
 
 type Props = {
     cycles: Array<Cycle>;
@@ -43,15 +43,17 @@ function CycleList({ cycles }: Props) {
                     pending,
                     skipped,
                     start_at: startAt,
-                    update_at: updateAt,
+                    end_at: endAt,
                     create_at: createAt,
+                    update_at: updateAt,
                 } = cycle;
 
+                const end = endAt || updateAt;
                 const { totalCases, passingRate, color } = getCycleSummary(cycle);
                 const formattedStartDate = formatDate(startAt);
                 const formattedDuration = formatDuration({
                     startAt,
-                    updateAt,
+                    updateAt: end,
                 });
                 return (
                     <li className={i !== 0 ? 'border-t border-gray-200' : ''} key={i}>
@@ -81,7 +83,7 @@ function CycleList({ cycles }: Props) {
                                             {!startAt && (
                                                 <div className="flex space-x-1">
                                                     <ClockIcon />
-                                                    {isWithinTimeDuration(updateAt, {
+                                                    {isWithinTimeDuration(end, {
                                                         m: 10,
                                                     }) ? (
                                                         <span className={'text-gray-600'}>
@@ -97,7 +99,7 @@ function CycleList({ cycles }: Props) {
                                         </div>
 
                                         <div className="mt-1 flex items-center text-sm leading-5 text-gray-600 space-x-3">
-                                            {updateAt && (
+                                            {end && (
                                                 <>
                                                     {formattedStartDate && (
                                                         <p className="flex space-x-1">
@@ -108,7 +110,7 @@ function CycleList({ cycles }: Props) {
                                                     {startAt && formattedDuration && (
                                                         <p className="flex space-x-1">
                                                             {cycle.state !== stateDone &&
-                                                            isWithinTimeDuration(updateAt, {
+                                                            isWithinTimeDuration(end, {
                                                                 m: 10,
                                                             }) ? (
                                                                 <Spinner />
@@ -117,7 +119,7 @@ function CycleList({ cycles }: Props) {
                                                             )}
                                                             <TimeElapse
                                                                 start={startAt}
-                                                                lastUpdate={updateAt}
+                                                                lastUpdate={end}
                                                                 isDone={cycle.state === stateDone}
                                                             />
                                                         </p>

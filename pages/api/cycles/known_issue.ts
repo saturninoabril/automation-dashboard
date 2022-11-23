@@ -6,49 +6,46 @@ import { recomputeCycleTestValues } from '@lib/server_utils';
 import { getCycleByID, getCycleByLike, updateCycle } from '@lib/store/cycle';
 import { getSpecsWithCases } from '@lib/store/spec_execution';
 import { saveKnownIssue } from '@lib/store/known_issue';
-import { parseBuild } from '@lib/common_utils';
+import { getCycleSummary, parseBuild } from '@lib/common_utils';
+import { generateTestReport } from '@lib/report';
 import { defaultBuildSuffix } from '@lib/server_utils';
 import auth from '@middleware/auth';
 import type { KnownIssue } from '@types';
 
 async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
     const {
+        body,
         query: { build, cycle_id: cycleID },
     } = req;
 
-    let cycle;
+    let getCycleRes;
     if (cycleID) {
         // get cycle by ID
-        const out = await getCycleByID(cycleID.toString());
-        if (out.error) {
+        getCycleRes = await getCycleByID(cycleID.toString());
+        if (getCycleRes.error) {
             return res.status(501).json({
                 all_passed: false,
                 error: true,
-                message: out.error,
+                message: getCycleRes.error,
             });
         }
-
-        cycle = out.cycle;
     }
 
-    let buildSuffix = defaultBuildSuffix;
     if (build) {
         // get cycle by repo, branch and build
-        const out = await getCycleByLike({ build: build.toString() });
-        if (out.error) {
+        getCycleRes = await getCycleByLike({ build: build.toString() });
+        if (getCycleRes.error) {
             return res.status(501).json({
                 all_passed: false,
                 error: true,
-                message: out.error,
+                message: getCycleRes.error,
             });
         }
-
-        cycle = out.cycle;
-
-        ({ buildSuffix } = parseBuild(build.toString()));
     }
 
-    if (!cycle?.id) {
+    let oldCycle = getCycleRes?.cycle;
+
+    if (!oldCycle?.id) {
         return res.status(400).json({
             all_passed: false,
             error: true,
@@ -56,17 +53,21 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
         });
     }
 
+    const { pipelineID, imageTag, buildSuffix } = parseBuild(oldCycle.build);
+
     // get known issue by build_suffix
     let knownIssues: KnownIssue[] = [];
     try {
-        knownIssues = require(`../../../data/known_issue/${buildSuffix}.json`);
+        knownIssues = require(`../../../data/known_issue/${
+            buildSuffix || defaultBuildSuffix
+        }.json`);
     } catch (error) {
         // ignore error and use default empty array
     }
 
     // save known issue to DB
     if (knownIssues?.length) {
-        const { error } = await saveKnownIssue(cycle.id, knownIssues);
+        const { error } = await saveKnownIssue(oldCycle.id, knownIssues);
         if (error) {
             return res.status(400).json({
                 all_passed: false,
@@ -77,49 +78,98 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
     }
 
     // get specs with cases
-    const { specs, error: specsError } = await getSpecsWithCases(cycle.id);
+    const { specs, error: specsError } = await getSpecsWithCases(oldCycle.id);
     if (specsError || !specs) {
         return res.status(400).json({
             all_passed: false,
             error: true,
-            message: `No specs found for cycle id: "${cycle.id}"`,
+            message: `No specs found for cycle id: "${oldCycle.id}"`,
         });
     }
 
     // recompute cycle test values
-    const recomputedCycle = recomputeCycleTestValues(cycle, specs, knownIssues);
+    const recomputedCycle = recomputeCycleTestValues(oldCycle, specs, knownIssues);
+    let newCycle;
+    let message = 'test cycle nothing changed';
 
-    // validate cycle patch
-    const { value: cyclePatch, error: validationError } = getPatchableCycleFields(recomputedCycle);
-    if (validationError) {
-        return res.status(400).json({
-            all_passed: false,
-            error: true,
-            message: `Invalid cycle patch: ${validationError}`,
+    if (
+        recomputedCycle.specs_done !== oldCycle.specs_done ||
+        recomputedCycle.duration !== oldCycle.duration ||
+        recomputedCycle.pass !== oldCycle.pass ||
+        recomputedCycle.fail !== oldCycle.fail ||
+        recomputedCycle.known_fail !== oldCycle.known_fail ||
+        recomputedCycle.pending !== oldCycle.pending ||
+        recomputedCycle.skipped !== oldCycle.skipped ||
+        (recomputedCycle.state && recomputedCycle.state !== oldCycle.state)
+    ) {
+        // validate cycle patch
+        const { value: cyclePatch, error: validationError } =
+            getPatchableCycleFields(recomputedCycle);
+        if (validationError) {
+            return res.status(400).json({
+                all_passed: false,
+                error: true,
+                message: `Invalid cycle patch: ${validationError}`,
+            });
+        }
+
+        // patch the cycle with recomputed data
+        const updateCycleRes = await updateCycle({
+            ...cyclePatch,
+            id: oldCycle.id,
         });
+        if (updateCycleRes.error || !updateCycleRes.cycle) {
+            return res.status(400).json({
+                all_passed: false,
+                error: true,
+                message: `Invalid cycle patch: ${updateCycleRes.error}`,
+            });
+        }
+
+        newCycle = updateCycleRes.cycle;
+        message = 'test cycle updated';
     }
 
-    // patch the cycle with recomputed data
-    const { cycle: updatedCycle, error: patchError } = await updateCycle({
-        ...cyclePatch,
-        id: cycle.id,
-    });
-    if (patchError || !updatedCycle) {
-        return res.status(400).json({
-            all_passed: false,
-            error: true,
-            message: `Invalid cycle patch: ${patchError}`,
-        });
+    const out = {
+        all_passed: getCycleSummary(newCycle || oldCycle).passingRateNumber === 100,
+        old_cycle: oldCycle,
+        new_cycle: newCycle,
+        message,
+        report_sent: false,
+    };
+
+    const {
+        webhook_url: webhookUrl,
+        title,
+        test_cycle_key: testCycleKey,
+        server_type: serverType,
+        mm_env: mmEnv,
+    } = body;
+
+    if (webhookUrl) {
+        const defaultTitle = `E2E for ${oldCycle.repo}/${oldCycle.branch}@${imageTag}`;
+        const data = generateTestReport(
+            newCycle || oldCycle,
+            title || defaultTitle,
+            pipelineID,
+            req.headers.host || 'localhost',
+            testCycleKey,
+            serverType,
+            mmEnv
+        );
+        const ok = await sendReport(webhookUrl, data);
+        out.report_sent = ok;
     }
 
-    return res.status(200).json({
-        all_passed:
-            updatedCycle.pass > 0 &&
-            updatedCycle.fail === 0 &&
-            updatedCycle.pending === 0 &&
-            updatedCycle.skipped === 0,
-        cycle: updatedCycle,
+    return res.status(200).json(out);
+}
+
+async function sendReport(url: string, data: Record<any, any>) {
+    const response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
     });
+    return response.ok;
 }
 
 const handler = nextConnect();
