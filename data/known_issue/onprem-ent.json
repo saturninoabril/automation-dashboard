@@ -1,22 +1,297 @@
 [
     {
-        "spec_file": "tests/integration/integrations/builtin_commands/invite_command_spec.js",
-        "cases": [
-            {
-                "title": "Integrations > MM-T660_3 /invite tests when used in DMs and GMs",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
+      "spec_file": "tests/integration/accessibility/accessibility_post_spec.js",
+      "cases": [
+        {
+          "title": "Verify Accessibility Support in Post > MM-T1486_3 Verify Tab support on Post on Center Channel",
+          "is_known": true,
+          "type": "known" 
+        }
+      ]
     },
     {
-        "spec_file": "tests/integration/messaging/message_reply_spec.js",
-        "cases": [
-            {
-                "title": "Message Reply > MM-T90 Reply to older message",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
+      "spec_file": "tests/integration/collapsed_reply_threads/last_viewed_spec.js",
+      "cases": [
+        {
+          "title": "Collapsed Reply Threads > MM-T4843_2 should go to threads view when threads view is the penultimate view and leave the current channel",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/emoji/sorted_emojis_spec.js",
+      "cases": [
+        {
+          "title": "Emoji sorting > MM-T157 Filtered emojis are sorted by recency, then begins with, then contains (alphabetically within each)",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/enterprise/accessibility/accessibility_input_fields_spec.js",
+      "cases": [
+        {
+          "title": "Verify Accessibility Support in different input fields > MM-T1458 Verify Accessibility Support in Main Post Input",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/enterprise/extend_session/email_login_activity_spec.ts",
+      "cases": [
+        {
+          "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 96 and threshold met, should extend session on posting a message",
+          "is_known": true,
+          "type": "known"
+        },
+        {
+          "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 48 and threshold not met, should not extend session on posting a message",
+          "is_known": true,
+          "type": "known"
+        },
+        {
+          "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 48 and threshold met, should extend session on posting a message",
+          "is_known": true,
+          "type": "known"
+        },
+        {
+          "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 24 and threshold not met, should not extend session on visit to a channel",
+          "is_known": true,
+          "type": "known"
+        },
+        {
+          "title": "MM-T2575 Extend Session - Email Login > should redirect to login page when session expired",
+          "is_known": true,
+          "type": "known"
+        },
+        {
+          "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 96 and threshold not met, should not extend session on posting a message",
+          "is_known": true,
+          "type": "known"
+        },
+        {
+          "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 24 and threshold met, should extend session on visit to a channel",
+          "is_known": true,
+          "type": "known"
+        },
+        {
+          "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 74 and threshold met, should extend session on visit to a channel",
+          "is_known": true,
+          "type": "known"
+        },
+        {
+          "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 74 and threshold not met, should not extend session on visit to a channel",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/enterprise/system_console/reporting/site_statistics_spec.js",
+      "cases": [
+        {
+          "title": "System Console > Site Statistics > MM-T904 Site Statistics displays expected content categories",
+          "is_known": true,
+          "type": "known"
+        },
+        {
+          "title": "System Console > Site Statistics > MM-T905 - Site Statistics card labels in different languages",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/enterprise/system_console/sidebar_link_navigation_e20_spec.js",
+      "cases": [
+        {
+          "title": "System Console - Enterprise > MM-T4262_3 cannot navigate to Billing History",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/files_and_attachments/cancel_file_upload_spec.js",
+      "cases": [
+        {
+          "title": "Upload Files > MM-T307 Cancel a file upload",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/integrations/incoming_webhook/inapp_username_profile_override_spec.js",
+      "cases": [
+        {
+          "title": "Incoming webhook > MM-T621 Override username and profile picture - remove overrides from payload",
+          "is_known": true,
+          "type": "known"
+        },
+        {
+          "title": "Incoming webhook > MM-T620 Payload username and profile picture override in-app settings",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/integrations/incoming_webhook/webhook_posts_when_creator_not_in_channel_spec.js",
+      "cases": [
+        {
+          "title": "Integrations > MM-T638 Webhook posts when webhook creator is not a member of the channel",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/mark_as_unread/bot_post_mark_as_unread_spec.js",
+      "cases": [
+        {
+          "title": "Bot post unread message > MM-T252 bot post unread",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/mark_as_unread/unread_toast_count_spec.js",
+      "cases": [
+        {
+          "title": "Verify unread toast appears after repeated manual marking post as unread > MM-T254 Rehydrate mention badge after post is marked as Unread",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/messaging/autocomplete_spec.js",
+      "cases": [
+        {
+          "title": "autocomplete > MM-T2212 @ mention followed by dot or underscore should highlight",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/messaging/reactions_spec.js",
+      "cases": [
+        {
+          "title": "Messaging > MM-T2192 RHS (reply) shows emoji picker for reactions - Reply box and plus icon",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/multi_team_and_dm/close_current_dm_redirects_spec.js",
+      "cases": [
+        {
+          "title": "Direct messages: redirections > MM-T453_2 Closing a different direct message should not affect active direct message",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/multi_team_and_dm/gm_header_spec.js",
+      "cases": [
+        {
+          "title": "Multi-user group header > MM-T473_2 Edit GM channel header (2/2)",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/multi_team_and_dm/join_open_team_from_dm_spec.js",
+      "cases": [
+        {
+          "title": "Join an open team from a direct message link > MM-T452 User with no teams should be able to join an open team from a link in direct messages",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/onboarding/login_page_link_account_creation_spec.js",
+      "cases": [
+        {
+          "title": "Onboarding > MM-T400 Create account from login page link using email-password",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/scroll/deleting_scroll_spec.js",
+      "cases": [
+        {
+          "title": "Scroll > MM-T2372 Post list does not scroll when the offscreen post is deleted",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/scroll/editing_scroll_spec.js",
+      "cases": [
+        {
+          "title": "Scroll > MM-T2371 Post list does not scroll when the offscreen post is edited",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },      
+    {
+      "spec_file": "tests/integration/scroll/fixed_width_spec.js",
+      "cases": [
+        {
+          "title": "Scroll > MM-T2368 Fixed width",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/settings/display/clock_display_mode_spec.js",
+      "cases": [
+        {
+          "title": "Settings > Display > Clock Display Mode > MM-T2096_2 Clock Display - 24-hr - post message after 1pm",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/system_console/reporting/team_statistics_spec.js",
+      "cases": [
+        {
+          "title": "System Console > Team Statistics > MM-T906 Team Statistics displays expected content categories",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
+    },
+    {
+      "spec_file": "tests/integration/messaging/message_channel_draw_spec.js",
+      "cases": [
+        {
+          "title": "M17448 Does not post draft message > on successful upload via \"Draw\" plugin",
+          "is_known": true,
+          "type": "known"
+        },
+        {
+          "title": "M17448 Does not post draft message > on upload cancel via \"Draw\" plugin",
+          "is_known": true,
+          "type": "known"
+        }
+      ]
     }
-]
+  ]
