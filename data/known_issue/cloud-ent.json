@@ -1,203 +1,202 @@
 [
     {
-      "spec_file": "tests/integration/bot_accounts/post_message_spec.js",
-      "cases": [
-        {
-          "title": "Bot post message > MM-T1812 Post as a bot when personal access tokens are false",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/bot_accounts/post_message_spec.js",
+        "cases": [
+            {
+                "title": "Bot post message > MM-T1812 Post as a bot when personal access tokens are false",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/enterprise/accessibility/accessibility_input_fields_spec.js",
-      "cases": [
-        {
-          "title": "Verify Accessibility Support in different input fields > MM-T1458 Verify Accessibility Support in Main Post Input",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/enterprise/accessibility/accessibility_input_fields_spec.js",
+        "cases": [
+            {
+                "title": "Verify Accessibility Support in different input fields > MM-T1458 Verify Accessibility Support in Main Post Input",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/enterprise/system_console/reporting/site_statistics_spec.js",
-      "cases": [
-        {
-          "title": "System Console > Site Statistics > MM-T905 - Site Statistics card labels in different languages",
-          "is_known": true,
-          "type": "known"
-        },
-        {
-          "title": "System Console > Site Statistics > MM-T904 Site Statistics displays expected content categories",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/enterprise/system_console/reporting/site_statistics_spec.js",
+        "cases": [
+            {
+                "title": "System Console > Site Statistics > MM-T905 - Site Statistics card labels in different languages",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "System Console > Site Statistics > MM-T904 Site Statistics displays expected content categories",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/enterprise/system_console/sidebar_link_navigation_cloud_spec.js",
-      "cases": [
-        {
-          "title": "System Console - Cloud > MM-T4264_34 cannot navigate to File Sharing and Downloads",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/enterprise/system_console/sidebar_link_navigation_cloud_spec.js",
+        "cases": [
+            {
+                "title": "System Console - Cloud > MM-T4264_34 cannot navigate to File Sharing and Downloads",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/enterprise/system_console/ui_and_api/notifications_spec.js",
-      "cases": [
-        {
-          "title": "System Console > Push Notification Contents",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/enterprise/system_console/ui_and_api/notifications_spec.js",
+        "cases": [
+            {
+                "title": "System Console > Push Notification Contents",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/integrations/builtin_commands/invite_command_spec.js",
-      "cases": [
-        {
-          "title": "Integrations > MM-T660_3 /invite tests when used in DMs and GMs",
-          "is_known": true,
-          "type": "known"
-        },
-        {
-          "title": "Integrations > MM-T660_4 /invite tests when used in DMs and GMs",
-          "is_known": true,
-          "type": "known"
-        },
-        {
-          "title": "Integrations > MM-T660_2 /invite tests when used in DMs and GMs",
-          "is_known": true,
-          "type": "known"
-        },
-        {
-          "title": "Integrations > MM-T658 /invite - current channel",
-          "is_known": true,
-          "type": "known"
-        },
-        {
-          "title": "Integrations > MM-T660_1 /invite tests when used in DMs and GMs",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/integrations/builtin_commands/invite_command_spec.js",
+        "cases": [
+            {
+                "title": "Integrations > MM-T660_3 /invite tests when used in DMs and GMs",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "Integrations > MM-T660_4 /invite tests when used in DMs and GMs",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "Integrations > MM-T660_2 /invite tests when used in DMs and GMs",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "Integrations > MM-T658 /invite - current channel",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "Integrations > MM-T660_1 /invite tests when used in DMs and GMs",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/integrations/incoming_webhook/inapp_username_profile_override_spec.js",
-      "cases": [
-        {
-          "title": "Incoming webhook > MM-T620 Payload username and profile picture override in-app settings",
-          "is_known": true,
-          "type": "known"
-        },
-        {
-          "title": "Incoming webhook > MM-T621 Override username and profile picture - remove overrides from payload",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/integrations/incoming_webhook/inapp_username_profile_override_spec.js",
+        "cases": [
+            {
+                "title": "Incoming webhook > MM-T620 Payload username and profile picture override in-app settings",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "Incoming webhook > MM-T621 Override username and profile picture - remove overrides from payload",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/mark_as_unread/unread_toast_count_spec.js",
-      "cases": [
-        {
-          "title": "Verify unread toast appears after repeated manual marking post as unread > MM-T254 Rehydrate mention badge after post is marked as Unread",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/mark_as_unread/unread_toast_count_spec.js",
+        "cases": [
+            {
+                "title": "Verify unread toast appears after repeated manual marking post as unread > MM-T254 Rehydrate mention badge after post is marked as Unread",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/messaging/autocomplete_spec.js",
-      "cases": [
-        {
-          "title": "autocomplete > MM-T2212 @ mention followed by dot or underscore should highlight",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/messaging/autocomplete_spec.js",
+        "cases": [
+            {
+                "title": "autocomplete > MM-T2212 @ mention followed by dot or underscore should highlight",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/multi_team_and_dm/close_current_dm_redirects_spec.js",
-      "cases": [
-        {
-          "title": "Direct messages: redirections > MM-T453_2 Closing a different direct message should not affect active direct message",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/multi_team_and_dm/close_current_dm_redirects_spec.js",
+        "cases": [
+            {
+                "title": "Direct messages: redirections > MM-T453_2 Closing a different direct message should not affect active direct message",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/multi_team_and_dm/multi_team_join_spec.js",
-      "cases": [
-        {
-          "title": "Multi-Team + DMs > MM-T1805 No infinite loading spinner on Select Team page",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/multi_team_and_dm/multi_team_join_spec.js",
+        "cases": [
+            {
+                "title": "Multi-Team + DMs > MM-T1805 No infinite loading spinner on Select Team page",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/scroll/deleting_scroll_spec.js",
-      "cases": [
-        {
-          "title": "Scroll > MM-T2372 Post list does not scroll when the offscreen post is deleted",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/scroll/deleting_scroll_spec.js",
+        "cases": [
+            {
+                "title": "Scroll > MM-T2372 Post list does not scroll when the offscreen post is deleted",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/scroll/editing_scroll_spec.js",
-      "cases": [
-        {
-          "title": "Scroll > MM-T2371 Post list does not scroll when the offscreen post is edited",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/scroll/editing_scroll_spec.js",
+        "cases": [
+            {
+                "title": "Scroll > MM-T2371 Post list does not scroll when the offscreen post is edited",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/scroll/fixed_width_spec.js",
-      "cases": [
-        {
-          "title": "Scroll > MM-T2368 Fixed width",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/scroll/fixed_width_spec.js",
+        "cases": [
+            {
+                "title": "Scroll > MM-T2368 Fixed width",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/signin_authentication/login_open_server_spec.js",
-      "cases": [
-        {
-          "title": "Login page with open server > MM-T3306_1 Should render all elements of the page",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/signin_authentication/login_open_server_spec.js",
+        "cases": [
+            {
+                "title": "Login page with open server > MM-T3306_1 Should render all elements of the page",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/signin_authentication/signup_spec.js",
-      "cases": [
-        {
-          "title": "Signup Email page > should match elements, footer",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/signin_authentication/signup_spec.js",
+        "cases": [
+            {
+                "title": "Signup Email page > should match elements, footer",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/system_console/site_configuration/link_customization_cloud_spec.js",
-      "cases": [
-        {
-          "title": "SupportSettings > MM-T1031 - Customization Change all links",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/system_console/site_configuration/link_customization_cloud_spec.js",
+        "cases": [
+            {
+                "title": "SupportSettings > MM-T1031 - Customization Change all links",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     }
-  ]
-  
+]
