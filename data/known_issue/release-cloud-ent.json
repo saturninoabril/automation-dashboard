@@ -1,0 +1,277 @@
+[
+    {
+        "spec_file": "tests/integration/bot_accounts/create_bot_spec.js",
+        "cases": [
+            {
+                "title": "Create bot > MM-T1810 Create a Bot via the UI",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/bot_accounts/edit_bot_spec.js",
+        "cases": [
+            {
+                "title": "Edit bot > MM-T1840 Description allows for special character",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/collapsed_reply_threads/last_viewed_spec.js",
+        "cases": [
+            {
+                "title": "Collapsed Reply Threads > MM-T4843_2 should go to threads view when threads view is the penultimate view and leave the current channel",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/accessibility/accessibility_input_fields_spec.js",
+        "cases": [
+            {
+                "title": "Verify Accessibility Support in different input fields > MM-T1458 Verify Accessibility Support in Main Post Input",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/oauth/oauth_spec.ts",
+        "cases": [
+            {
+                "title": "Integrations page > MM-T649 Edit Oauth 2.0 Application",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "Integrations page > MM-T652 Regenerate Secret",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/reporting/site_statistics_spec.js",
+        "cases": [
+            {
+                "title": "System Console > Site Statistics > MM-T904 Site Statistics displays expected content categories",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "System Console > Site Statistics > MM-T905 - Site Statistics card labels in different languages",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/sidebar_link_navigation_cloud_spec.js",
+        "cases": [
+            {
+                "title": "System Console - Cloud > MM-T4264_34 cannot navigate to File Sharing and Downloads",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/ui_and_api/notifications_spec.js",
+        "cases": [
+            {
+                "title": "System Console > Push Notification Contents",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/integrations/builtin_commands/invite_command_spec.js",
+        "cases": [
+            {
+                "title": "Integrations > MM-T660_1 /invite tests when used in DMs and GMs",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "Integrations > MM-T658 /invite - current channel",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "Integrations > MM-T660_4 /invite tests when used in DMs and GMs",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/integrations/incoming_webhook/edit_incoming_webhook_spec.js",
+        "cases": [
+            {
+                "title": "Incoming webhook > MM-T641 Edit incoming webhook, webhook posts attachment",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/integrations/incoming_webhook/inapp_username_profile_override_spec.js",
+        "cases": [
+            {
+                "title": "Incoming webhook > MM-T621 Override username and profile picture - remove overrides from payload",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "Incoming webhook > MM-T620 Payload username and profile picture override in-app settings",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/mark_as_unread/unread_toast_count_spec.js",
+        "cases": [
+            {
+                "title": "Verify unread toast appears after repeated manual marking post as unread > MM-T254 Rehydrate mention badge after post is marked as Unread",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/messaging/autocomplete_spec.js",
+        "cases": [
+            {
+                "title": "autocomplete > MM-T2212 @ mention followed by dot or underscore should highlight",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/messaging/direct_message_spec.js",
+        "cases": [
+            {
+                "title": "Direct Message > MM-T449 - Edit a direct message body",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/multi_team_and_dm/multi_team_join_spec.js",
+        "cases": [
+            {
+                "title": "Multi-Team + DMs > MM-T1805 No infinite loading spinner on Select Team page",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/performance/channel_switch_spec.js",
+        "cases": [
+            {
+                "title": "Channel switch performance test > measures switching between two channels from LHS",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/scroll/deleting_scroll_spec.js",
+        "cases": [
+            {
+                "title": "Scroll > MM-T2372 Post list does not scroll when the offscreen post is deleted",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/scroll/editing_scroll_spec.js",
+        "cases": [
+            {
+                "title": "Scroll > MM-T2371 Post list does not scroll when the offscreen post is edited",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/signin_authentication/login_open_server_spec.js",
+        "cases": [
+            {
+                "title": "Login page with open server > MM-T3306_1 Should render all elements of the page",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/signin_authentication/signup_spec.js",
+        "cases": [
+            {
+                "title": "Signup Email page > should match elements, footer",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/system_console/site_configuration/link_customization_cloud_spec.js",
+        "cases": [
+            {
+                "title": "SupportSettings > MM-T1031 - Customization Change all links",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/toast/new_messages_toast_spec.js",
+        "cases": [
+            {
+                "title": "Toast > MM-T1786 Dismissing the toast using Jump to",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/toast/unread_with_bottom_start_toast_spec.js",
+        "cases": [
+            {
+                "title": "unread_with_bottom_start_toast > MM-T4873_1 Unread with bottom start toast is shown when visiting a channel with unreads and should disappear if scrolled to new messages indicator",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "unread_with_bottom_start_toast > MM-T4873_3 Unread with bottom start toast is shown when post is marked as unread",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "unread_with_bottom_start_toast > MM-T4873_2 Unread with bottom start toast should take to the new messages indicator when clicked",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/bot_accounts/bot_api_spec.js",
+        "cases": [
+            {
+                "title": "Bot accounts ownership and API > MM-T1862 Only system admin are able to create bots",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
+    }
+]
