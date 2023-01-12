@@ -122,6 +122,81 @@ function SpecList({ specs, selectedSpecGroup, requireVerification, build }: Prop
                 {requireVerification && requireVerification.length > 0 && (
                     <>
                         <br />
+                        <span className="mt-4 text-sm text-red-500">
+                            {'* Guidelines on how to deal with failed tests'}
+                        </span>
+                        <div className={'mt-4 border-l-4'}>
+                            <ul className="mx-4">
+                                <li>
+                                    <span className="text-sm text-gray-600">{`1. Verify each failed test if product bug, flaky or requires to be updated.`}</span>
+                                </li>
+
+                                <li>
+                                    <span className="text-sm text-gray-600">
+                                        {
+                                            '2. If requires test to be updated due to changes in PR, ask submitter to fix in the PR itself and not as a follow up change. Ensure corresponding written test case is updated too by filing a PR at '
+                                        }
+                                        <a
+                                            className="text-blue-500"
+                                            href="https://github.com/mattermost/mattermost-test-management/tree/main/data/test-cases"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {'mattermost-test-management.'}
+                                        </a>
+                                        {' Run E2E test again and see if all passed.'}
+                                    </span>
+                                </li>
+                                <li>
+                                    <span className="text-sm text-gray-600">
+                                        {
+                                            '3. If product bug and a regression due to changes in the PR, ask the submitter to fix in the PR itself. Do not merge a PR that introduces regression.'
+                                        }
+                                    </span>
+                                </li>
+                                <li>
+                                    <span className="text-sm text-gray-600">
+                                        {
+                                            '4. If product bug found in nightly test run (master branch), report an issue in '
+                                        }
+                                        <a
+                                            className="text-blue-500"
+                                            href="https://mattermost.atlassian.net/jira/software/c/projects/MM/issues"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {'Jira Board'}
+                                        </a>
+                                        {' or in a board being used by the product or team.'}
+                                    </span>
+                                </li>
+                                <li>
+                                    <span className="text-sm text-gray-600">
+                                        {
+                                            '5. If product bug (in master branch) or flaky test, submit a known issue PR to '
+                                        }
+                                        <a
+                                            className="text-blue-500"
+                                            href={`https://github.com/saturninoabril/automation-dashboard/blob/main/data/known_issue/${buildSuffix}.json`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {'automation-dashboard.'}
+                                        </a>
+                                        {' Once merged, retry the "report" job in corresponding '}
+                                        <a
+                                            className="text-blue-500"
+                                            href={`${gitlabPipelineUrl}/${pipelineID}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {'GitLab pipeline'}
+                                        </a>
+                                        {' and see if all passed.'}
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
                         <span
                             className="mt-4 text-sm text-red-500 cursor-pointer"
                             onClick={() => setOpenRequireVerification(!openRequireVerification)}
@@ -134,69 +209,6 @@ function SpecList({ specs, selectedSpecGroup, requireVerification, build }: Prop
                                     code={JSON.stringify(requireVerification, null, 2)}
                                     language="json"
                                 />
-                                <ul className="mx-4">
-                                    <li>
-                                        <span className="text-sm text-gray-600">{`1. Verify each failed test if product bug, flaky or requires to be updated.`}</span>
-                                    </li>
-
-                                    <li>
-                                        <span className="text-sm text-gray-600">
-                                            {
-                                                '2. If requires test to be updated due to changes in PR, ask submitter to fix in the PR itself and not as a follow up change. Ensure corresponding written test case is updated too by filing a PR at '
-                                            }
-                                            <a
-                                                className="text-blue-500"
-                                                href="https://github.com/mattermost/mattermost-test-management/tree/main/data/test-cases"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                {'mattermost-test-management.'}
-                                            </a>
-                                            {' Run E2E test again and see if all passed.'}
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <span className="text-sm text-gray-600">
-                                            {'3. If product bug, report an issue in '}
-                                            <a
-                                                className="text-blue-500"
-                                                href="https://mattermost.atlassian.net/jira/software/c/projects/MM/issues"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                {'Jira Board'}
-                                            </a>
-                                            {' or in a board being used by the product or team.'}
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <span className="text-sm text-gray-600">
-                                            {
-                                                '4. If product bug or flaky test, submit a known issue PR to '
-                                            }
-                                            <a
-                                                className="text-blue-500"
-                                                href={`https://github.com/saturninoabril/automation-dashboard/blob/main/data/known_issue/${buildSuffix}.json`}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                {'automation-dashboard.'}
-                                            </a>
-                                            {
-                                                ' Once merged, retry the "report" job in corresponding '
-                                            }
-                                            <a
-                                                className="text-blue-500"
-                                                href={`${gitlabPipelineUrl}/${pipelineID}`}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                {'GitLab pipeline'}
-                                            </a>
-                                            {' and see if all passed.'}
-                                        </span>
-                                    </li>
-                                </ul>
                             </div>
                         )}
                     </>
