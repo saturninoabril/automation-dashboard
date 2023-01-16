@@ -1,97 +1,97 @@
 [
     {
-      "spec_file": "tests/integration/integrations/incoming_webhook/long_url_embedded_image_spec.js",
-      "cases": [
-        {
-          "title": "Integrations > MM-T643 Incoming webhook:Long URL for embedded image",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/integrations/incoming_webhook/long_url_embedded_image_spec.js",
+        "cases": [
+            {
+                "title": "Integrations > MM-T643 Incoming webhook:Long URL for embedded image",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/messaging/message_deleted_on_reply_spec.js",
-      "cases": [
-        {
-          "title": "Messaging > MM-T113 Delete a Message during reply, other user sees \"(message deleted)\"",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/messaging/message_deleted_on_reply_spec.js",
+        "cases": [
+            {
+                "title": "Messaging > MM-T113 Delete a Message during reply, other user sees \"(message deleted)\"",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/messaging/message_reply_spec.js",
-      "cases": [
-        {
-          "title": "Message Reply > MM-T90 Reply to older message",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/messaging/message_reply_spec.js",
+        "cases": [
+            {
+                "title": "Message Reply > MM-T90 Reply to older message",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/multi_team_and_dm/multi_team_join_spec.js",
-      "cases": [
-        {
-          "title": "Multi-Team + DMs > MM-T1805 No infinite loading spinner on Select Team page",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/multi_team_and_dm/multi_team_join_spec.js",
+        "cases": [
+            {
+                "title": "Multi-Team + DMs > MM-T1805 No infinite loading spinner on Select Team page",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/system_console/site_configuration/link_customization_e20_2_spec.js",
-      "cases": [
-        {
-          "title": "SupportSettings > MM-T1034 - Customization: Blank TOS link field (About modal)",
-          "is_known": true,
-          "type": "known"
-        },
-        {
-          "title": "SupportSettings > MM-T1032 - Customization: Custom Terms and Privacy links in the About modal",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/system_console/site_configuration/link_customization_e20_2_spec.js",
+        "cases": [
+            {
+                "title": "SupportSettings > MM-T1034 - Customization: Blank TOS link field (About modal)",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "SupportSettings > MM-T1032 - Customization: Custom Terms and Privacy links in the About modal",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/accessibility/accessibility_account_settings_spec.js",
-      "cases": [
-        {
-          "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1482 Input fields in Settings and Profile should read labels",
-          "is_known": true,
-          "type": "known"
-        },
-        {
-          "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1465_1 Verify Label & Tab behavior in section links",
-          "is_known": true,
-          "type": "known"
-        },
-        {
-          "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1465_2 Verify Accessibility Support in each section in Settings and Profile Dialog",
-          "is_known": true,
-          "type": "known"
-        },
-        {
-          "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1481 Verify Correct Radio button behavior in Settings and Profile",
-          "is_known": true,
-          "type": "known"
-        },
-        {
-          "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1496 Security Settings screen should read labels",
-          "is_known": true,
-          "type": "known"
-        },
-        {
-          "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1485 Language dropdown should read labels",
-          "is_known": true,
-          "type": "known"
-        },
-        {
-          "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1488 Profile Picture should read labels",
-          "is_known": true,
-          "type": "known"
-        }
-      ]
+        "spec_file": "tests/integration/accessibility/accessibility_account_settings_spec.js",
+        "cases": [
+            {
+                "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1482 Input fields in Settings and Profile should read labels",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1465_1 Verify Label & Tab behavior in section links",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1465_2 Verify Accessibility Support in each section in Settings and Profile Dialog",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1481 Verify Correct Radio button behavior in Settings and Profile",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1496 Security Settings screen should read labels",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1485 Language dropdown should read labels",
+                "is_known": true,
+                "type": "known"
+            },
+            {
+                "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1488 Profile Picture should read labels",
+                "is_known": true,
+                "type": "known"
+            }
+        ]
     }
-  ]
+]
