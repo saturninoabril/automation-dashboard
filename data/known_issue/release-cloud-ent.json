@@ -5,7 +5,7 @@
             {
                 "title": "Create bot > MM-T1810 Create a Bot via the UI",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -15,7 +15,7 @@
             {
                 "title": "Edit bot > MM-T1840 Description allows for special character",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -25,7 +25,7 @@
             {
                 "title": "Collapsed Reply Threads > MM-T4843_2 should go to threads view when threads view is the penultimate view and leave the current channel",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -35,7 +35,7 @@
             {
                 "title": "Verify Accessibility Support in different input fields > MM-T1458 Verify Accessibility Support in Main Post Input",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -45,12 +45,12 @@
             {
                 "title": "Integrations page > MM-T649 Edit Oauth 2.0 Application",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             },
             {
                 "title": "Integrations page > MM-T652 Regenerate Secret",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -60,12 +60,12 @@
             {
                 "title": "System Console > Site Statistics > MM-T904 Site Statistics displays expected content categories",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             },
             {
                 "title": "System Console > Site Statistics > MM-T905 - Site Statistics card labels in different languages",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -75,7 +75,7 @@
             {
                 "title": "System Console - Cloud > MM-T4264_34 cannot navigate to File Sharing and Downloads",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -85,7 +85,7 @@
             {
                 "title": "System Console > Push Notification Contents",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -95,17 +95,17 @@
             {
                 "title": "Integrations > MM-T660_1 /invite tests when used in DMs and GMs",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             },
             {
                 "title": "Integrations > MM-T658 /invite - current channel",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             },
             {
                 "title": "Integrations > MM-T660_4 /invite tests when used in DMs and GMs",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -115,7 +115,7 @@
             {
                 "title": "Incoming webhook > MM-T641 Edit incoming webhook, webhook posts attachment",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -125,12 +125,12 @@
             {
                 "title": "Incoming webhook > MM-T621 Override username and profile picture - remove overrides from payload",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             },
             {
                 "title": "Incoming webhook > MM-T620 Payload username and profile picture override in-app settings",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -140,7 +140,7 @@
             {
                 "title": "Verify unread toast appears after repeated manual marking post as unread > MM-T254 Rehydrate mention badge after post is marked as Unread",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -150,7 +150,7 @@
             {
                 "title": "autocomplete > MM-T2212 @ mention followed by dot or underscore should highlight",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -160,7 +160,7 @@
             {
                 "title": "Direct Message > MM-T449 - Edit a direct message body",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -170,7 +170,7 @@
             {
                 "title": "Multi-Team + DMs > MM-T1805 No infinite loading spinner on Select Team page",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -180,7 +180,7 @@
             {
                 "title": "Channel switch performance test > measures switching between two channels from LHS",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -190,7 +190,7 @@
             {
                 "title": "Scroll > MM-T2372 Post list does not scroll when the offscreen post is deleted",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -200,7 +200,7 @@
             {
                 "title": "Scroll > MM-T2371 Post list does not scroll when the offscreen post is edited",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -210,7 +210,7 @@
             {
                 "title": "Login page with open server > MM-T3306_1 Should render all elements of the page",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -220,7 +220,7 @@
             {
                 "title": "Signup Email page > should match elements, footer",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -230,7 +230,7 @@
             {
                 "title": "SupportSettings > MM-T1031 - Customization Change all links",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -240,7 +240,7 @@
             {
                 "title": "Toast > MM-T1786 Dismissing the toast using Jump to",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -250,17 +250,17 @@
             {
                 "title": "unread_with_bottom_start_toast > MM-T4873_1 Unread with bottom start toast is shown when visiting a channel with unreads and should disappear if scrolled to new messages indicator",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             },
             {
                 "title": "unread_with_bottom_start_toast > MM-T4873_3 Unread with bottom start toast is shown when post is marked as unread",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             },
             {
                 "title": "unread_with_bottom_start_toast > MM-T4873_2 Unread with bottom start toast should take to the new messages indicator when clicked",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -270,7 +270,7 @@
             {
                 "title": "Bot accounts ownership and API > MM-T1862 Only system admin are able to create bots",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     }
