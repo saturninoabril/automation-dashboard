@@ -5,7 +5,7 @@
             {
                 "title": "New Channel modal with Boards enabled > MM-T5141 New Channel is created with an associated Board",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             }
         ]
     },
@@ -15,7 +15,7 @@
             {
                 "title": "Collapsed Reply Threads > MM-T4843_1 should go to threads view when switching a team if that was the last view on that team",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             }
         ]
     },
@@ -25,7 +25,7 @@
             {
                 "title": "Integrations > MM-T660_4 /invite tests when used in DMs and GMs",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             }
         ]
     },
@@ -35,12 +35,12 @@
             {
                 "title": "Keyboard Shortcuts > MM-T1229 Alt/Option + Up",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             },
             {
                 "title": "Keyboard Shortcuts > MM-T1230 Alt/Option + Down",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             }
         ]
     },
@@ -50,7 +50,7 @@
             {
                 "title": "Messaging > MM-T93 Replying to an older bot post that has no post content and no attachment pretext",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             }
         ]
     },
@@ -60,7 +60,7 @@
             {
                 "title": "Multi-Team + DMs > MM-T1805 No infinite loading spinner on Select Team page",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             }
         ]
     },
@@ -70,7 +70,7 @@
             {
                 "title": "Plugin Marketplace > MM-T1960 Marketplace is available when \"Enable Plugins\" is true",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             }
         ]
     },
@@ -80,7 +80,7 @@
             {
                 "title": "SupportSettings > MM-T1034 - Customization: Blank TOS link field (About modal)",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             }
         ]
     }
