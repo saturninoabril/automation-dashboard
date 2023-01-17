@@ -5,7 +5,7 @@
             {
                 "title": "Verify Accessibility Support in different input fields > MM-T1458 Verify Accessibility Support in Main Post Input",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             }
         ]
     },
@@ -15,47 +15,47 @@
             {
                 "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 24 and threshold not met, should not extend session on visit to a channel",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             },
             {
                 "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 96 and threshold met, should extend session on posting a message",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             },
             {
                 "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 74 and threshold met, should extend session on visit to a channel",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             },
             {
                 "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 96 and threshold not met, should not extend session on posting a message",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             },
             {
                 "title": "MM-T2575 Extend Session - Email Login > should redirect to login page when session expired",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             },
             {
                 "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 24 and threshold met, should extend session on visit to a channel",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             },
             {
                 "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 48 and threshold not met, should not extend session on posting a message",
                 "is_known": true,
-                "type": "known"
+                "type": "flaky"
             },
             {
                 "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 74 and threshold not met, should not extend session on visit to a channel",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             },
             {
                 "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 48 and threshold met, should extend session on posting a message",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             }
         ]
     },
@@ -65,12 +65,12 @@
             {
                 "title": "System Console > Site Statistics > MM-T905 - Site Statistics card labels in different languages",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             },
             {
                 "title": "System Console > Site Statistics > MM-T904 Site Statistics displays expected content categories",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             }
         ]
     },
@@ -80,7 +80,7 @@
             {
                 "title": "Verify unread toast appears after repeated manual marking post as unread > MM-T254 Rehydrate mention badge after post is marked as Unread",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             }
         ]
     },
@@ -90,7 +90,7 @@
             {
                 "title": "autocomplete > MM-T2212 @ mention followed by dot or underscore should highlight",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             }
         ]
     },
@@ -100,7 +100,7 @@
             {
                 "title": "Scroll > MM-T2372 Post list does not scroll when the offscreen post is deleted",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             }
         ]
     },
@@ -110,7 +110,7 @@
             {
                 "title": "Scroll > MM-T2371 Post list does not scroll when the offscreen post is edited",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             }
         ]
     },
@@ -120,7 +120,7 @@
             {
                 "title": "Scroll > MM-T2368 Fixed width",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             }
         ]
     },
@@ -130,7 +130,7 @@
             {
                 "title": "Team Settings > MM-T385 Invite new user to closed team using email invite",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             }
         ]
     },
@@ -140,17 +140,17 @@
             {
                 "title": "unread_with_bottom_start_toast > MM-T4873_3 Unread with bottom start toast is shown when post is marked as unread",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             },
             {
                 "title": "unread_with_bottom_start_toast > MM-T4873_1 Unread with bottom start toast is shown when visiting a channel with unreads and should disappear if scrolled to new messages indicator",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             },
             {
                 "title": "unread_with_bottom_start_toast > MM-T4873_2 Unread with bottom start toast should take to the new messages indicator when clicked",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             }
         ]
     },
@@ -160,12 +160,12 @@
             {
                 "title": "M17448 Does not post draft message > on upload cancel via \"Draw\" plugin",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             },
             {
                 "title": "M17448 Does not post draft message > on successful upload via \"Draw\" plugin",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             }
         ]
     },
@@ -175,7 +175,7 @@
             {
                 "title": "collapse on 15 plugin buttons > MM-T1649 Greater than 15 plugin buttons collapse to one icon in top nav",
                 "is_known": true,
-                "type": "knwon"
+                "type": "flaky"
             }
         ]
     }
