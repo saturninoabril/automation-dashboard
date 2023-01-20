@@ -1,74 +1,179 @@
 [
     {
-        "spec_file": "tests/integration/enterprise/system_console/compliance/compliance_export_ui_spec.js",
+        "spec_file": "tests/integration/enterprise/accessibility/accessibility_input_fields_spec.js",
         "cases": [
             {
-                "title": "Compliance Export > MM-T1167 - Compliance Export job can be canceled",
+                "title": "Verify Accessibility Support in different input fields > MM-T1458 Verify Accessibility Support in Main Post Input",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/collapsed_reply_threads/replies_spec.js",
+        "spec_file": "tests/integration/enterprise/extend_session/email_login_activity_spec.ts",
         "cases": [
             {
-                "title": "Collapsed Reply Threads > MM-T4646 should open popover when avatar is clicked",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/multi_team_and_dm/gm_header_spec.js",
-        "cases": [
-            {
-                "title": "Multi-user group header > MM-T473_2 Edit GM channel header (2/2)",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/plugins/marketplace/render_in_main_menu_spec.js",
-        "cases": [
-            {
-                "title": "Plugin Marketplace > MM-T1960 Marketplace is available when \"Enable Plugins\" is true",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/settings/display/message_display_mode_colorize_username_spec.js",
-        "cases": [
-            {
-                "title": "Settings > Display > Message Display: Colorize username > MM-T4984_3 Message Display: disabling colorize should revert colors to normal color",
+                "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 24 and threshold not met, should not extend session on visit to a channel",
                 "is_known": true,
                 "type": "flaky"
             },
             {
-                "title": "Settings > Display > Message Display: Colorize username > MM-T4984_1 Message Display: colorize usernames option should not exist in Standard mode",
+                "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 96 and threshold met, should extend session on posting a message",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 74 and threshold met, should extend session on visit to a channel",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 96 and threshold not met, should not extend session on posting a message",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "MM-T2575 Extend Session - Email Login > should redirect to login page when session expired",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 24 and threshold met, should extend session on visit to a channel",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 48 and threshold not met, should not extend session on posting a message",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 74 and threshold not met, should not extend session on visit to a channel",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "MM-T2575 Extend Session - Email Login > with SessionLengthWebInHours 48 and threshold met, should extend session on posting a message",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/settings/sidebar/fullname_spec.js",
+        "spec_file": "tests/integration/enterprise/system_console/reporting/site_statistics_spec.js",
         "cases": [
             {
-                "title": "Settings > Sidebar > General > MM-T183 Filtering by first name with Korean characters",
+                "title": "System Console > Site Statistics > MM-T905 - Site Statistics card labels in different languages",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "System Console > Site Statistics > MM-T904 Site Statistics displays expected content categories",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/system_console/reporting/team_statistics_spec.js",
+        "spec_file": "tests/integration/mark_as_unread/unread_toast_count_spec.js",
         "cases": [
             {
-                "title": "System Console > Team Statistics > MM-T906 Team Statistics displays expected content categories",
+                "title": "Verify unread toast appears after repeated manual marking post as unread > MM-T254 Rehydrate mention badge after post is marked as Unread",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/messaging/autocomplete_spec.js",
+        "cases": [
+            {
+                "title": "autocomplete > MM-T2212 @ mention followed by dot or underscore should highlight",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/scroll/deleting_scroll_spec.js",
+        "cases": [
+            {
+                "title": "Scroll > MM-T2372 Post list does not scroll when the offscreen post is deleted",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/scroll/editing_scroll_spec.js",
+        "cases": [
+            {
+                "title": "Scroll > MM-T2371 Post list does not scroll when the offscreen post is edited",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/scroll/fixed_width_spec.js",
+        "cases": [
+            {
+                "title": "Scroll > MM-T2368 Fixed width",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/team_settings/closed_team_invite_by_email_spec.js",
+        "cases": [
+            {
+                "title": "Team Settings > MM-T385 Invite new user to closed team using email invite",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/toast/unread_with_bottom_start_toast_spec.js",
+        "cases": [
+            {
+                "title": "unread_with_bottom_start_toast > MM-T4873_3 Unread with bottom start toast is shown when post is marked as unread",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "unread_with_bottom_start_toast > MM-T4873_1 Unread with bottom start toast is shown when visiting a channel with unreads and should disappear if scrolled to new messages indicator",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "unread_with_bottom_start_toast > MM-T4873_2 Unread with bottom start toast should take to the new messages indicator when clicked",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/messaging/message_channel_draw_spec.js",
+        "cases": [
+            {
+                "title": "M17448 Does not post draft message > on upload cancel via \"Draw\" plugin",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "M17448 Does not post draft message > on successful upload via \"Draw\" plugin",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/plugins/plugin_buttons_spec.js",
+        "cases": [
+            {
+                "title": "collapse on 15 plugin buttons > MM-T1649 Greater than 15 plugin buttons collapse to one icon in top nav",
                 "is_known": true,
                 "type": "flaky"
             }
