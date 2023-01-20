@@ -1,82 +1,82 @@
 [
     {
-      "spec_file": "tests/integration/channel/archived_channels_2_spec.js",
-      "cases": [
-        {
-          "title": "Leave an archived channel > MM-T1688 archived channels only appear in search results as long as the user does not leave them",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/channel/archived_channels_2_spec.js",
+        "cases": [
+            {
+                "title": "Leave an archived channel > MM-T1688 archived channels only appear in search results as long as the user does not leave them",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/collapsed_reply_threads/last_viewed_spec.js",
-      "cases": [
-        {
-          "title": "Collapsed Reply Threads > MM-T4843_1 should go to threads view when switching a team if that was the last view on that team",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/collapsed_reply_threads/last_viewed_spec.js",
+        "cases": [
+            {
+                "title": "Collapsed Reply Threads > MM-T4843_1 should go to threads view when switching a team if that was the last view on that team",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/messaging/autocomplete_spec.js",
-      "cases": [
-        {
-          "title": "autocomplete > MM-T2214 @ mention from link in profile popover: center",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/messaging/autocomplete_spec.js",
+        "cases": [
+            {
+                "title": "autocomplete > MM-T2214 @ mention from link in profile popover: center",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/messaging/message_reply_gm_spec.js",
-      "cases": [
-        {
-          "title": "Reply in existing GM > MM-T470 Reply in existing GM",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/messaging/message_reply_gm_spec.js",
+        "cases": [
+            {
+                "title": "Reply in existing GM > MM-T470 Reply in existing GM",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/multi_team_and_dm/gm_header_spec.js",
-      "cases": [
-        {
-          "title": "Multi-user group header > MM-T473_2 Edit GM channel header (2/2)",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/multi_team_and_dm/gm_header_spec.js",
+        "cases": [
+            {
+                "title": "Multi-user group header > MM-T473_2 Edit GM channel header (2/2)",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/scroll/fixed_width_spec.js",
-      "cases": [
-        {
-          "title": "Scroll > MM-T2368 Fixed width",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/scroll/fixed_width_spec.js",
+        "cases": [
+            {
+                "title": "Scroll > MM-T2368 Fixed width",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/settings/sidebar/fullname_spec.js",
-      "cases": [
-        {
-          "title": "Settings > Sidebar > General > MM-T183 Filtering by first name with Korean characters",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/settings/sidebar/fullname_spec.js",
+        "cases": [
+            {
+                "title": "Settings > Sidebar > General > MM-T183 Filtering by first name with Korean characters",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/system_console/reporting/team_statistics_spec.js",
-      "cases": [
-        {
-          "title": "System Console > Team Statistics > MM-T906 Team Statistics displays expected content categories",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/system_console/reporting/team_statistics_spec.js",
+        "cases": [
+            {
+                "title": "System Console > Team Statistics > MM-T906 Team Statistics displays expected content categories",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     }
-  ]
+]
