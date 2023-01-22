@@ -5,12 +5,12 @@
             {
                 "title": "Collapsed Reply Threads > MM-T4843_1 should go to threads view when switching a team if that was the last view on that team",
                 "is_known": true,
-                "type": "falky"
+                "type": "flaky"
             },
             {
                 "title": "Collapsed Reply Threads > MM-T4887 should stay on threads view when switching teams",
                 "is_known": true,
-                "type": "falky"
+                "type": "flaky"
             }
         ]
     },
@@ -20,7 +20,7 @@
             {
                 "title": "Collapsed Reply Threads > MM-T4646 should open popover when avatar is clicked",
                 "is_known": true,
-                "type": "falky"
+                "type": "flaky"
             }
         ]
     },
@@ -30,7 +30,7 @@
             {
                 "title": "Plugin Marketplace > MM-T1960 Marketplace is available when \"Enable Plugins\" is true",
                 "is_known": true,
-                "type": "falky"
+                "type": "flaky"
             }
         ]
     },
@@ -40,7 +40,7 @@
             {
                 "title": "Settings > Sidebar > General > MM-T183 Filtering by first name with Korean characters",
                 "is_known": true,
-                "type": "falky"
+                "type": "flaky"
             }
         ]
     },
@@ -50,7 +50,7 @@
             {
                 "title": "System Console > Team Statistics > MM-T906 Team Statistics displays expected content categories",
                 "is_known": true,
-                "type": "falky"
+                "type": "flaky"
             }
         ]
     },
@@ -60,7 +60,7 @@
             {
                 "title": "SupportSettings > MM-T1032 - Customization: Custom Terms and Privacy links in the About modal",
                 "is_known": true,
-                "type": "falky"
+                "type": "flaky"
             }
         ]
     },
@@ -70,7 +70,7 @@
             {
                 "title": "Toast > MM-T1786 Dismissing the toast using Jump to",
                 "is_known": true,
-                "type": "falky"
+                "type": "flaky"
             }
         ]
     },
@@ -80,12 +80,12 @@
             {
                 "title": "System console > MM-T1201 - Remove and re-add license - Permissions freeze in place when license is removed (and then re-added)",
                 "is_known": true,
-                "type": "falky"
+                "type": "flaky"
             },
             {
                 "title": "System console > MM-41397 - License page shows upgrade to Enterprise for E20 licenses",
                 "is_known": true,
-                "type": "falky"
+                "type": "flaky"
             }
         ]
     }
