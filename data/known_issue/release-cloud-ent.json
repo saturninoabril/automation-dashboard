@@ -1,19 +1,54 @@
 [
     {
-        "spec_file": "tests/integration/channel/archived_channels_2_spec.js",
+        "spec_file": "tests/integration/collapsed_reply_threads/last_viewed_spec.js",
         "cases": [
             {
-                "title": "Leave an archived channel > MM-T1688 archived channels only appear in search results as long as the user does not leave them",
+                "title": "Collapsed Reply Threads > MM-T4843_2 should go to threads view when threads view is the penultimate view and leave the current channel",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/collapsed_reply_threads/last_viewed_spec.js",
+        "spec_file": "tests/integration/enterprise/accessibility/accessibility_input_fields_spec.js",
         "cases": [
             {
-                "title": "Collapsed Reply Threads > MM-T4843_1 should go to threads view when switching a team if that was the last view on that team",
+                "title": "Verify Accessibility Support in different input fields > MM-T1458 Verify Accessibility Support in Main Post Input",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/reporting/site_statistics_spec.js",
+        "cases": [
+            {
+                "title": "System Console > Site Statistics > MM-T905 - Site Statistics card labels in different languages",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "System Console > Site Statistics > MM-T904 Site Statistics displays expected content categories",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/sidebar_link_navigation_cloud_spec.js",
+        "cases": [
+            {
+                "title": "System Console - Cloud > MM-T4264_34 cannot navigate to File Sharing and Downloads",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/ui_and_api/notifications_spec.js",
+        "cases": [
+            {
+                "title": "System Console > Push Notification Contents",
                 "is_known": true,
                 "type": "flaky"
             }
@@ -23,57 +58,87 @@
         "spec_file": "tests/integration/messaging/autocomplete_spec.js",
         "cases": [
             {
-                "title": "autocomplete > MM-T2214 @ mention from link in profile popover: center",
+                "title": "autocomplete > MM-T2212 @ mention followed by dot or underscore should highlight",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/messaging/message_reply_gm_spec.js",
+        "spec_file": "tests/integration/scroll/deleting_scroll_spec.js",
         "cases": [
             {
-                "title": "Reply in existing GM > MM-T470 Reply in existing GM",
+                "title": "Scroll > MM-T2372 Post list does not scroll when the offscreen post is deleted",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/multi_team_and_dm/gm_header_spec.js",
+        "spec_file": "tests/integration/scroll/editing_scroll_spec.js",
         "cases": [
             {
-                "title": "Multi-user group header > MM-T473_2 Edit GM channel header (2/2)",
+                "title": "Scroll > MM-T2371 Post list does not scroll when the offscreen post is edited",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/scroll/fixed_width_spec.js",
+        "spec_file": "tests/integration/signin_authentication/login_open_server_spec.js",
         "cases": [
             {
-                "title": "Scroll > MM-T2368 Fixed width",
+                "title": "Login page with open server > MM-T3306_1 Should render all elements of the page",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/settings/sidebar/fullname_spec.js",
+        "spec_file": "tests/integration/signin_authentication/signup_spec.js",
         "cases": [
             {
-                "title": "Settings > Sidebar > General > MM-T183 Filtering by first name with Korean characters",
+                "title": "Signup Email page > should match elements, footer",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/system_console/reporting/team_statistics_spec.js",
+        "spec_file": "tests/integration/system_console/site_configuration/announcement_banner_spec.js",
         "cases": [
             {
-                "title": "System Console > Team Statistics > MM-T906 Team Statistics displays expected content categories",
+                "title": "Announcement Banner > MM-T1128 Announcement Banner - Dismissible banner shows long text truncated",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/system_console/site_configuration/link_customization_cloud_spec.js",
+        "cases": [
+            {
+                "title": "SupportSettings > MM-T1031 - Customization Change all links",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/toast/unread_with_bottom_start_toast_spec.js",
+        "cases": [
+            {
+                "title": "unread_with_bottom_start_toast > MM-T4873_1 Unread with bottom start toast is shown when visiting a channel with unreads and should disappear if scrolled to new messages indicator",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "unread_with_bottom_start_toast > MM-T4873_3 Unread with bottom start toast is shown when post is marked as unread",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "unread_with_bottom_start_toast > MM-T4873_2 Unread with bottom start toast should take to the new messages indicator when clicked",
                 "is_known": true,
                 "type": "flaky"
             }
