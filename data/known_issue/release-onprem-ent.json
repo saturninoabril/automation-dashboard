@@ -1,94 +1,234 @@
 [
     {
-        "spec_file": "tests/integration/integrations/incoming_webhook/long_url_embedded_image_spec.js",
+        "spec_file": "tests/integration/channel/new_channel_with_board_spec.js",
         "cases": [
             {
-                "title": "Integrations > MM-T643 Incoming webhook:Long URL for embedded image",
+                "title": "New Channel modal with Boards enabled > MM-T5141 New Channel is created with an associated Board",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/messaging/message_deleted_on_reply_spec.js",
+        "spec_file": "tests/integration/enterprise/accessibility/accessibility_input_fields_spec.js",
         "cases": [
             {
-                "title": "Messaging > MM-T113 Delete a Message during reply, other user sees \"(message deleted)\"",
+                "title": "Verify Accessibility Support in different input fields > MM-T1458 Verify Accessibility Support in Main Post Input",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/messaging/message_reply_spec.js",
+        "spec_file": "tests/integration/enterprise/system_console/reporting/site_statistics_spec.js",
         "cases": [
             {
-                "title": "Message Reply > MM-T90 Reply to older message",
+                "title": "System Console > Site Statistics > MM-T905 - Site Statistics card labels in different languages",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/multi_team_and_dm/multi_team_join_spec.js",
+        "spec_file": "tests/integration/integrations/incoming_webhook/inapp_username_profile_override_spec.js",
         "cases": [
             {
-                "title": "Multi-Team + DMs > MM-T1805 No infinite loading spinner on Select Team page",
+                "title": "Incoming webhook > MM-T620 Payload username and profile picture override in-app settings",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Incoming webhook > MM-T621 Override username and profile picture - remove overrides from payload",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/system_console/site_configuration/link_customization_e20_2_spec.js",
+        "spec_file": "tests/integration/mark_as_unread/toast_appears_unread_spec.js",
         "cases": [
             {
-                "title": "SupportSettings > MM-T1034 - Customization: Blank TOS link field (About modal)",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "SupportSettings > MM-T1032 - Customization: Custom Terms and Privacy links in the About modal",
+                "title": "Verify unread toast appears after repeated manual marking post as unread > MM-T1429 Toast when navigating to channel with unread messages and after repeated marking as unread",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/accessibility/accessibility_account_settings_spec.js",
+        "spec_file": "tests/integration/message_forwarding/forward_message_from_dm_spec.js",
         "cases": [
             {
-                "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1482 Input fields in Settings and Profile should read labels",
+                "title": "Forward Message > MM-T4936_2 Forward reply post from DM",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/message_forwarding/forward_message_from_gm_spec.js",
+        "cases": [
+            {
+                "title": "Forward Message > MM-T4937_1 Forward reply post from GM (with at least 2 other users)",
                 "is_known": true,
                 "type": "flaky"
             },
             {
-                "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1465_1 Verify Label & Tab behavior in section links",
+                "title": "Forward Message > MM-T4937_2 Forward reply post from GM (with at least 2 other users)",
                 "is_known": true,
                 "type": "flaky"
             },
             {
-                "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1465_2 Verify Accessibility Support in each section in Settings and Profile Dialog",
+                "title": "Forward Message > MM-T4937_3 Forward post from GM (with at least 2 other users) - Cancel using X",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/message_forwarding/forward_message_from_private_channel_spec.js",
+        "cases": [
+            {
+                "title": "Forward Message > MM-T4935_3 Forward post from private channel - Cancel",
                 "is_known": true,
                 "type": "flaky"
             },
             {
-                "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1481 Verify Correct Radio button behavior in Settings and Profile",
+                "title": "Forward Message > MM-T4935_2 Forward reply post from private channel",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/messaging/ctrl_cmd_k_find_gm_by_matching_name_spec.js",
+        "cases": [
+            {
+                "title": "Messaging > MM-T1226 - CTRL/CMD+K - Find GM by matching username, full name, or nickname, even if that name isn't displayed",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/messaging/message_spec.js",
+        "cases": [
+            {
+                "title": "Message > MM-T3307 Focus remains in the RHS text box",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/messaging/post_pre_header_spec.js",
+        "cases": [
+            {
+                "title": "Post PreHeader > MM-T3352 Properly handle Saved Posts",
                 "is_known": true,
                 "type": "flaky"
             },
             {
-                "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1496 Security Settings screen should read labels",
+                "title": "Post PreHeader > MM-T3353 Unpinning and pinning a post removes and adds badge",
                 "is_known": true,
                 "type": "flaky"
             },
             {
-                "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1485 Language dropdown should read labels",
+                "title": "Post PreHeader > MM-T3354 Handle posts that are both pinned and saved",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/messaging/post_textbox_height_spec.js",
+        "cases": [
+            {
+                "title": "Messaging > MM-T212 Leave a long draft in reply input box",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/messaging/save_post_spec.js",
+        "cases": [
+            {
+                "title": "Save Post > MM-T4948_2 Save hotkey should save post",
                 "is_known": true,
                 "type": "flaky"
             },
             {
-                "title": "Verify Accessibility Support in different sections in Settings and Profile Dialog > MM-T1488 Profile Picture should read labels",
+                "title": "Save Post > MM-T4948_1 Save menu item should save post",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/notifications/at_mentions_spec.js",
+        "cases": [
+            {
+                "title": "Notifications > MM-T184 Words that trigger mentions support Chinese",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/scroll/deleting_scroll_spec.js",
+        "cases": [
+            {
+                "title": "Scroll > MM-T2372 Post list does not scroll when the offscreen post is deleted",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/scroll/editing_scroll_spec.js",
+        "cases": [
+            {
+                "title": "Scroll > MM-T2371 Post list does not scroll when the offscreen post is edited",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/settings/display/channel_display_mode_spec.js",
+        "cases": [
+            {
+                "title": "Settings > Display > Channel Display Mode > MM-T295 Channel display mode setting to \"Fixed width, centered\"",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/toast/unread_with_bottom_start_toast_spec.js",
+        "cases": [
+            {
+                "title": "unread_with_bottom_start_toast > MM-T4873_1 Unread with bottom start toast is shown when visiting a channel with unreads and should disappear if scrolled to new messages indicator",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "unread_with_bottom_start_toast > MM-T4873_2 Unread with bottom start toast should take to the new messages indicator when clicked",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/messaging/message_channel_draw_spec.js",
+        "cases": [
+            {
+                "title": "M17448 Does not post draft message > on successful upload via \"Draw\" plugin",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "M17448 Does not post draft message > on upload cancel via \"Draw\" plugin",
                 "is_known": true,
                 "type": "flaky"
             }
