@@ -1,11 +1,11 @@
 [
     {
-        "spec_file": "tests/integration/channel/new_channel_with_board_spec.js",
+        "spec_file": "tests/integration/channel_sidebar/new_channel_dropdown_spec.ts",
         "cases": [
             {
-                "title": "New Channel modal with Boards enabled > MM-T5141 New Channel is created with an associated Board",
-                "is_known": true,
-                "type": "flaky"
+                "title": "Channel sidebar > should join a new public channel when using the new channel dropdown",
+                "is_known": false,
+                "type": "require_verification"
             }
         ]
     },
@@ -14,8 +14,8 @@
         "cases": [
             {
                 "title": "Verify Accessibility Support in different input fields > MM-T1458 Verify Accessibility Support in Main Post Input",
-                "is_known": true,
-                "type": "flaky"
+                "is_known": false,
+                "type": "require_verification"
             }
         ]
     },
@@ -23,154 +23,39 @@
         "spec_file": "tests/integration/enterprise/system_console/reporting/site_statistics_spec.js",
         "cases": [
             {
+                "title": "System Console > Site Statistics > MM-T904 Site Statistics displays expected content categories",
+                "is_known": false,
+                "type": "require_verification"
+            },
+            {
                 "title": "System Console > Site Statistics > MM-T905 - Site Statistics card labels in different languages",
-                "is_known": true,
-                "type": "flaky"
+                "is_known": false,
+                "type": "require_verification"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/integrations/incoming_webhook/inapp_username_profile_override_spec.js",
+        "spec_file": "tests/integration/messaging/autocomplete_spec.js",
         "cases": [
             {
-                "title": "Incoming webhook > MM-T620 Payload username and profile picture override in-app settings",
-                "is_known": true,
-                "type": "flaky"
+                "title": "autocomplete > MM-T2214 @ mention from link in profile popover: center",
+                "is_known": false,
+                "type": "require_verification"
             },
             {
-                "title": "Incoming webhook > MM-T621 Override username and profile picture - remove overrides from payload",
-                "is_known": true,
-                "type": "flaky"
+                "title": "autocomplete > MM-T2212 @ mention followed by dot or underscore should highlight",
+                "is_known": false,
+                "type": "require_verification"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/mark_as_unread/toast_appears_unread_spec.js",
+        "spec_file": "tests/integration/multi_team_and_dm/gm_header_spec.js",
         "cases": [
             {
-                "title": "Verify unread toast appears after repeated manual marking post as unread > MM-T1429 Toast when navigating to channel with unread messages and after repeated marking as unread",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/message_forwarding/forward_message_from_dm_spec.js",
-        "cases": [
-            {
-                "title": "Forward Message > MM-T4936_2 Forward reply post from DM",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/message_forwarding/forward_message_from_gm_spec.js",
-        "cases": [
-            {
-                "title": "Forward Message > MM-T4937_1 Forward reply post from GM (with at least 2 other users)",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "Forward Message > MM-T4937_2 Forward reply post from GM (with at least 2 other users)",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "Forward Message > MM-T4937_3 Forward post from GM (with at least 2 other users) - Cancel using X",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/message_forwarding/forward_message_from_private_channel_spec.js",
-        "cases": [
-            {
-                "title": "Forward Message > MM-T4935_3 Forward post from private channel - Cancel",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "Forward Message > MM-T4935_2 Forward reply post from private channel",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/messaging/ctrl_cmd_k_find_gm_by_matching_name_spec.js",
-        "cases": [
-            {
-                "title": "Messaging > MM-T1226 - CTRL/CMD+K - Find GM by matching username, full name, or nickname, even if that name isn't displayed",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/messaging/message_spec.js",
-        "cases": [
-            {
-                "title": "Message > MM-T3307 Focus remains in the RHS text box",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/messaging/post_pre_header_spec.js",
-        "cases": [
-            {
-                "title": "Post PreHeader > MM-T3352 Properly handle Saved Posts",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "Post PreHeader > MM-T3353 Unpinning and pinning a post removes and adds badge",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "Post PreHeader > MM-T3354 Handle posts that are both pinned and saved",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/messaging/post_textbox_height_spec.js",
-        "cases": [
-            {
-                "title": "Messaging > MM-T212 Leave a long draft in reply input box",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/messaging/save_post_spec.js",
-        "cases": [
-            {
-                "title": "Save Post > MM-T4948_2 Save hotkey should save post",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "Save Post > MM-T4948_1 Save menu item should save post",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/notifications/at_mentions_spec.js",
-        "cases": [
-            {
-                "title": "Notifications > MM-T184 Words that trigger mentions support Chinese",
-                "is_known": true,
-                "type": "flaky"
+                "title": "Multi-user group header > MM-T473_2 Edit GM channel header (2/2)",
+                "is_known": false,
+                "type": "require_verification"
             }
         ]
     },
@@ -179,8 +64,8 @@
         "cases": [
             {
                 "title": "Scroll > MM-T2372 Post list does not scroll when the offscreen post is deleted",
-                "is_known": true,
-                "type": "flaky"
+                "is_known": false,
+                "type": "require_verification"
             }
         ]
     },
@@ -189,18 +74,48 @@
         "cases": [
             {
                 "title": "Scroll > MM-T2371 Post list does not scroll when the offscreen post is edited",
-                "is_known": true,
-                "type": "flaky"
+                "is_known": false,
+                "type": "require_verification"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/settings/display/channel_display_mode_spec.js",
+        "spec_file": "tests/integration/scroll/fixed_width_spec.js",
         "cases": [
             {
-                "title": "Settings > Display > Channel Display Mode > MM-T295 Channel display mode setting to \"Fixed width, centered\"",
-                "is_known": true,
-                "type": "flaky"
+                "title": "Scroll > MM-T2368 Fixed width",
+                "is_known": false,
+                "type": "require_verification"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/settings/sidebar/fullname_spec.js",
+        "cases": [
+            {
+                "title": "Settings > Sidebar > General > MM-T183 Filtering by first name with Korean characters",
+                "is_known": false,
+                "type": "require_verification"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/system_console/reporting/team_statistics_spec.js",
+        "cases": [
+            {
+                "title": "System Console > Team Statistics > MM-T906 Team Statistics displays expected content categories",
+                "is_known": false,
+                "type": "require_verification"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/system_console/search_box_not_cloud_spec.js",
+        "cases": [
+            {
+                "title": "System console > MM-T898 - Individual plugins can be searched for via the System Console search box",
+                "is_known": false,
+                "type": "require_verification"
             }
         ]
     },
@@ -208,14 +123,14 @@
         "spec_file": "tests/integration/toast/unread_with_bottom_start_toast_spec.js",
         "cases": [
             {
-                "title": "unread_with_bottom_start_toast > MM-T4873_1 Unread with bottom start toast is shown when visiting a channel with unreads and should disappear if scrolled to new messages indicator",
-                "is_known": true,
-                "type": "flaky"
+                "title": "unread_with_bottom_start_toast > MM-T4873_2 Unread with bottom start toast should take to the new messages indicator when clicked",
+                "is_known": false,
+                "type": "require_verification"
             },
             {
-                "title": "unread_with_bottom_start_toast > MM-T4873_2 Unread with bottom start toast should take to the new messages indicator when clicked",
-                "is_known": true,
-                "type": "flaky"
+                "title": "unread_with_bottom_start_toast > MM-T4873_1 Unread with bottom start toast is shown when visiting a channel with unreads and should disappear if scrolled to new messages indicator",
+                "is_known": false,
+                "type": "require_verification"
             }
         ]
     },
@@ -223,14 +138,24 @@
         "spec_file": "tests/integration/messaging/message_channel_draw_spec.js",
         "cases": [
             {
-                "title": "M17448 Does not post draft message > on successful upload via \"Draw\" plugin",
-                "is_known": true,
-                "type": "flaky"
+                "title": "M17448 Does not post draft message > on upload cancel via \"Draw\" plugin",
+                "is_known": false,
+                "type": "require_verification"
             },
             {
-                "title": "M17448 Does not post draft message > on upload cancel via \"Draw\" plugin",
-                "is_known": true,
-                "type": "flaky"
+                "title": "M17448 Does not post draft message > on successful upload via \"Draw\" plugin",
+                "is_known": false,
+                "type": "require_verification"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/plugins/plugin_buttons_spec.js",
+        "cases": [
+            {
+                "title": "collapse on 15 plugin buttons > MM-T1649 Greater than 15 plugin buttons collapse to one icon in top nav",
+                "is_known": false,
+                "type": "require_verification"
             }
         ]
     }
