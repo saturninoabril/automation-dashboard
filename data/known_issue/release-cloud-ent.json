@@ -1,157 +1,157 @@
 [
     {
-      "spec_file": "tests/integration/channel/new_channel_with_board_spec.js",
-      "cases": [
-        {
-          "title": "New Channel modal with Boards enabled > MM-T5141 New Channel is created with an associated Board",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/channel/new_channel_with_board_spec.js",
+        "cases": [
+            {
+                "title": "New Channel modal with Boards enabled > MM-T5141 New Channel is created with an associated Board",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/collapsed_reply_threads/replies_spec.js",
-      "cases": [
-        {
-          "title": "Collapsed Reply Threads > MM-T4646 should open popover when avatar is clicked",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/collapsed_reply_threads/replies_spec.js",
+        "cases": [
+            {
+                "title": "Collapsed Reply Threads > MM-T4646 should open popover when avatar is clicked",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/integrations/incoming_webhook/edit_incoming_webhook_spec.js",
-      "cases": [
-        {
-          "title": "Incoming webhook > MM-T641 Edit incoming webhook, webhook posts attachment",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/integrations/incoming_webhook/edit_incoming_webhook_spec.js",
+        "cases": [
+            {
+                "title": "Incoming webhook > MM-T641 Edit incoming webhook, webhook posts attachment",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/keyboard_shortcuts/ctrl_cmd_up_down_in_rhs_spec.js",
-      "cases": [
-        {
-          "title": "Keyboard Shortcuts > MM - T1257 CTRL / CMD + UP or DOWN in RHS",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/keyboard_shortcuts/ctrl_cmd_up_down_in_rhs_spec.js",
+        "cases": [
+            {
+                "title": "Keyboard Shortcuts > MM - T1257 CTRL / CMD + UP or DOWN in RHS",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/mark_as_unread/toast_appears_unread_spec.js",
-      "cases": [
-        {
-          "title": "Verify unread toast appears after repeated manual marking post as unread > MM-T1429 Toast when navigating to channel with unread messages and after repeated marking as unread",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/mark_as_unread/toast_appears_unread_spec.js",
+        "cases": [
+            {
+                "title": "Verify unread toast appears after repeated manual marking post as unread > MM-T1429 Toast when navigating to channel with unread messages and after repeated marking as unread",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/message_forwarding/forward_message_from_dm_spec.js",
-      "cases": [
-        {
-          "title": "Forward Message > MM-T4936_2 Forward reply post from DM",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/message_forwarding/forward_message_from_dm_spec.js",
+        "cases": [
+            {
+                "title": "Forward Message > MM-T4936_2 Forward reply post from DM",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/message_forwarding/forward_message_from_gm_spec.js",
-      "cases": [
-        {
-          "title": "Forward Message > MM-T4937_3 Forward post from GM (with at least 2 other users) - Cancel using X",
-          "is_known": true,
-          "type": "flaky"
-        },
-        {
-          "title": "Forward Message > MM-T4937_1 Forward reply post from GM (with at least 2 other users)",
-          "is_known": true,
-          "type": "flaky"
-        },
-        {
-          "title": "Forward Message > MM-T4937_2 Forward reply post from GM (with at least 2 other users)",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/message_forwarding/forward_message_from_gm_spec.js",
+        "cases": [
+            {
+                "title": "Forward Message > MM-T4937_3 Forward post from GM (with at least 2 other users) - Cancel using X",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Forward Message > MM-T4937_1 Forward reply post from GM (with at least 2 other users)",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Forward Message > MM-T4937_2 Forward reply post from GM (with at least 2 other users)",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/message_forwarding/forward_message_from_private_channel_spec.js",
-      "cases": [
-        {
-          "title": "Forward Message > MM-T4935_3 Forward post from private channel - Cancel",
-          "is_known": true,
-          "type": "flaky"
-        },
-        {
-          "title": "Forward Message > MM-T4935_2 Forward reply post from private channel",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/message_forwarding/forward_message_from_private_channel_spec.js",
+        "cases": [
+            {
+                "title": "Forward Message > MM-T4935_3 Forward post from private channel - Cancel",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Forward Message > MM-T4935_2 Forward reply post from private channel",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/messaging/ctrl_cmd_k_find_gm_by_matching_name_spec.js",
-      "cases": [
-        {
-          "title": "Messaging > MM-T1226 - CTRL/CMD+K - Find GM by matching username, full name, or nickname, even if that name isn't displayed",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/messaging/ctrl_cmd_k_find_gm_by_matching_name_spec.js",
+        "cases": [
+            {
+                "title": "Messaging > MM-T1226 - CTRL/CMD+K - Find GM by matching username, full name, or nickname, even if that name isn't displayed",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/messaging/message_spec.js",
-      "cases": [
-        {
-          "title": "Message > MM-T3307 Focus remains in the RHS text box",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/messaging/message_spec.js",
+        "cases": [
+            {
+                "title": "Message > MM-T3307 Focus remains in the RHS text box",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/messaging/post_textbox_height_spec.js",
-      "cases": [
-        {
-          "title": "Messaging > MM-T212 Leave a long draft in reply input box",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/messaging/post_textbox_height_spec.js",
+        "cases": [
+            {
+                "title": "Messaging > MM-T212 Leave a long draft in reply input box",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/notifications/at_mentions_spec.js",
-      "cases": [
-        {
-          "title": "Notifications > MM-T184 Words that trigger mentions support Chinese",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/notifications/at_mentions_spec.js",
+        "cases": [
+            {
+                "title": "Notifications > MM-T184 Words that trigger mentions support Chinese",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/settings/sidebar/fullname_spec.js",
-      "cases": [
-        {
-          "title": "Settings > Sidebar > General > MM-T183 Filtering by first name with Korean characters",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/settings/sidebar/fullname_spec.js",
+        "cases": [
+            {
+                "title": "Settings > Sidebar > General > MM-T183 Filtering by first name with Korean characters",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/system_console/reporting/team_statistics_spec.js",
-      "cases": [
-        {
-          "title": "System Console > Team Statistics > MM-T906 Team Statistics displays expected content categories",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/system_console/reporting/team_statistics_spec.js",
+        "cases": [
+            {
+                "title": "System Console > Team Statistics > MM-T906 Team Statistics displays expected content categories",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     }
-  ]
+]
