@@ -1,154 +1,309 @@
 [
     {
-        "spec_file": "tests/integration/channel/new_channel_with_board_spec.js",
+        "spec_file": "tests/integration/enterprise/ldap/ldap_group_sync_spec.js",
         "cases": [
             {
-                "title": "New Channel modal with Boards enabled > MM-T5141 New Channel is created with an associated Board",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/collapsed_reply_threads/replies_spec.js",
-        "cases": [
-            {
-                "title": "Collapsed Reply Threads > MM-T4646 should open popover when avatar is clicked",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/integrations/incoming_webhook/edit_incoming_webhook_spec.js",
-        "cases": [
-            {
-                "title": "Incoming webhook > MM-T641 Edit incoming webhook, webhook posts attachment",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/keyboard_shortcuts/ctrl_cmd_up_down_in_rhs_spec.js",
-        "cases": [
-            {
-                "title": "Keyboard Shortcuts > MM - T1257 CTRL / CMD + UP or DOWN in RHS",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/mark_as_unread/toast_appears_unread_spec.js",
-        "cases": [
-            {
-                "title": "Verify unread toast appears after repeated manual marking post as unread > MM-T1429 Toast when navigating to channel with unread messages and after repeated marking as unread",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/message_forwarding/forward_message_from_dm_spec.js",
-        "cases": [
-            {
-                "title": "Forward Message > MM-T4936_2 Forward reply post from DM",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/message_forwarding/forward_message_from_gm_spec.js",
-        "cases": [
-            {
-                "title": "Forward Message > MM-T4937_3 Forward post from GM (with at least 2 other users) - Cancel using X",
+                "title": "ldap > LDAP Group Sync Automated Tests > MM-T2618 - Team Configuration Page: Group removal User removed from sync'ed team",
                 "is_known": true,
                 "type": "flaky"
             },
             {
-                "title": "Forward Message > MM-T4937_1 Forward reply post from GM (with at least 2 other users)",
+                "title": "ldap > LDAP Group Sync Automated Tests > MM-T1537 - Sync Group Removal from Channel Configuration Page",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/collapsed_reply_threads/last_viewed_spec.js",
+        "cases": [
+            {
+                "title": "Collapsed Reply Threads > MM-T4843_2 should go to threads view when threads view is the penultimate view and leave the current channel",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/accessibility/accessibility_input_fields_spec.js",
+        "cases": [
+            {
+                "title": "Verify Accessibility Support in different input fields > MM-T1458 Verify Accessibility Support in Main Post Input",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/oauth/oauth_spec.ts",
+        "cases": [
+            {
+                "title": "Integrations page > MM-T649 Edit Oauth 2.0 Application",
                 "is_known": true,
                 "type": "flaky"
             },
             {
-                "title": "Forward Message > MM-T4937_2 Forward reply post from GM (with at least 2 other users)",
+                "title": "Integrations page > MM-T652 Regenerate Secret",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/message_forwarding/forward_message_from_private_channel_spec.js",
+        "spec_file": "tests/integration/enterprise/profile_popover/profile_popover_spec.js",
         "cases": [
             {
-                "title": "Forward Message > MM-T4935_3 Forward post from private channel - Cancel",
+                "title": "Profile popover > MM-T4 Add user — Public OFF / Private ON",
                 "is_known": true,
                 "type": "flaky"
             },
             {
-                "title": "Forward Message > MM-T4935_2 Forward reply post from private channel",
+                "title": "Profile popover > MM-T3 Add user — Public ON / Private OFF",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Profile popover > MM-T1 Add User - System Admin only",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Profile popover > MM-T7 Add User — Team admins (Private only)",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Profile popover > MM-T9 Add User - Any user (can add users)",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Profile popover > MM-T6 Add User - Channel Admins (Public only)",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/messaging/ctrl_cmd_k_find_gm_by_matching_name_spec.js",
+        "spec_file": "tests/integration/enterprise/system_console/reporting/site_statistics_spec.js",
         "cases": [
             {
-                "title": "Messaging > MM-T1226 - CTRL/CMD+K - Find GM by matching username, full name, or nickname, even if that name isn't displayed",
+                "title": "System Console > Site Statistics > MM-T905 - Site Statistics card labels in different languages",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/messaging/message_spec.js",
+        "spec_file": "tests/integration/enterprise/system_console/sidebar_link_navigation_cloud_spec.js",
         "cases": [
             {
-                "title": "Message > MM-T3307 Focus remains in the RHS text box",
+                "title": "System Console - Cloud > MM-T4264_34 cannot navigate to File Sharing and Downloads",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/messaging/post_textbox_height_spec.js",
+        "spec_file": "tests/integration/enterprise/system_console/system_scheme_permission_part2_spec.js",
         "cases": [
             {
-                "title": "Messaging > MM-T212 Leave a long draft in reply input box",
+                "title": "System Scheme > MM-T2863 Reset system scheme defaults will revert permissions to defaults",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/notifications/at_mentions_spec.js",
+        "spec_file": "tests/integration/enterprise/system_console/ui_and_api/notifications_spec.js",
         "cases": [
             {
-                "title": "Notifications > MM-T184 Words that trigger mentions support Chinese",
+                "title": "System Console > Push Notification Contents",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/settings/sidebar/fullname_spec.js",
+        "spec_file": "tests/integration/keyboard_shortcuts/keyboard_shortcuts_1_spec.js",
         "cases": [
             {
-                "title": "Settings > Sidebar > General > MM-T183 Filtering by first name with Korean characters",
+                "title": "Keyboard Shortcuts > MM-T1232 - ALT+SHIFT+DOWN",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Keyboard Shortcuts > MM-T1231 - ALT+SHIFT+UP",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/system_console/reporting/team_statistics_spec.js",
+        "spec_file": "tests/integration/messaging/direct_message_spec.js",
         "cases": [
             {
-                "title": "System Console > Team Statistics > MM-T906 Team Statistics displays expected content categories",
+                "title": "Direct Message > MM-T449 - Edit a direct message body",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/messaging/message_reply_gm_spec.js",
+        "cases": [
+            {
+                "title": "Reply in existing GM > MM-T470 Reply in existing GM",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/multi_team_and_dm/town_square_not_marked_as_unread_spec.js",
+        "cases": [
+            {
+                "title": "Multi Team and DM > MM-T439 Town Square is not marked as unread for existing users when a new user is added to the team",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/notifications/browser_tab_notification_1_spec.js",
+        "cases": [
+            {
+                "title": "Notifications > MM-T556 Browser tab and team sidebar notification - no unreads/mentions",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/notifications/direct_messages_do_not_add_indicator_spec.js",
+        "cases": [
+            {
+                "title": "Notifications > MM-T561 Browser tab and team sidebar - direct messages don't add indicator on team icon in team sidebar (but do in browser tab)",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/notifications/message_bar_spec.js",
+        "cases": [
+            {
+                "title": "Notifications > MM-T566 New message bar - Displays in permalink view",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/scroll/deleting_scroll_spec.js",
+        "cases": [
+            {
+                "title": "Scroll > MM-T2372 Post list does not scroll when the offscreen post is deleted",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/scroll/editing_scroll_spec.js",
+        "cases": [
+            {
+                "title": "Scroll > MM-T2371 Post list does not scroll when the offscreen post is edited",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/search_filter/input_spec.js",
+        "cases": [
+            {
+                "title": "Search Date Filter > MM-T598 Dates work without leading 0 for date and month",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/signin_authentication/login_open_server_spec.js",
+        "cases": [
+            {
+                "title": "Login page with open server > MM-T3306_1 Should render all elements of the page",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/signin_authentication/signup_spec.js",
+        "cases": [
+            {
+                "title": "Signup Email page > should match elements, footer",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/system_console/site_configuration/announcement_banner_spec.js",
+        "cases": [
+            {
+                "title": "Announcement Banner > MM-T1128 Announcement Banner - Dismissible banner shows long text truncated",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/system_console/site_configuration/link_customization_cloud_spec.js",
+        "cases": [
+            {
+                "title": "SupportSettings > MM-T1031 - Customization Change all links",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/system_console/user_management_spec.js",
+        "cases": [
+            {
+                "title": "User Management > MM-T924 Users - Page through users list",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/team_settings/teams_spec.js",
+        "cases": [
+            {
+                "title": "Teams Suite > MM-T2340 Team or System Admin searches and adds new team member",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/toast/unread_with_bottom_start_toast_spec.js",
+        "cases": [
+            {
+                "title": "unread_with_bottom_start_toast > MM-T4873_3 Unread with bottom start toast is shown when post is marked as unread",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "unread_with_bottom_start_toast > MM-T4873_1 Unread with bottom start toast is shown when visiting a channel with unreads and should disappear if scrolled to new messages indicator",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "unread_with_bottom_start_toast > MM-T4873_2 Unread with bottom start toast should take to the new messages indicator when clicked",
                 "is_known": true,
                 "type": "flaky"
             }
