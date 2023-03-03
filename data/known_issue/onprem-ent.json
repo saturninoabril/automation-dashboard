@@ -4,8 +4,8 @@
         "cases": [
             {
                 "title": "Archived channels > MM-T1718 Reaction icon should not be visible for archived channel posts",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             }
         ]
     },
@@ -14,8 +14,8 @@
         "cases": [
             {
                 "title": "Authentication > MM-T1755 - Restrict Domains - Email invite",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             }
         ]
     },
@@ -24,8 +24,8 @@
         "cases": [
             {
                 "title": "Bot tags > MM-T1831 BOT tag is visible in search results",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             }
         ]
     },
@@ -34,8 +34,8 @@
         "cases": [
             {
                 "title": "New Channel modal with Boards enabled > MM-T5141 New Channel is created with an associated Board",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             }
         ]
     },
@@ -44,8 +44,8 @@
         "cases": [
             {
                 "title": "Collapsed Reply Threads > MM-T4684 CRT - CRT tour - full",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             }
         ]
     },
@@ -54,8 +54,8 @@
         "cases": [
             {
                 "title": "Recent Emoji > MM-T4463 Recently used custom emoji, when is deleted should be removed from recent emoji category and quick reactions",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             }
         ]
     },
@@ -64,8 +64,8 @@
         "cases": [
             {
                 "title": "Verify Accessibility Support in different input fields > MM-T1458 Verify Accessibility Support in Main Post Input",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             }
         ]
     },
@@ -74,8 +74,8 @@
         "cases": [
             {
                 "title": "System Console > Site Statistics > MM-T905 - Site Statistics card labels in different languages",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             }
         ]
     },
@@ -84,8 +84,8 @@
         "cases": [
             {
                 "title": "System Scheme > MM-T2863 Reset system scheme defaults will revert permissions to defaults",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             }
         ]
     },
@@ -94,13 +94,13 @@
         "cases": [
             {
                 "title": "Slash commands > MM-T697 Delete slash command",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             },
             {
                 "title": "Slash commands > MM-T669 Custom slash command in DM and GM",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             }
         ]
     },
@@ -109,8 +109,8 @@
         "cases": [
             {
                 "title": "Channels > MM-T263 Mark as Unread post menu option should not be available for archived channels",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             }
         ]
     },
@@ -119,8 +119,8 @@
         "cases": [
             {
                 "title": "Verify unread toast appears after repeated manual marking post as unread > MM-T1429 Toast when navigating to channel with unread messages and after repeated marking as unread",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             }
         ]
     },
@@ -129,8 +129,8 @@
         "cases": [
             {
                 "title": "Messaging > MM-T212 Leave a long draft in reply input box",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             }
         ]
     },
@@ -139,8 +139,8 @@
         "cases": [
             {
                 "title": "Notifications > MM-T184 Words that trigger mentions support Chinese",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             }
         ]
     },
@@ -149,13 +149,13 @@
         "cases": [
             {
                 "title": "Search Date Filter > MM-T596 Use calendar picker to set date",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             },
             {
                 "title": "Search Date Filter > MM-T3997 Backspace after last character of filter makes calendar reappear",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             }
         ]
     },
@@ -164,18 +164,18 @@
         "cases": [
             {
                 "title": "unread_with_bottom_start_toast > MM-T4873_2 Unread with bottom start toast should take to the new messages indicator when clicked",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             },
             {
                 "title": "unread_with_bottom_start_toast > MM-T4873_3 Unread with bottom start toast is shown when post is marked as unread",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             },
             {
                 "title": "unread_with_bottom_start_toast > MM-T4873_1 Unread with bottom start toast is shown when visiting a channel with unreads and should disappear if scrolled to new messages indicator",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             }
         ]
     },
@@ -184,13 +184,13 @@
         "cases": [
             {
                 "title": "M17448 Does not post draft message > on successful upload via \"Draw\" plugin",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             },
             {
                 "title": "M17448 Does not post draft message > on upload cancel via \"Draw\" plugin",
-                "is_known": false,
-                "type": "require_verification"
+                "is_known": true,
+                "type": "flaky"
             }
         ]
     }
