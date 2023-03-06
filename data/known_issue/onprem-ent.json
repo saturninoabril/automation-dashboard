@@ -1,194 +1,124 @@
 [
     {
-        "spec_file": "tests/integration/archived_channel/archive_channel_reaction_spec.ts",
+        "spec_file": "tests/integration/keyboard_shortcuts/keyboard_shortcuts_1_spec.js",
         "cases": [
             {
-                "title": "Archived channels > MM-T1718 Reaction icon should not be visible for archived channel posts",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/auth_sso/authentication_4_spec.ts",
-        "cases": [
-            {
-                "title": "Authentication > MM-T1755 - Restrict Domains - Email invite",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/bot_accounts/tags_spec.js",
-        "cases": [
-            {
-                "title": "Bot tags > MM-T1831 BOT tag is visible in search results",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/channel/new_channel_with_board_spec.js",
-        "cases": [
-            {
-                "title": "New Channel modal with Boards enabled > MM-T5141 New Channel is created with an associated Board",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/collapsed_reply_threads/crt_tour_spec.js",
-        "cases": [
-            {
-                "title": "Collapsed Reply Threads > MM-T4684 CRT - CRT tour - full",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/emoji/recently_used_emoji_1_spec.ts",
-        "cases": [
-            {
-                "title": "Recent Emoji > MM-T4463 Recently used custom emoji, when is deleted should be removed from recent emoji category and quick reactions",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/enterprise/accessibility/accessibility_input_fields_spec.js",
-        "cases": [
-            {
-                "title": "Verify Accessibility Support in different input fields > MM-T1458 Verify Accessibility Support in Main Post Input",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/enterprise/system_console/reporting/site_statistics_spec.js",
-        "cases": [
-            {
-                "title": "System Console > Site Statistics > MM-T905 - Site Statistics card labels in different languages",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/enterprise/system_console/system_scheme_permission_part2_spec.js",
-        "cases": [
-            {
-                "title": "System Scheme > MM-T2863 Reset system scheme defaults will revert permissions to defaults",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/integrations/custom_slash_commands/custom_slash_commands_spec.js",
-        "cases": [
-            {
-                "title": "Slash commands > MM-T697 Delete slash command",
+                "title": "Keyboard Shortcuts > MM-T1231 - ALT+SHIFT+UP",
                 "is_known": true,
                 "type": "flaky"
             },
             {
-                "title": "Slash commands > MM-T669 Custom slash command in DM and GM",
+                "title": "Keyboard Shortcuts > MM-T1232 - ALT+SHIFT+DOWN",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/mark_as_unread/archive_channel_mark_as_unread_spec.js",
+        "spec_file": "tests/integration/messaging/ctrl_cmd_k_find_gm_by_matching_name_spec.js",
         "cases": [
             {
-                "title": "Channels > MM-T263 Mark as Unread post menu option should not be available for archived channels",
+                "title": "Messaging > MM-T1226 - CTRL/CMD+K - Find GM by matching username, full name, or nickname, even if that name isn't displayed",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/mark_as_unread/toast_appears_unread_spec.js",
+        "spec_file": "tests/integration/messaging/local_date_time_spec.js",
         "cases": [
             {
-                "title": "Verify unread toast appears after repeated manual marking post as unread > MM-T1429 Toast when navigating to channel with unread messages and after repeated marking as unread",
+                "title": "Messaging > MM-T713 Post time should render correct format and locale",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/messaging/post_textbox_height_spec.js",
+        "spec_file": "tests/integration/multi_team_and_dm/close_current_dm_redirects_spec.js",
         "cases": [
             {
-                "title": "Messaging > MM-T212 Leave a long draft in reply input box",
+                "title": "Direct messages: redirections > MM-T453_1 Closing a direct message should redirect to town square channel",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/notifications/at_mentions_spec.js",
+        "spec_file": "tests/integration/multi_team_and_dm/favorite_and_close_spec.js",
         "cases": [
             {
-                "title": "Notifications > MM-T184 Words that trigger mentions support Chinese",
+                "title": "Close group messages > MM-T474 - GM: Favorite, and close",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/search_filter/input_spec.js",
+        "spec_file": "tests/integration/multi_team_and_dm/town_square_not_marked_as_unread_spec.js",
         "cases": [
             {
-                "title": "Search Date Filter > MM-T596 Use calendar picker to set date",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "Search Date Filter > MM-T3997 Backspace after last character of filter makes calendar reappear",
+                "title": "Multi Team and DM > MM-T439 Town Square is not marked as unread for existing users when a new user is added to the team",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/toast/unread_with_bottom_start_toast_spec.js",
+        "spec_file": "tests/integration/notifications/browser_tab_notification_1_spec.js",
         "cases": [
             {
-                "title": "unread_with_bottom_start_toast > MM-T4873_2 Unread with bottom start toast should take to the new messages indicator when clicked",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "unread_with_bottom_start_toast > MM-T4873_3 Unread with bottom start toast is shown when post is marked as unread",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "unread_with_bottom_start_toast > MM-T4873_1 Unread with bottom start toast is shown when visiting a channel with unreads and should disappear if scrolled to new messages indicator",
+                "title": "Notifications > MM-T556 Browser tab and team sidebar notification - no unreads/mentions",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/messaging/message_channel_draw_spec.js",
+        "spec_file": "tests/integration/notifications/direct_messages_do_not_add_indicator_spec.js",
         "cases": [
             {
-                "title": "M17448 Does not post draft message > on successful upload via \"Draw\" plugin",
+                "title": "Notifications > MM-T561 Browser tab and team sidebar - direct messages don't add indicator on team icon in team sidebar (but do in browser tab)",
                 "is_known": true,
                 "type": "flaky"
-            },
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/notifications/message_bar_spec.js",
+        "cases": [
             {
-                "title": "M17448 Does not post draft message > on upload cancel via \"Draw\" plugin",
+                "title": "Notifications > MM-T566 New message bar - Displays in permalink view",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/settings/sidebar/fullname_spec.js",
+        "cases": [
+            {
+                "title": "Settings > Sidebar > General > MM-T183 Filtering by first name with Korean characters",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/team_settings/teams_spec.js",
+        "cases": [
+            {
+                "title": "Teams Suite > MM-T2340 Team or System Admin searches and adds new team member",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/plugins/plugin_buttons_spec.js",
+        "cases": [
+            {
+                "title": "collapse on 15 plugin buttons > MM-T1649 Greater than 15 plugin buttons collapse to one icon in top nav",
                 "is_known": true,
                 "type": "flaky"
             }
