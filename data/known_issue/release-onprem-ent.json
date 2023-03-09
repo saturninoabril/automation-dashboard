@@ -1,9 +1,34 @@
 [
     {
-        "spec_file": "tests/integration/channel_sidebar/new_channel_dropdown_spec.ts",
+        "spec_file": "tests/integration/enterprise/ldap/ldap_group_sync_spec.js",
         "cases": [
             {
-                "title": "Channel sidebar > should join a new public channel when using the new channel dropdown",
+                "title": "ldap > LDAP Group Sync Automated Tests > MM-T1537 - Sync Group Removal from Channel Configuration Page",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "ldap > LDAP Group Sync Automated Tests > MM-T2618 - Team Configuration Page: Group removal User removed from sync'ed team",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channel/new_channel_with_board_spec.js",
+        "cases": [
+            {
+                "title": "New Channel modal with Boards enabled > MM-T5141 New Channel is created with an associated Board",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/collapsed_reply_threads/last_viewed_spec.js",
+        "cases": [
+            {
+                "title": "Collapsed Reply Threads > MM-T4843_2 should go to threads view when threads view is the penultimate view and leave the current channel",
                 "is_known": true,
                 "type": "flaky"
             }
@@ -23,11 +48,6 @@
         "spec_file": "tests/integration/enterprise/system_console/reporting/site_statistics_spec.js",
         "cases": [
             {
-                "title": "System Console > Site Statistics > MM-T904 Site Statistics displays expected content categories",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
                 "title": "System Console > Site Statistics > MM-T905 - Site Statistics card labels in different languages",
                 "is_known": true,
                 "type": "flaky"
@@ -35,25 +55,160 @@
         ]
     },
     {
-        "spec_file": "tests/integration/messaging/autocomplete_spec.js",
+        "spec_file": "tests/integration/enterprise/system_console/system_scheme_permission_part2_spec.js",
         "cases": [
             {
-                "title": "autocomplete > MM-T2214 @ mention from link in profile popover: center",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "autocomplete > MM-T2212 @ mention followed by dot or underscore should highlight",
+                "title": "System Scheme > MM-T2863 Reset system scheme defaults will revert permissions to defaults",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/multi_team_and_dm/gm_header_spec.js",
+        "spec_file": "tests/integration/integrations/incoming_webhook/edit_incoming_webhook_spec.js",
         "cases": [
             {
-                "title": "Multi-user group header > MM-T473_2 Edit GM channel header (2/2)",
+                "title": "Incoming webhook > MM-T641 Edit incoming webhook, webhook posts attachment",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/keyboard_shortcuts/keyboard_shortcuts_1_spec.js",
+        "cases": [
+            {
+                "title": "Keyboard Shortcuts > MM-T1231 - ALT+SHIFT+UP",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Keyboard Shortcuts > MM-T1232 - ALT+SHIFT+DOWN",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/mark_as_unread/bot_post_mark_as_unread_spec.js",
+        "cases": [
+            {
+                "title": "Bot post unread message > MM-T252 bot post unread",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/mark_as_unread/toast_appears_unread_spec.js",
+        "cases": [
+            {
+                "title": "Verify unread toast appears after repeated manual marking post as unread > MM-T1429 Toast when navigating to channel with unread messages and after repeated marking as unread",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/message_forwarding/forward_message_from_gm_spec.js",
+        "cases": [
+            {
+                "title": "Forward Message > MM-T4937_3 Forward post from GM (with at least 2 other users) - Cancel using X",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Forward Message > MM-T4937_2 Forward reply post from GM (with at least 2 other users)",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Forward Message > MM-T4937_1 Forward reply post from GM (with at least 2 other users)",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/message_forwarding/forward_message_from_private_channel_spec.js",
+        "cases": [
+            {
+                "title": "Forward Message > MM-T4935_2 Forward reply post from private channel",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Forward Message > MM-T4935_3 Forward post from private channel - Cancel",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/messaging/message_spec.js",
+        "cases": [
+            {
+                "title": "Message > MM-T3307 Focus remains in the RHS text box",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/messaging/post_textbox_height_spec.js",
+        "cases": [
+            {
+                "title": "Messaging > MM-T212 Leave a long draft in reply input box",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/multi_team_and_dm/town_square_not_marked_as_unread_spec.js",
+        "cases": [
+            {
+                "title": "Multi Team and DM > MM-T439 Town Square is not marked as unread for existing users when a new user is added to the team",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/notifications/at_mentions_spec.js",
+        "cases": [
+            {
+                "title": "Notifications > MM-T184 Words that trigger mentions support Chinese",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/notifications/browser_tab_notification_1_spec.js",
+        "cases": [
+            {
+                "title": "Notifications > MM-T556 Browser tab and team sidebar notification - no unreads/mentions",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/notifications/direct_messages_do_not_add_indicator_spec.js",
+        "cases": [
+            {
+                "title": "Notifications > MM-T561 Browser tab and team sidebar - direct messages don't add indicator on team icon in team sidebar (but do in browser tab)",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/notifications/message_bar_spec.js",
+        "cases": [
+            {
+                "title": "Notifications > MM-T566 New message bar - Displays in permalink view",
                 "is_known": true,
                 "type": "flaky"
             }
@@ -80,16 +235,6 @@
         ]
     },
     {
-        "spec_file": "tests/integration/scroll/fixed_width_spec.js",
-        "cases": [
-            {
-                "title": "Scroll > MM-T2368 Fixed width",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
         "spec_file": "tests/integration/settings/sidebar/fullname_spec.js",
         "cases": [
             {
@@ -110,10 +255,10 @@
         ]
     },
     {
-        "spec_file": "tests/integration/system_console/search_box_not_cloud_spec.js",
+        "spec_file": "tests/integration/team_settings/teams_spec.js",
         "cases": [
             {
-                "title": "System console > MM-T898 - Individual plugins can be searched for via the System Console search box",
+                "title": "Teams Suite > MM-T2340 Team or System Admin searches and adds new team member",
                 "is_known": true,
                 "type": "flaky"
             }
@@ -128,6 +273,11 @@
                 "type": "flaky"
             },
             {
+                "title": "unread_with_bottom_start_toast > MM-T4873_3 Unread with bottom start toast is shown when post is marked as unread",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
                 "title": "unread_with_bottom_start_toast > MM-T4873_1 Unread with bottom start toast is shown when visiting a channel with unreads and should disappear if scrolled to new messages indicator",
                 "is_known": true,
                 "type": "flaky"
@@ -138,12 +288,12 @@
         "spec_file": "tests/integration/messaging/message_channel_draw_spec.js",
         "cases": [
             {
-                "title": "M17448 Does not post draft message > on upload cancel via \"Draw\" plugin",
+                "title": "M17448 Does not post draft message > on successful upload via \"Draw\" plugin",
                 "is_known": true,
                 "type": "flaky"
             },
             {
-                "title": "M17448 Does not post draft message > on successful upload via \"Draw\" plugin",
+                "title": "M17448 Does not post draft message > on upload cancel via \"Draw\" plugin",
                 "is_known": true,
                 "type": "flaky"
             }
