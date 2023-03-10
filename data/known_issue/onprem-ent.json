@@ -40,10 +40,10 @@
         ]
     },
     {
-        "spec_file": "tests/integration/collapsed_reply_threads/crt_tour_spec.js",
+        "spec_file": "tests/integration/collapsed_reply_threads/unread_spec.js",
         "cases": [
             {
-                "title": "Collapsed Reply Threads > MM-T4684 CRT - CRT tour - full",
+                "title": "Collapsed Reply Threads > MM-T4144_1 should show a new messages line for an unread thread",
                 "is_known": true,
                 "type": "flaky"
             }
@@ -90,15 +90,10 @@
         ]
     },
     {
-        "spec_file": "tests/integration/integrations/custom_slash_commands/custom_slash_commands_spec.js",
+        "spec_file": "tests/integration/integrations/builtin_commands/invite_command_spec.js",
         "cases": [
             {
-                "title": "Slash commands > MM-T697 Delete slash command",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "Slash commands > MM-T669 Custom slash command in DM and GM",
+                "title": "Integrations > MM-T660_3 /invite tests when used in DMs and GMs",
                 "is_known": true,
                 "type": "flaky"
             }
@@ -125,6 +120,16 @@
         ]
     },
     {
+        "spec_file": "tests/integration/messaging/message_spec.js",
+        "cases": [
+            {
+                "title": "Message > MM-T3307 Focus remains in the RHS text box",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
         "spec_file": "tests/integration/messaging/post_textbox_height_spec.js",
         "cases": [
             {
@@ -139,6 +144,16 @@
         "cases": [
             {
                 "title": "Notifications > MM-T184 Words that trigger mentions support Chinese",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/plugins/marketplace/render_in_main_menu_spec.js",
+        "cases": [
+            {
+                "title": "Plugin Marketplace > MM-T1960 Marketplace is available when \"Enable Plugins\" is true",
                 "is_known": true,
                 "type": "flaky"
             }
@@ -163,7 +178,7 @@
         "spec_file": "tests/integration/toast/unread_with_bottom_start_toast_spec.js",
         "cases": [
             {
-                "title": "unread_with_bottom_start_toast > MM-T4873_2 Unread with bottom start toast should take to the new messages indicator when clicked",
+                "title": "unread_with_bottom_start_toast > MM-T4873_1 Unread with bottom start toast is shown when visiting a channel with unreads and should disappear if scrolled to new messages indicator",
                 "is_known": true,
                 "type": "flaky"
             },
@@ -173,7 +188,7 @@
                 "type": "flaky"
             },
             {
-                "title": "unread_with_bottom_start_toast > MM-T4873_1 Unread with bottom start toast is shown when visiting a channel with unreads and should disappear if scrolled to new messages indicator",
+                "title": "unread_with_bottom_start_toast > MM-T4873_2 Unread with bottom start toast should take to the new messages indicator when clicked",
                 "is_known": true,
                 "type": "flaky"
             }
