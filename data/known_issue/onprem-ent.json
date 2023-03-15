@@ -20,6 +20,81 @@
         ]
     },
     {
+        "spec_file": "tests/integration/boards/card_badges_spec.ts",
+        "cases": [
+            {
+                "title": "Card badges > MM-T5395 Shows and hides card badges",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/boards/card_urlproperty_spec.ts",
+        "cases": [
+            {
+                "title": "Card URL Property > MM-T5396 Allows to create and edit URL property",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/boards/create_board_spec.ts",
+        "cases": [
+            {
+                "title": "Create and delete board / card > MM-T4433 Scrolls the kanban board when dragging card to edge",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Create and delete board / card > MM-T5398 cut/undo/redo work in comments",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Create and delete board / card > MM-T5397 Can create and delete a board and a card",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Create and delete board / card > MM-T4274 Create an Empty Board",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/boards/group_by_property_spec.ts",
+        "cases": [
+            {
+                "title": "Group board by different properties > MM-T4291 Group by different property",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/boards/manage_groups_spec.ts",
+        "cases": [
+            {
+                "title": "Manage groups > MM-T4284 Adding a group",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Manage groups > MM-T4285 Adding group color",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Manage groups > MM-T4287 Hiding/unhiding a group",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
         "spec_file": "tests/integration/bot_accounts/tags_spec.js",
         "cases": [
             {
@@ -30,20 +105,20 @@
         ]
     },
     {
-        "spec_file": "tests/integration/channel/new_channel_with_board_spec.js",
+        "spec_file": "tests/integration/channel/more_public_channels_spec.js",
         "cases": [
             {
-                "title": "New Channel modal with Boards enabled > MM-T5141 New Channel is created with an associated Board",
+                "title": "more public channels > MM-T1664 Channels do not disappear from More Channels modal",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/collapsed_reply_threads/unread_spec.js",
+        "spec_file": "tests/integration/channel/new_channel_with_board_spec.js",
         "cases": [
             {
-                "title": "Collapsed Reply Threads > MM-T4144_1 should show a new messages line for an unread thread",
+                "title": "New Channel modal with Boards enabled > MM-T5141 New Channel is created with an associated Board",
                 "is_known": true,
                 "type": "flaky"
             }
@@ -70,6 +145,16 @@
         ]
     },
     {
+        "spec_file": "tests/integration/enterprise/system_console/edition_and_license_link_spec.js",
+        "cases": [
+            {
+                "title": "Edition and License > MM-T899 - Edition and License: Verify Privacy Policy link points to correct URL",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
         "spec_file": "tests/integration/enterprise/system_console/reporting/site_statistics_spec.js",
         "cases": [
             {
@@ -90,16 +175,6 @@
         ]
     },
     {
-        "spec_file": "tests/integration/integrations/builtin_commands/invite_command_spec.js",
-        "cases": [
-            {
-                "title": "Integrations > MM-T660_3 /invite tests when used in DMs and GMs",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
         "spec_file": "tests/integration/mark_as_unread/archive_channel_mark_as_unread_spec.js",
         "cases": [
             {
@@ -114,16 +189,6 @@
         "cases": [
             {
                 "title": "Verify unread toast appears after repeated manual marking post as unread > MM-T1429 Toast when navigating to channel with unread messages and after repeated marking as unread",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/messaging/message_spec.js",
-        "cases": [
-            {
-                "title": "Message > MM-T3307 Focus remains in the RHS text box",
                 "is_known": true,
                 "type": "flaky"
             }
@@ -163,12 +228,92 @@
         "spec_file": "tests/integration/search_filter/input_spec.js",
         "cases": [
             {
-                "title": "Search Date Filter > MM-T596 Use calendar picker to set date",
+                "title": "Search Date Filter > MM-T3997 Backspace after last character of filter makes calendar reappear",
                 "is_known": true,
                 "type": "flaky"
             },
             {
-                "title": "Search Date Filter > MM-T3997 Backspace after last character of filter makes calendar reappear",
+                "title": "Search Date Filter > MM-T596 Use calendar picker to set date",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/signin_authentication/login_open_server_spec.js",
+        "cases": [
+            {
+                "title": "Login page with open server > MM-T3306_1 Should render all elements of the page",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/signin_authentication/signup_spec.js",
+        "cases": [
+            {
+                "title": "Signup Email page > should match elements, footer",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/system_console/main_menu_spec.js",
+        "cases": [
+            {
+                "title": "Main menu > MM-T911 Can open Troubleshooting Forum",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Main menu > MM-T910 Can open Administrators Guide",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/system_console/site_configuration/link_customization_e20_1_spec.js",
+        "cases": [
+            {
+                "title": "SupportSettings > MM-T1033 - Customization: Blank TOS link field (login page)",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "SupportSettings > MM-T3289_1 - Help (Ask community link setting)",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "SupportSettings > MM-T3289_2 - Help (Ask community link setting)",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "SupportSettings > MM-T1031 - Customization Change all links",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/system_console/site_configuration/link_customization_e20_2_spec.js",
+        "cases": [
+            {
+                "title": "SupportSettings > MM-T1035 - Customization Blank Privacy hides the link",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "SupportSettings > MM-T1034 - Customization: Blank TOS link field (About modal)",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "SupportSettings > MM-T1032 - Customization: Custom Terms and Privacy links in the About modal",
                 "is_known": true,
                 "type": "flaky"
             }
@@ -178,17 +323,12 @@
         "spec_file": "tests/integration/toast/unread_with_bottom_start_toast_spec.js",
         "cases": [
             {
-                "title": "unread_with_bottom_start_toast > MM-T4873_1 Unread with bottom start toast is shown when visiting a channel with unreads and should disappear if scrolled to new messages indicator",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "unread_with_bottom_start_toast > MM-T4873_3 Unread with bottom start toast is shown when post is marked as unread",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
                 "title": "unread_with_bottom_start_toast > MM-T4873_2 Unread with bottom start toast should take to the new messages indicator when clicked",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "unread_with_bottom_start_toast > MM-T4873_1 Unread with bottom start toast is shown when visiting a channel with unreads and should disappear if scrolled to new messages indicator",
                 "is_known": true,
                 "type": "flaky"
             }
