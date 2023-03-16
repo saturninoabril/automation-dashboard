@@ -1,24 +1,249 @@
 [
     {
-        "spec_file": "tests/integration/enterprise/ldap/ldap_group_sync_spec.js",
+        "spec_file": "tests/integration/enterprise/system_console/compliance/compliance_export_multiple_post_spec.js",
         "cases": [
             {
-                "title": "ldap > LDAP Group Sync Automated Tests > MM-T2618 - Team Configuration Page: Group removal User removed from sync'ed team",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "ldap > LDAP Group Sync Automated Tests > MM-T1537 - Sync Group Removal from Channel Configuration Page",
+                "title": "Compliance Export > MM-T1177_1 - Compliance export should include updated posts after editing multiple times, exporting multiple times",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/collapsed_reply_threads/last_viewed_spec.js",
+        "spec_file": "tests/integration/enterprise/system_console/compliance/compliance_export_ui_spec.js",
         "cases": [
             {
-                "title": "Collapsed Reply Threads > MM-T4843_2 should go to threads view when threads view is the penultimate view and leave the current channel",
+                "title": "Compliance Export > MM-T3435 - Download Compliance Export Files - CSV Format",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/compliance/download_bot_compliance_export_file_spec.js",
+        "cases": [
+            {
+                "title": "Compliance Export > MM-T1175_1 - UserType identifies that the message is posted by a bot",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/compliance/download_compliance_export_file_spec.js",
+        "cases": [
+            {
+                "title": "Compliance Export > MM-T1172 - Compliance Export - Deleted file is indicated in CSV File Export",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/channel/channel_groups_spec.ts",
+        "cases": [
+            {
+                "title": "channel groups > limits the listed groups if the parent team is group-constrained",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/ldap_group/channel_modes_spec.ts",
+        "cases": [
+            {
+                "title": "LDAP Group Sync - Test channel public/private toggle > MM-T4003_1 Verify that System Admin can change channel privacy using toggle",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/ldap_group/groups_assign_roles_spec.ts",
+        "cases": [
+            {
+                "title": "LDAP Group Sync > MM-T2668 Team admin role can be set and saved",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/ldap_group/invite_bot_spec.ts",
+        "cases": [
+            {
+                "title": "Group Synced Team - Bot invitation flow > MM-21793 Invite and remove a bot within a group synced team",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/ldap_group/search_channels_spec.ts",
+        "cases": [
+            {
+                "title": "Search channels > loads with no search text",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/ldap/ldap_guest_spec.js",
+        "cases": [
+            {
+                "title": "LDAP guest > MM-T1422 LDAP Guest Filter",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/ldap/ldap_login_spec.js",
+        "cases": [
+            {
+                "title": "ldap > LDAP Login flow - Admin Login > MM-T2821 LDAP Admin Filter",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/ldap/ldap_setting_spec.js",
+        "cases": [
+            {
+                "title": "LDAP settings > MM-T2699 Connection test button - Successful",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/archived_channel/archive_channel_reaction_spec.ts",
+        "cases": [
+            {
+                "title": "Archived channels > MM-T1718 Reaction icon should not be visible for archived channel posts",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/auth_sso/authentication_4_spec.ts",
+        "cases": [
+            {
+                "title": "Authentication > MM-T1764 - Security - Signup: Email verification required (after having created account when verification was not required)",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Authentication > MM-T1755 - Restrict Domains - Email invite",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/boards/card_badges_spec.ts",
+        "cases": [
+            {
+                "title": "Card badges > MM-T5395 Shows and hides card badges",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/boards/card_urlproperty_spec.ts",
+        "cases": [
+            {
+                "title": "Card URL Property > MM-T5396 Allows to create and edit URL property",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/boards/create_board_spec.ts",
+        "cases": [
+            {
+                "title": "Create and delete board / card > MM-T5398 cut/undo/redo work in comments",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Create and delete board / card > MM-T4433 Scrolls the kanban board when dragging card to edge",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Create and delete board / card > MM-T5397 Can create and delete a board and a card",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Create and delete board / card > MM-T4274 Create an Empty Board",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/boards/group_by_property_spec.ts",
+        "cases": [
+            {
+                "title": "Group board by different properties > MM-T4291 Group by different property",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/boards/manage_groups_spec.ts",
+        "cases": [
+            {
+                "title": "Manage groups > MM-T4287 Hiding/unhiding a group",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Manage groups > MM-T4285 Adding group color",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Manage groups > MM-T4284 Adding a group",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/bot_accounts/tags_spec.js",
+        "cases": [
+            {
+                "title": "Bot tags > MM-T1831 BOT tag is visible in search results",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channel/new_channel_with_board_spec.js",
+        "cases": [
+            {
+                "title": "New Channel modal with Boards enabled > MM-T5141 New Channel is created with an associated Board",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/emoji/recently_used_emoji_1_spec.ts",
+        "cases": [
+            {
+                "title": "Recent Emoji > MM-T4463 Recently used custom emoji, when is deleted should be removed from recent emoji category and quick reactions",
                 "is_known": true,
                 "type": "flaky"
             }
@@ -28,67 +253,257 @@
         "spec_file": "tests/integration/enterprise/accessibility/accessibility_input_fields_spec.js",
         "cases": [
             {
-                "title": "Verify Accessibility Support in different input fields > MM-T1458 Verify Accessibility Support in Main Post Input",
+                "title": "Verify Accessibility Support in different input fields > MM-T1456 Verify Accessibility Support in Input fields in Invite People Flow",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/enterprise/oauth/oauth_spec.ts",
+        "spec_file": "tests/integration/enterprise/accessibility/accessibility_modals_dialogs_spec.js",
         "cases": [
             {
-                "title": "Integrations page > MM-T649 Edit Oauth 2.0 Application",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "Integrations page > MM-T652 Regenerate Secret",
+                "title": "Verify Accessibility Support in Modals & Dialogs > MM-T1466 Accessibility Support in Direct Messages Dialog screen",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/enterprise/profile_popover/profile_popover_spec.js",
+        "spec_file": "tests/integration/enterprise/bot_accounts/managing_bot_accounts_spec.js",
         "cases": [
             {
-                "title": "Profile popover > MM-T4 Add user — Public OFF / Private ON",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "Profile popover > MM-T3 Add user — Public ON / Private OFF",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "Profile popover > MM-T1 Add User - System Admin only",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "Profile popover > MM-T7 Add User — Team admins (Private only)",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "Profile popover > MM-T9 Add User - Any user (can add users)",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
-                "title": "Profile popover > MM-T6 Add User - Channel Admins (Public only)",
+                "title": "Managing bot accounts > MM-T1855 Bot cannot login",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/enterprise/system_console/reporting/site_statistics_spec.js",
+        "spec_file": "tests/integration/enterprise/guest_accounts/guest_add_spec.ts",
         "cases": [
             {
-                "title": "System Console > Site Statistics > MM-T905 - Site Statistics card labels in different languages",
+                "title": "Guest Account - Guest User Experience > MM-T1369 System message when user is added specifies the guest status",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/guest_accounts/guest_experience_ui_spec.ts",
+        "cases": [
+            {
+                "title": "Guest Account - Guest User Experience > MM-T1354 Verify Guest User Restrictions",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/guest_accounts/guest_feature_spec.ts",
+        "cases": [
+            {
+                "title": "Guest Accounts > MM-T1411 Update Guest Users in User Management when Guest feature is disabled",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/guest_accounts/guest_identification_ui_spec.ts",
+        "cases": [
+            {
+                "title": "Verify Guest User Identification in different screens > MM-T1370 Verify Guest Badge in Channel Members dropdown and dialog",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/guest_accounts/guest_invitation_ui_more_spec.ts",
+        "cases": [
+            {
+                "title": "Guest Account - Guest User Invitation Flow > MM-T1336 Invite Guests - Existing Team Member",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/guest_accounts/guest_invitation_ui_spec.ts",
+        "cases": [
+            {
+                "title": "Guest Account - Guest User Invitation Flow > MM-T4451 Verify UI Elements of Guest User Invitation Flow",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/guest_accounts/guest_removal_ui_spec.ts",
+        "cases": [
+            {
+                "title": "Guest Account - Guest User Removal Experience > MM-T1360 Taken to login screen when removed from last channel",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/guest_accounts/system_console_manage_guest_spec.ts",
+        "cases": [
+            {
+                "title": "Guest Account - Verify Manage Guest Users > MM-T1391 Verify the manage options displayed for Guest User",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/permissions/team_permissions_spec.ts",
+        "cases": [
+            {
+                "title": "Team Permissions > MM-T2876 Member cannot add or remove other members from private channel",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Team Permissions > MM-T2878 Member cannot create a private channel",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Team Permissions > MM-T2871 Member cannot add members to the team",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/archived_channels_spec.js",
+        "cases": [
+            {
+                "title": "Archived channels > can be unarchived",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/channel_members_spec.js",
+        "cases": [
+            {
+                "title": "Channel members test > MM-23938 - Channel members block is only visible when channel is not group synced",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/channel_moderation/channel_mentions_spec.js",
+        "cases": [
+            {
+                "title": "MM-23102 - Channel Moderation - Channel Mentions > MM-T1551 Channel Mentions option for Guests",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/channel_moderation/create_posts_spec.js",
+        "cases": [
+            {
+                "title": "MM-23102 - Channel Moderation - Create Posts > MM-T1541 Create Post option for Guests",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/channel_moderation/manage_members_spec.js",
+        "cases": [
+            {
+                "title": "MM-23102 - Channel Moderation - Manage Members > MM-T1547 No option to Manage Members for Guests",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/channel_moderation/system_config_spec.js",
+        "cases": [
+            {
+                "title": "Channel Moderation > MM-22276 - Enable and Disable all channel moderated permissions",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/compliance/data_retention_policies_2_spec.js",
+        "cases": [
+            {
+                "title": "Data Retention - Global and Custom Policy Only > MM-T4093 - Assign Global Policy = 10 Days & Custom Policy = None to channel",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/compliance/data_retention_policies_3_spec.js",
+        "cases": [
+            {
+                "title": "Data Retention - Custom Policy Only > MM-T4097 - Assign Global Policy = Forever & Custom Policy = 10 days to Channel",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/compliance/data_retention_policies_4_spec.js",
+        "cases": [
+            {
+                "title": "Data Retention - Global and Custom Policy > MM-T4100 - Assign Global Policy = 5 days & Custom Policy = 10 days to channels",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/group_configuration_spec.js",
+        "cases": [
+            {
+                "title": "group configuration > adding a team > does not add a team without saving",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/limited_console_access_spec.js",
+        "cases": [
+            {
+                "title": "Limited console access > MM-T3387 - Verify the Admin Role - System User Manager",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/openid/openid_spec.js",
+        "cases": [
+            {
+                "title": "System Console OpenId Connect > MM-T3623 - Set to Generic OpenId",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/settings_spec.js",
+        "cases": [
+            {
+                "title": "Settings > MM-T1181 Compliance and Auditing: Run a report, it appears in the job table",
                 "is_known": true,
                 "type": "flaky"
             }
@@ -98,7 +513,17 @@
         "spec_file": "tests/integration/enterprise/system_console/sidebar_link_navigation_cloud_spec.js",
         "cases": [
             {
-                "title": "System Console - Cloud > MM-T4264_34 cannot navigate to File Sharing and Downloads",
+                "title": "System Console - Cloud > MM-T4264_51 can navigate to Data Retention Policies",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "System Console - Cloud > MM-T4264_52 cannot navigate to Data Retention Policy",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "System Console - Cloud > MM-T4264_54 can navigate to Compliance Monitoring",
                 "is_known": true,
                 "type": "flaky"
             }
@@ -108,112 +533,157 @@
         "spec_file": "tests/integration/enterprise/system_console/system_scheme_permission_part2_spec.js",
         "cases": [
             {
-                "title": "System Scheme > MM-T2863 Reset system scheme defaults will revert permissions to defaults",
+                "title": "System Scheme > MM-T2862 Default permissions set inherited from system scheme",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/enterprise/system_console/ui_and_api/notifications_spec.js",
+        "spec_file": "tests/integration/enterprise/system_console/system_scheme_permission_spec.js",
         "cases": [
             {
-                "title": "System Console > Push Notification Contents",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/keyboard_shortcuts/keyboard_shortcuts_1_spec.js",
-        "cases": [
-            {
-                "title": "Keyboard Shortcuts > MM-T1232 - ALT+SHIFT+DOWN",
+                "title": "System Scheme Channel Mentions Permissions Test > MM-23018 - Enable and Disable Channel Mentions",
                 "is_known": true,
                 "type": "flaky"
             },
             {
-                "title": "Keyboard Shortcuts > MM-T1231 - ALT+SHIFT+UP",
+                "title": "System Scheme Channel Mentions Permissions Test > MM-24379 - Enable and Disable Create Post",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/messaging/direct_message_spec.js",
+        "spec_file": "tests/integration/enterprise/system_console/team_guest_channel_spec.js",
         "cases": [
             {
-                "title": "Direct Message > MM-T449 - Edit a direct message body",
+                "title": "Team Scheme Guest Permissions Test > MM- - Enable and Disable all guest permission",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/messaging/message_reply_gm_spec.js",
+        "spec_file": "tests/integration/enterprise/system_console/team_members_spec.js",
         "cases": [
             {
-                "title": "Reply in existing GM > MM-T470 Reply in existing GM",
+                "title": "Team members test > MM-23938 - Team members block is only visible when team is not group synced",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/multi_team_and_dm/town_square_not_marked_as_unread_spec.js",
+        "spec_file": "tests/integration/enterprise/system_console/team_scheme_permission_part2_spec.js",
         "cases": [
             {
-                "title": "Multi Team and DM > MM-T439 Town Square is not marked as unread for existing users when a new user is added to the team",
+                "title": "Team Scheme > MM-T2857 Delete Scheme",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Team Scheme > MM-T2855 Create a Team Override Scheme",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/notifications/browser_tab_notification_1_spec.js",
+        "spec_file": "tests/integration/enterprise/system_console/team_scheme_permission_spec.js",
         "cases": [
             {
-                "title": "Notifications > MM-T556 Browser tab and team sidebar notification - no unreads/mentions",
+                "title": "Team Scheme Channel Mentions Permissions Test > MM-23018 - Create a team override scheme",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Team Scheme Channel Mentions Permissions Test > MM-23018 - Enable and Disable Channel Mentions for team scheme",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Team Scheme Channel Mentions Permissions Test > MM-24379 - Enable and Disable Create Post for team scheme -- KNOWN ISSUE:MM-42020",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/notifications/direct_messages_do_not_add_indicator_spec.js",
+        "spec_file": "tests/integration/mark_as_unread/archive_channel_mark_as_unread_spec.js",
         "cases": [
             {
-                "title": "Notifications > MM-T561 Browser tab and team sidebar - direct messages don't add indicator on team icon in team sidebar (but do in browser tab)",
+                "title": "Channels > MM-T263 Mark as Unread post menu option should not be available for archived channels",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/notifications/message_bar_spec.js",
+        "spec_file": "tests/integration/mark_as_unread/bot_post_mark_as_unread_spec.js",
         "cases": [
             {
-                "title": "Notifications > MM-T566 New message bar - Displays in permalink view",
+                "title": "Bot post unread message > MM-T252 bot post unread",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/scroll/deleting_scroll_spec.js",
+        "spec_file": "tests/integration/mark_as_unread/toast_appears_unread_spec.js",
         "cases": [
             {
-                "title": "Scroll > MM-T2372 Post list does not scroll when the offscreen post is deleted",
+                "title": "Verify unread toast appears after repeated manual marking post as unread > MM-T1429 Toast when navigating to channel with unread messages and after repeated marking as unread",
                 "is_known": true,
                 "type": "flaky"
             }
         ]
     },
     {
-        "spec_file": "tests/integration/scroll/editing_scroll_spec.js",
+        "spec_file": "tests/integration/messaging/ctrl_cmd_k_find_gm_by_matching_name_spec.js",
         "cases": [
             {
-                "title": "Scroll > MM-T2371 Post list does not scroll when the offscreen post is edited",
+                "title": "Messaging > MM-T1226 - CTRL/CMD+K - Find GM by matching username, full name, or nickname, even if that name isn't displayed",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/messaging/post_textbox_height_spec.js",
+        "cases": [
+            {
+                "title": "Messaging > MM-T212 Leave a long draft in reply input box",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/multi_team_and_dm/close_current_dm_redirects_spec.js",
+        "cases": [
+            {
+                "title": "Direct messages: redirections > MM-T453_1 Closing a direct message should redirect to town square channel",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/multi_team_and_dm/favorite_and_close_spec.js",
+        "cases": [
+            {
+                "title": "Close group messages > MM-T474 - GM: Favorite, and close",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/notifications/at_mentions_spec.js",
+        "cases": [
+            {
+                "title": "Notifications > MM-T184 Words that trigger mentions support Chinese",
                 "is_known": true,
                 "type": "flaky"
             }
@@ -223,87 +693,82 @@
         "spec_file": "tests/integration/search_filter/input_spec.js",
         "cases": [
             {
-                "title": "Search Date Filter > MM-T598 Dates work without leading 0 for date and month",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/signin_authentication/login_open_server_spec.js",
-        "cases": [
-            {
-                "title": "Login page with open server > MM-T3306_1 Should render all elements of the page",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/signin_authentication/signup_spec.js",
-        "cases": [
-            {
-                "title": "Signup Email page > should match elements, footer",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/system_console/site_configuration/announcement_banner_spec.js",
-        "cases": [
-            {
-                "title": "Announcement Banner > MM-T1128 Announcement Banner - Dismissible banner shows long text truncated",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/system_console/site_configuration/link_customization_cloud_spec.js",
-        "cases": [
-            {
-                "title": "SupportSettings > MM-T1031 - Customization Change all links",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/system_console/user_management_spec.js",
-        "cases": [
-            {
-                "title": "User Management > MM-T924 Users - Page through users list",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/team_settings/teams_spec.js",
-        "cases": [
-            {
-                "title": "Teams Suite > MM-T2340 Team or System Admin searches and adds new team member",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
-        "spec_file": "tests/integration/toast/unread_with_bottom_start_toast_spec.js",
-        "cases": [
-            {
-                "title": "unread_with_bottom_start_toast > MM-T4873_3 Unread with bottom start toast is shown when post is marked as unread",
+                "title": "Search Date Filter > MM-T596 Use calendar picker to set date",
                 "is_known": true,
                 "type": "flaky"
             },
             {
-                "title": "unread_with_bottom_start_toast > MM-T4873_1 Unread with bottom start toast is shown when visiting a channel with unreads and should disappear if scrolled to new messages indicator",
+                "title": "Search Date Filter > MM-T3997 Backspace after last character of filter makes calendar reappear",
                 "is_known": true,
                 "type": "flaky"
-            },
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/settings/sidebar/fullname_spec.js",
+        "cases": [
             {
-                "title": "unread_with_bottom_start_toast > MM-T4873_2 Unread with bottom start toast should take to the new messages indicator when clicked",
+                "title": "Settings > Sidebar > General > MM-T183 Filtering by first name with Korean characters",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/signin_authentication/login_logout_smoke_spec.js",
+        "cases": [
+            {
+                "title": "SignIn Authentication > MM-T3080 Sign in email/pwd account",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/system_console/lock_teammate_name_display_spec.js",
+        "cases": [
+            {
+                "title": "System Console > MM-T1100 Lock Teammate Name Display for all users",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/saml/saml_metadata_spec.js",
+        "cases": [
+            {
+                "title": "SystemConsole->SAML 2.0 - Get Metadata from Idp Flow > fail to fetch metadata from Idp Metadata Url",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/auth_sso/mfa_authentication_spec.js",
+        "cases": [
+            {
+                "title": "Authentication > MM-T1778 - MFA - Enforced",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/guest_accounts/system_console_guest_access_ui_spec.ts",
+        "cases": [
+            {
+                "title": "Guest Account - Verify Guest Access UI > MM-18046 Verify Guest Access Screen",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/enterprise/system_console/authentication_method_spec.js",
+        "cases": [
+            {
+                "title": "Settings > MM-T953 Verify correct authentication method",
                 "is_known": true,
                 "type": "flaky"
             }
