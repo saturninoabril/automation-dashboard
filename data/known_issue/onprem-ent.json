@@ -53,12 +53,12 @@
                 "type": "flaky"
             },
             {
-                "title": "Create and delete board / card > MM-T4274 Create an Empty Board",
+                "title": "Create and delete board / card > MM-T5397 Can create and delete a board and a card",
                 "is_known": true,
                 "type": "flaky"
             },
             {
-                "title": "Create and delete board / card > MM-T5397 Can create and delete a board and a card",
+                "title": "Create and delete board / card > MM-T4274 Create an Empty Board",
                 "is_known": true,
                 "type": "flaky"
             }
@@ -83,12 +83,12 @@
                 "type": "flaky"
             },
             {
-                "title": "Manage groups > MM-T4287 Hiding/unhiding a group",
+                "title": "Manage groups > MM-T4285 Adding group color",
                 "is_known": true,
                 "type": "flaky"
             },
             {
-                "title": "Manage groups > MM-T4285 Adding group color",
+                "title": "Manage groups > MM-T4287 Hiding/unhiding a group",
                 "is_known": true,
                 "type": "flaky"
             }
@@ -195,16 +195,6 @@
         ]
     },
     {
-        "spec_file": "tests/integration/messaging/message_spec.js",
-        "cases": [
-            {
-                "title": "Message > MM-T3307 Focus remains in the RHS text box",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
         "spec_file": "tests/integration/messaging/post_textbox_height_spec.js",
         "cases": [
             {
@@ -243,6 +233,16 @@
         "spec_file": "tests/integration/signin_authentication/login_open_server_spec.js",
         "cases": [
             {
+                "title": "Search Date Filter > MM-T3997 Backspace after last character of filter makes calendar reappear",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Search Date Filter > MM-T596 Use calendar picker to set date",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
                 "title": "Login page with open server > MM-T3306_1 Should render all elements of the page",
                 "is_known": true,
                 "type": "flaky"
@@ -278,22 +278,22 @@
         "spec_file": "tests/integration/system_console/site_configuration/link_customization_e20_1_spec.js",
         "cases": [
             {
-                "title": "SupportSettings > MM-T3289_1 - Help (Ask community link setting)",
-                "is_known": true,
-                "type": "flaky"
-            },
-            {
                 "title": "SupportSettings > MM-T1033 - Customization: Blank TOS link field (login page)",
                 "is_known": true,
                 "type": "flaky"
             },
             {
-                "title": "SupportSettings > MM-T1031 - Customization Change all links",
+                "title": "SupportSettings > MM-T3289_1 - Help (Ask community link setting)",
                 "is_known": true,
                 "type": "flaky"
             },
             {
                 "title": "SupportSettings > MM-T3289_2 - Help (Ask community link setting)",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "SupportSettings > MM-T1031 - Customization Change all links",
                 "is_known": true,
                 "type": "flaky"
             }
@@ -308,12 +308,12 @@
                 "type": "flaky"
             },
             {
-                "title": "SupportSettings > MM-T1032 - Customization: Custom Terms and Privacy links in the About modal",
+                "title": "SupportSettings > MM-T1034 - Customization: Blank TOS link field (About modal)",
                 "is_known": true,
                 "type": "flaky"
             },
             {
-                "title": "SupportSettings > MM-T1034 - Customization: Blank TOS link field (About modal)",
+                "title": "SupportSettings > MM-T1032 - Customization: Custom Terms and Privacy links in the About modal",
                 "is_known": true,
                 "type": "flaky"
             }
