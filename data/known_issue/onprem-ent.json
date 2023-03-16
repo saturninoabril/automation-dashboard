@@ -215,16 +215,6 @@
         ]
     },
     {
-        "spec_file": "tests/integration/plugins/marketplace/render_in_main_menu_spec.js",
-        "cases": [
-            {
-                "title": "Plugin Marketplace > MM-T1960 Marketplace is available when \"Enable Plugins\" is true",
-                "is_known": true,
-                "type": "flaky"
-            }
-        ]
-    },
-    {
         "spec_file": "tests/integration/search_filter/input_spec.js",
         "cases": [
             {
@@ -242,6 +232,16 @@
     {
         "spec_file": "tests/integration/signin_authentication/login_open_server_spec.js",
         "cases": [
+            {
+                "title": "Search Date Filter > MM-T3997 Backspace after last character of filter makes calendar reappear",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Search Date Filter > MM-T596 Use calendar picker to set date",
+                "is_known": true,
+                "type": "flaky"
+            },
             {
                 "title": "Login page with open server > MM-T3306_1 Should render all elements of the page",
                 "is_known": true,
