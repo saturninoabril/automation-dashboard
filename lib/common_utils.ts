@@ -11,10 +11,11 @@ export function parseBuild(build = '') {
     };
 
     const parts = build.split('-');
+    const length = parts.length;
     if (parts.length >= minLength) {
         out.pipelineID = parts[0];
         out.imageTag = parts[1];
-        out.buildSuffix = parts.slice(2, parts.length).join('-');
+        out.buildSuffix = parts.slice(length - 2, length).join('-');
     }
 
     return out;
