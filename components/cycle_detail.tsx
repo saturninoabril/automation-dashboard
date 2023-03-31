@@ -58,6 +58,10 @@ function CycleDetail({
         if (group !== selectedSpecGroup) {
             setSelectedSpecGroup(group);
             setSelectedCaseState(undefined);
+        } else {
+            // Otherwise, revert to showing all.
+            setSelectedSpecGroup(undefined);
+            setSelectedCaseState(undefined);
         }
     }
 
@@ -71,6 +75,10 @@ function CycleDetail({
         if (state !== selectedCaseState) {
             setSelectedCaseState(state);
             setSelectedSpecGroup(undefined);
+        } else {
+            // Otherwise, revert to showing all.
+            setSelectedSpecGroup(undefined);
+            setSelectedCaseState(undefined);
         }
     }
 
