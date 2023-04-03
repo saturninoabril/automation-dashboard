@@ -4,7 +4,7 @@
 .pnp.js
 
 # ignore lock files either from yarn or npm
-package-lock.json
+# package-lock.json
 yarn.lock
 
 # testing

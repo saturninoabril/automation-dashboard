@@ -3,13 +3,13 @@
 ### 1. Install dependencies
 
 ```bash
-yarn
+npm install
 ```
 
 ### 2. Set up a Postgres database
 
 ```bash
-yarn db:start
+npm run db:start
 ```
 
 ### 3. Configure environment variables
@@ -27,12 +27,13 @@ Change the `PG_URI` variable in `.env.local` if using connection URI different t
 You can create, apply and rollback migrations using the scripts in `package.json`.
 
 ```bash
-yarn migrate:latest
+npm run migrate:latest
 ```
 
 ### 5. Generate a JWT token
 
 Set the following environment variables at `.env.local`. The values are example only and should be changed in your production deployment.
+
 ```
 JWT_SECRET=changewithrandomsecret6du58QrVV87N8FDB
 JWT_USER=cypress-test
@@ -58,7 +59,7 @@ JWT_SIGNED_TOKEN=eyJhb<... and the rest of token value>
 ### 7. Start Next.js in development mode
 
 ```bash
-yarn dev
+npm run dev
 ```
 
 Your app should now be up and running at [http://localhost:4000](http://localhost:4000)!
@@ -73,6 +74,7 @@ npm i
 ```
 
 b. Set the following environment variables:
+
 ```
 export AUTOMATION_DASHBOARD_URL=http://localhost:4000/api
 export AUTOMATION_DASHBOARD_TOKEN=eyJhb<... and the rest of token value>
@@ -83,7 +85,8 @@ export BUILD_ID=1
 
 Note: Combination of `REPO`, `BRANCH` and `BUILD_ID` must be unique every time you generate a test cycle.
 
-c. Generate a test cycle 
+c. Generate a test cycle
+
 ```
 # With all tests
 node generate_test_cycle.js
@@ -95,6 +98,7 @@ node generate_test_cycle.js --stage=@prod --group=@playbooks
 Note: A log is printed either it's successfully created or not. If successful, you should be able to see the newly created cycle at `http://localhost:4000/cycles`.
 
 4. Run Cypress test with the Automation Dashboard orchestrating the spec file:
+
 ```
 # Required and used to track which server in parallel is running the test
 export CI_BASE_URL=localhost-1
