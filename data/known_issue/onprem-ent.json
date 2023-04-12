@@ -1,87 +1,737 @@
 [
     {
-      "spec_file": "tests/integration/channels/auth_sso/authentication_1_spec.ts",
-      "cases": [
-        {
-          "title": "Authentication > MM-T1758 - Restrict Domains - Team invite closed team",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/channels/accessibility/accessibility_post_spec.js",
+        "cases": [
+            {
+                "title": "Verify Accessibility Support in Post > MM-T1486_3 Verify Tab support on Post on Center Channel",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Verify Accessibility Support in Post > MM-T1486_4 Verify Tab support on Post on RHS",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/channels/auth_sso/authentication_4_spec.ts",
-      "cases": [
-        {
-          "title": "Authentication > MM-T1753 - Enable account creation - true",
-          "is_known": true,
-          "type": "flaky"
-        },
-        {
-          "title": "Authentication > MM-T1754 - Restrict Domains - Account creation link on signin page",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/channels/archived_channel/archive_channel_reaction_spec.ts",
+        "cases": [
+            {
+                "title": "Archived channels > MM-T1718 Reaction icon should not be visible for archived channel posts",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/channels/collapsed_reply_threads/last_viewed_spec.js",
-      "cases": [
-        {
-          "title": "Collapsed Reply Threads > MM-T4843_2 should go to threads view when threads view is the penultimate view and leave the current channel",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/channels/auth_sso/authentication_4_spec.ts",
+        "cases": [
+            {
+                "title": "Authentication > MM-T1755 - Restrict Domains - Email invite",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Authentication > MM-T1753 - Enable account creation - true",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/channels/custom_status/custom_status_1_spec.ts",
-      "cases": [
-        {
-          "title": "Custom Status - CTAs for New Users > MM-T3851_3 should remove pulsating dot and Update your status post header after opening modal",
-          "is_known": true,
-          "type": "flaky"
-        },
-        {
-          "title": "Custom Status - CTAs for New Users > MM-T3851_1 should show Update your status in the post header",
-          "is_known": true,
-          "type": "flaky"
-        },
-        {
-          "title": "Custom Status - CTAs for New Users > MM-T3851_2 should open status dropdown with pulsating dot when clicked on Update your status post header",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/channels/bot_accounts/tags_spec.js",
+        "cases": [
+            {
+                "title": "Bot tags > MM-T1831 BOT tag is visible in search results",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/channels/enterprise/auth_sso/authentication_spec.js",
-      "cases": [
-        {
-          "title": "Authentication > MM-T1759 - Restrict Domains - Team invite open team",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/channels/channel/archived_channels_1_spec.js",
+        "cases": [
+            {
+                "title": "Leave an archived channel > MM-T1703 - User can open archived channels",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Leave an archived channel > MM-T1697 - Browse Public channels shows archived channels option",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Leave an archived channel > MM-T1700 - All archived public channels are shown Important",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Leave an archived channel > MM-T1699 - Browse Channels for all channel types shows archived channels option",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Leave an archived channel > MM-T1701 - Only Private channels you are a member of are displayed",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/channels/messaging/system_message_limited_options_spec.js",
-      "cases": [
-        {
-          "title": "Messaging > MM-T213 System message limited options",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/channels/channel/more_channels_spec.js",
+        "cases": [
+            {
+                "title": "Channels > MM-19337 Verify UI of More channels modal with archived selection",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Channels > MM-19337 Enable users to view archived channels",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Channels > MM-T1702 Search works when changing public/archived options in the dropdown",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     },
     {
-      "spec_file": "tests/integration/channels/signin_authentication/login_close_server_spec.js",
-      "cases": [
-        {
-          "title": "Login page with close server > MM-47222 Should verify access problem page can be reached",
-          "is_known": true,
-          "type": "flaky"
-        }
-      ]
+        "spec_file": "tests/integration/channels/channel/new_channel_with_board_spec.js",
+        "cases": [
+            {
+                "title": "New Channel modal with Boards enabled > MM-T5141 New Channel is created with an associated Board",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/channel_sidebar/unread_filter_spec.ts",
+        "cases": [
+            {
+                "title": "Channel sidebar unread filter > MM-T5208 continue to show global Threads item when unread filter is enabled",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/enterprise/oauth/oauth_spec.ts",
+        "cases": [
+            {
+                "title": "Integrations page > MM-T649 Edit Oauth 2.0 Application",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/enterprise/system_console/reporting/site_statistics_spec.js",
+        "cases": [
+            {
+                "title": "System Console > Site Statistics > MM-T905 - Site Statistics card labels in different languages",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/enterprise/system_console/support_packet_generation_spec.js",
+        "cases": [
+            {
+                "title": "Support Packet Generation > MM-T3849 - Commercial Support Dialog UI - E10/E20 License",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/files_and_attachments/image_link_preview_spec.js",
+        "cases": [
+            {
+                "title": "Image Link Preview > MM-T1447 Images below a min-width and min-height are posted in a container that is clickable",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/integrations/custom_slash_commands/custom_slash_commands_spec.js",
+        "cases": [
+            {
+                "title": "Slash commands > MM-T700 Slash command - Override username",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Slash commands > MM-T703 Show custom slash command in autocomplete",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Slash commands > MM-T701 Slash command - Override profile picture",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Slash commands > MM-T669 Custom slash command in DM and GM",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/integrations/custom_slash_commands/slash_commands_spec.js",
+        "cases": [
+            {
+                "title": "Slash commands page > MM-T695 Run custom slash command",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Slash commands page > MM-T699 Edit custom slash command",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/integrations/incoming_webhook/edit_incoming_webhook_spec.js",
+        "cases": [
+            {
+                "title": "Incoming webhook > MM-T641 Edit incoming webhook, webhook posts attachment",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/integrations/message_to_channel_via_slash_command_spec.js",
+        "cases": [
+            {
+                "title": "Integrations > MM-T707 Send a message to a different channel than where the slash command was issued from",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Integrations > MM-T706 Error Handling for Slash Commands",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/integrations/outgoing_webhook/delete_outgoing_webhook_spec.js",
+        "cases": [
+            {
+                "title": "Integrations > MM-T617 Delete outgoing webhook",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/integrations/outgoing_webhook/regenerate_token_spec.js",
+        "cases": [
+            {
+                "title": "Integrations > MM-T612 Regenerate token",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/integrations/slash_commands_spec.js",
+        "cases": [
+            {
+                "title": "Integrations > MM-T705 Ephemeral message",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/interactive_dialog/boolean_spec.js",
+        "cases": [
+            {
+                "title": "Interactive Dialog > MM-T2502 - Boolean element check",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/interactive_dialog/full_dialog_spec.js",
+        "cases": [
+            {
+                "title": "Interactive Dialog > MM-T2501 - Password element check",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Interactive Dialog > MM-T2491 - UI check",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Interactive Dialog > MM-T2492 - Cancel button works",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Interactive Dialog > MM-T2496_1 - Number validation for invalid input",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Interactive Dialog > MM-T2495_1 - Email validation for invalid input",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Interactive Dialog > MM-T2494 - Correct error messages displayed if empty form is submitted",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Interactive Dialog > MM-T2493 - \"X\" closes the dialog",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Interactive Dialog > MM-T2496_2 - Number validation for valid input",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Interactive Dialog > MM-T2495_2 - Email validation for valid input",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/interactive_dialog/scrollable_spec.js",
+        "cases": [
+            {
+                "title": "Interactive Dialog > MM-T2498 - Individual \"User\" and \"Channel\" screens are scrollable",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/interactive_dialog/simple_dialog_spec.js",
+        "cases": [
+            {
+                "title": "Interactive Dialog without element > MM-T2500_4 Submit button works",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Interactive Dialog without element > MM-T2500_2 \"X\" closes the dialog",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Interactive Dialog without element > MM-T2500_3 Cancel button works",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Interactive Dialog without element > MM-T2500_1 UI check",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/interactive_menu/basic_options_spec.js",
+        "cases": [
+            {
+                "title": "Interactive Menu > MM-T1736 - Selected Option is displayed, Ephemeral message is posted",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Interactive Menu > MM-T1747 - Selection is mirrored in RHS / Message Thread",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Interactive Menu > MM-T1748 - Change selection in RHS / Message Thread",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Interactive Menu > MM-T1745 - Enter selects the option",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/interactive_menu/slack_parsing_message_button_spec.js",
+        "cases": [
+            {
+                "title": "Interactive Menu > should parse text into Slack-compatible markdown depending on \"skip_slack_parsing\" property on response",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/keyboard_shortcuts/ctrl_cmd_shift_slash/react_to_center_spec.js",
+        "cases": [
+            {
+                "title": "Keyboard shortcut CTRL/CMD+Shift+\\ for adding reaction to last message > MM-T1804_3 Should reopen emoji picker even if shortcut is hit repeatedly on center",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/mark_as_unread/toast_appears_unread_spec.js",
+        "cases": [
+            {
+                "title": "Verify unread toast appears after repeated manual marking post as unread > MM-T1429 Toast when navigating to channel with unread messages and after repeated marking as unread",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/messaging/image_attachment_spec.js",
+        "cases": [
+            {
+                "title": "Image attachment > opens image preview window when image is clicked",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Image attachment > Image with width and height bigger than 48px",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/messaging/local_date_time_spec.js",
+        "cases": [
+            {
+                "title": "Messaging > MM-T713 Post time should render correct format and locale",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/messaging/message_reply_gm_spec.js",
+        "cases": [
+            {
+                "title": "Reply in existing GM > MM-T470 Reply in existing GM",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/messaging/post_textbox_height_spec.js",
+        "cases": [
+            {
+                "title": "Messaging > MM-T212 Leave a long draft in reply input box",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/multi_team_and_dm/close_current_dm_redirects_spec.js",
+        "cases": [
+            {
+                "title": "Direct messages: redirections > MM-T453_1 Closing a direct message should redirect to town square channel",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/multi_team_and_dm/favorite_and_close_spec.js",
+        "cases": [
+            {
+                "title": "Close group messages > MM-T474 - GM: Favorite, and close",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/notifications/at_mentions_spec.js",
+        "cases": [
+            {
+                "title": "Notifications > MM-T184 Words that trigger mentions support Chinese",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/search_filter/input_spec.js",
+        "cases": [
+            {
+                "title": "Search Date Filter > MM-T596 Use calendar picker to set date",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Search Date Filter > MM-T3997 Backspace after last character of filter makes calendar reappear",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/settings/sidebar/fullname_spec.js",
+        "cases": [
+            {
+                "title": "Settings > Sidebar > General > MM-T183 Filtering by first name with Korean characters",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/signin_authentication/login_open_server_spec.js",
+        "cases": [
+            {
+                "title": "Login page with open server > MM-T3306_1 Should render all elements of the page",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/signin_authentication/signup_spec.js",
+        "cases": [
+            {
+                "title": "Signup Email page > should match elements, footer",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/system_console/main_menu_spec.js",
+        "cases": [
+            {
+                "title": "Main menu > MM-T911 Can open Troubleshooting Forum",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Main menu > MM-T910 Can open Administrators Guide",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/system_console/site_configuration/announcement_banner_spec.js",
+        "cases": [
+            {
+                "title": "Announcement Banner > MM-T1128 Announcement Banner - Dismissible banner shows long text truncated",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/system_console/site_configuration/link_customization_e20_1_spec.js",
+        "cases": [
+            {
+                "title": "SupportSettings > MM-T3289_1 - Help (Ask community link setting)",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "SupportSettings > MM-T1031 - Customization Change all links",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "SupportSettings > MM-T3289_2 - Help (Ask community link setting)",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "SupportSettings > MM-T1033 - Customization: Blank TOS link field (login page)",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/system_console/site_configuration/link_customization_e20_2_spec.js",
+        "cases": [
+            {
+                "title": "SupportSettings > MM-T1034 - Customization: Blank TOS link field (About modal)",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "SupportSettings > MM-T1032 - Customization: Custom Terms and Privacy links in the About modal",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "SupportSettings > MM-T1035 - Customization Blank Privacy hides the link",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/toast/unread_with_bottom_start_toast_spec.js",
+        "cases": [
+            {
+                "title": "unread_with_bottom_start_toast > MM-T4873_2 Unread with bottom start toast should take to the new messages indicator when clicked",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "unread_with_bottom_start_toast > MM-T4873_1 Unread with bottom start toast is shown when visiting a channel with unreads and should disappear if scrolled to new messages indicator",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "unread_with_bottom_start_toast > MM-T4873_3 Unread with bottom start toast is shown when post is marked as unread",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/playbooks/channels/rhs/template_spec.js",
+        "cases": [
+            {
+                "title": "channels > rhs > template > create playbook > open new playbook creation modal and navigates to playbooks > after clicking on title",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/playbooks/channels/update_request_post_spec.js",
+        "cases": [
+            {
+                "title": "channels > update request post > displays interactive post > as a channel member only > in threads view",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "channels > update request post > displays interactive post > as a participant > in threads view",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/playbooks/playbooks/feedback_spec.js",
+        "cases": [
+            {
+                "title": "playbooks > feedback > playbooks shows prompt in global header, with experimental feature flag",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "playbooks > feedback > playbooks shows prompt in global header, without experimental feature flag",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/playbooks/runs/rdp_rhs_runinfo_spec.js",
+        "cases": [
+            {
+                "title": "runs > run details page > run info > > overview > as participant > Following button can be toggled",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/playbooks/runs/rdp_rhs_statusupdates_spec.js",
+        "cases": [
+            {
+                "title": "runs > run details page > status update > as viewer > link opens the RHS when there are updates",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/playbooks/runs/taskinbox_spec.js",
+        "cases": [
+            {
+                "title": "Task Inbox > > icon in global header, with experimental feature flag",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "Task Inbox > > icon in global header, without experimental feature flag",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/messaging/message_channel_draw_spec.js",
+        "cases": [
+            {
+                "title": "M17448 Does not post draft message > on successful upload via \"Draw\" plugin",
+                "is_known": true,
+                "type": "flaky"
+            },
+            {
+                "title": "M17448 Does not post draft message > on upload cancel via \"Draw\" plugin",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/messaging/tooltips_on_top_nav_channel_icons_posts_spec.js",
+        "cases": [
+            {
+                "title": "Messaging > MM-T134 Visual verification of tooltips on top nav, channel icons, posts",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/plugins/demo_plugin/webhook_spec.js",
+        "cases": [
+            {
+                "title": "Demo plugin - Webhook events > MM-T2408_2 - User joined a channel Webhook event",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/plugins/plugin_buttons_spec.js",
+        "cases": [
+            {
+                "title": "collapse on 15 plugin buttons > MM-T1649 Greater than 15 plugin buttons collapse to one icon in top nav",
+                "is_known": true,
+                "type": "flaky"
+            }
+        ]
     }
-  ]
+]
