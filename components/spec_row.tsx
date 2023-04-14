@@ -106,10 +106,22 @@ function SpecSummaryView({
                                 <span>{spec.fail}</span>
                             </span>
                         )}
-                        {spec.known_fail > 0 && (
+                        {spec.bug > 0 && (
                             <span className="flex w-10 space-x-1 text-amber-700">
-                                <XCircleIcon />
-                                <span>{spec.known_fail}</span>
+                                <span className="h-5 w-5 text-center">{'B'}</span>
+                                <span>{spec.bug}</span>
+                            </span>
+                        )}
+                        {spec.known > 0 && (
+                            <span className="flex w-10 space-x-1 text-amber-700">
+                                <span className="h-5 w-5 text-center">{'K'}</span>
+                                <span>{spec.known}</span>
+                            </span>
+                        )}
+                        {spec.flaky > 0 && (
+                            <span className="flex w-10 space-x-1 text-amber-700">
+                                <span className="h-5 w-5 text-center">{'F'}</span>
+                                <span>{spec.flaky}</span>
                             </span>
                         )}
                         {spec.skipped > 0 && (
@@ -203,7 +215,17 @@ const rowColors: Record<string, any> = {
         hover: 'hover:bg-red-200',
         border: 'border-red-100',
     },
-    known_fail: {
+    bug: {
+        bg: 'bg-amber-100',
+        hover: 'hover:bg-amber-200',
+        border: 'border-amber-100',
+    },
+    known: {
+        bg: 'bg-amber-100',
+        hover: 'hover:bg-amber-200',
+        border: 'border-amber-100',
+    },
+    flaky: {
         bg: 'bg-amber-100',
         hover: 'hover:bg-amber-200',
         border: 'border-amber-100',
@@ -237,10 +259,11 @@ function CaseSummaryView({
     if (!case_execution?.id) {
         return <span />;
     }
-    const { id, duration, state, title, known_fail_type, known_fail_ticket } = case_execution;
+    const { id, duration, state, title, known_fail_ticket } = case_execution;
 
-    // prettier-ignore
-    const knownPrefix = `(known${known_fail_type ? ' ' + known_fail_type : ''}${known_fail_ticket ? ', ' + known_fail_ticket : ''})`
+    function getFailPrefix(failType: string) {
+        return `(${failType}${known_fail_ticket ? ' - ' + known_fail_ticket : ''})`;
+    }
 
     return (
         <tr
@@ -271,7 +294,15 @@ function CaseSummaryView({
             </td>
             <td className="whitespace-no-wrap text-blue-500 leading-5">
                 <span className="flex py-1 w-full block truncate">
-                    {state === 'known_fail' && <span className="text-sm pr-1">{knownPrefix}</span>}
+                    {state === 'bug' && (
+                        <span className="text-sm pr-1">{`${getFailPrefix('bug')}`}</span>
+                    )}
+                    {state === 'known' && (
+                        <span className="text-sm pr-1">{`${getFailPrefix('known')}`}</span>
+                    )}
+                    {state === 'flaky' && (
+                        <span className="text-sm pr-1">{`${getFailPrefix('flaky')}`}</span>
+                    )}
                     <span className="text-sm">{`* ${title[title.length - 1]}`}</span>
                 </span>
             </td>
@@ -291,9 +322,19 @@ function CaseSummaryView({
                                 <XCircleIcon />
                             </span>
                         )}
-                        {state === 'known_fail' && (
+                        {state === 'bug' && (
                             <span className="flex w-10 space-x-1 text-amber-700">
-                                <XCircleIcon />
+                                <span className="h-5 w-5 text-center">{'B'}</span>
+                            </span>
+                        )}
+                        {state === 'known' && (
+                            <span className="flex w-10 space-x-1 text-amber-700">
+                                <span className="h-5 w-5 text-center">{'K'}</span>
+                            </span>
+                        )}
+                        {state === 'flaky' && (
+                            <span className="flex w-10 space-x-1 text-amber-700">
+                                <span className="h-5 w-5 text-center">{'F'}</span>
                             </span>
                         )}
                         {state === 'skipped' && (

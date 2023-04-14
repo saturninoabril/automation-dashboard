@@ -93,24 +93,40 @@ function getSpecGroup(spec: SpecExecution) {
 
     switch (spec.state) {
         case stateDone: {
-            const { pass, fail, pending, skipped, known_fail } = spec;
-            const total = pass + fail + pending + skipped + known_fail;
+            const { pass, fail, bug, known, flaky, pending, skipped } = spec;
+            const total = pass + fail + bug + known + flaky + pending + skipped;
             if (total === pass) {
-                return 'passed';
-            } else if (fail === 0 && known_fail > 0) {
-                return 'known_fail';
-            } else {
-                return 'failed';
+                return ['passed'];
             }
+
+            const group = [];
+
+            if (fail > 0) {
+                group.push('failed');
+            }
+
+            if (bug > 0) {
+                group.push('bug');
+            }
+
+            if (known > 0) {
+                group.push('known');
+            }
+
+            if (flaky > 0) {
+                group.push('flaky');
+            }
+
+            return group;
         }
         case stateStarted: {
             if (!isWithinTimeDuration(updateAt, { m: 10 })) {
-                return stateTimedOut;
+                return [stateTimedOut];
             }
-            return stateStarted;
+            return [stateStarted];
         }
         default:
-            return stateOnQueue;
+            return [stateOnQueue];
     }
 }
 
@@ -119,7 +135,7 @@ export function getSpecsByGroup(specsExecution: SpecExecution[] = [], group: Spe
         return null;
     }
 
-    return specsExecution.filter((spec) => getSpecGroup(spec) === group);
+    return specsExecution.filter((spec) => getSpecGroup(spec).includes(group));
 }
 
 export function getSpecsByState(specsExecution: SpecExecution[] = [], state: CaseState) {
@@ -127,22 +143,32 @@ export function getSpecsByState(specsExecution: SpecExecution[] = [], state: Cas
         return null;
     }
 
-    return specsExecution.filter((spec) => Boolean(spec[state]));
+    return specsExecution.filter((spec) => {
+        if (state === 'passed') {
+            return Boolean(spec.pass);
+        }
+
+        if (state === 'failed') {
+            return Boolean(spec.fail);
+        }
+
+        return Boolean(spec[state]);
+    });
 }
 
 export function getSpecsGroupByCount(specsExecution: SpecExecution[] = []) {
     return specsExecution.reduce(
-        // prettier-ignore
-        (acc: Record<SpecExecutionState, number>, spec) => { // eslint-disable-line
-      const group = getSpecGroup(spec);
-      if (acc[group]) {
-        acc[group] += 1;
-      } else {
-        acc[group] = 1;
-      }
+        (acc: Record<string, number>, spec) => {
+            getSpecGroup(spec).forEach((group) => {
+                if (acc[group]) {
+                    acc[group] += 1;
+                } else {
+                    acc[group] = 1;
+                }
+            });
 
-      return acc;
-    },
-        { passed: 0, failed: 0, known_fail: 0, started: 0, timed_out: 0, on_queue: 0 }
+            return acc;
+        },
+        { passed: 0, failed: 0, bug: 0, known: 0, flaky: 0, started: 0, timed_out: 0, on_queue: 0 }
     );
 }

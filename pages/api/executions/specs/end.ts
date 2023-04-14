@@ -5,10 +5,16 @@ import { getPatchableCycleFields } from '@lib/schema/cycle';
 import { recomputeCycleTestValues } from '@lib/server_utils';
 import { getCycleByID, updateCycle } from '@lib/store/cycle';
 import { getKnownIssueByCycleID } from '@lib/store/known_issue';
-import { saveCaseExecution } from '@lib/store/case_execution';
-import { getDoneSpecs, updateSpecsAsDone } from '@lib/store/spec_execution';
+import { getLastCaseExecutions, saveCaseExecution } from '@lib/store/case_execution';
+import {
+    getDoneSpecs,
+    getLastSpecExecutions,
+    getSpecByID,
+    updateSpecsAsDone,
+} from '@lib/store/spec_execution';
 import auth from '@middleware/auth';
 import { CaseExecution, SpecExecution } from '@types';
+import { parseBuild } from '@lib/common_utils';
 
 async function endSpecExecution(req: NextApiRequest, res: NextApiResponse) {
     const { query } = req;
@@ -18,61 +24,19 @@ async function endSpecExecution(req: NextApiRequest, res: NextApiResponse) {
         const tests = req.body.tests as CaseExecution[];
 
         try {
-            const specPatch = {
-                id: query.id?.toString(),
-                state: 'done', // explicitly set as done
-                pass: spec.pass,
-                fail: spec.fail,
-                pending: spec.pending,
-                skipped: spec.skipped,
-                duration: spec.duration,
-                test_start_at: spec.test_start_at,
-                test_end_at: spec.test_end_at,
-            };
+            const specId = query.id.toString();
 
-            // update spec as done
-            const { error: specError, spec: updatedSpecExecution } = await updateSpecsAsDone(
-                specPatch
-            );
-            if (specError || !updatedSpecExecution) {
+            // get spec by ID
+            const { error: origSpecError, spec: origSpec } = await getSpecByID(specId);
+            if (origSpecError || !origSpec) {
                 return res.status(400).json({
                     error: true,
-                    message: specError || 'Error getting specs',
+                    message: origSpecError || 'Error getting a spec',
                 });
             }
 
-            const caseExecutions: Partial<CaseExecution>[] = [];
-            tests.forEach((t) => {
-                const caseDraft: Partial<CaseExecution> = {
-                    title: t.title,
-                    full_title: t.full_title,
-                    key: t.key,
-                    key_step: t.key_step,
-                    state: t.state,
-                    duration: t.duration,
-                    code: t.code,
-                    error_display: t.error_display,
-                    error_frame: t.error_frame,
-                    screenshot: t.screenshot,
-                    test_start_at: t.test_start_at,
-                    cycle_id: updatedSpecExecution.cycle_id,
-                    spec_execution_id: updatedSpecExecution.id,
-                };
-
-                caseExecutions.push(caseDraft);
-            });
-
-            // save each case execution
-            const cases = await Promise.all(
-                caseExecutions.map((ce) => {
-                    return saveCaseExecution(ce);
-                })
-            );
-
             // get cycle by ID
-            const { error: cycleError, cycle: origCycle } = await getCycleByID(
-                updatedSpecExecution.cycle_id
-            );
+            const { error: cycleError, cycle: origCycle } = await getCycleByID(origSpec.cycle_id);
             if (cycleError || !origCycle) {
                 return res.status(400).json({
                     error: true,
@@ -80,14 +44,7 @@ async function endSpecExecution(req: NextApiRequest, res: NextApiResponse) {
                 });
             }
 
-            // get specs that were done testing
-            const { error: doneSpecsError, specs: doneSpecs } = await getDoneSpecs(origCycle.id);
-            if (doneSpecsError || !doneSpecs) {
-                return res.status(400).json({
-                    error: true,
-                    message: doneSpecsError || 'Error getting specs',
-                });
-            }
+            const { repo, branch, build } = origCycle;
 
             // get known issue of the test cycle
             const { error: knownIssueError, knownIssue } = await getKnownIssueByCycleID(
@@ -100,12 +57,166 @@ async function endSpecExecution(req: NextApiRequest, res: NextApiResponse) {
                 });
             }
 
-            // recompute cycle test values
-            const recomputedCycle = recomputeCycleTestValues(
-                origCycle,
-                doneSpecs,
-                knownIssue?.data
+            const caseExecutions: Partial<CaseExecution>[] = [];
+            for (const t of tests) {
+                const caseDraft: Partial<CaseExecution> = {
+                    title: t.title,
+                    full_title: t.full_title,
+                    key: t.key,
+                    key_step: t.key_step,
+                    state: t.state,
+                    duration: t.duration,
+                    code: t.code,
+                    error_display: t.error_display,
+                    error_frame: t.error_frame,
+                    screenshot: t.screenshot,
+                    test_start_at: t.test_start_at,
+                    cycle_id: origSpec.cycle_id,
+                    spec_execution_id: origSpec.id,
+                };
+
+                // get last case executions
+                const { error: lastCaseError, last_case_executions } = await getLastCaseExecutions(
+                    t.full_title,
+                    repo,
+                    branch,
+                    parseBuild(build).buildSuffix
+                );
+                if (lastCaseError) {
+                    // log for debugging only
+                    console.log(lastCaseError);
+                }
+
+                if (last_case_executions?.length) {
+                    caseDraft.last_execution = last_case_executions;
+                }
+
+                if (caseDraft.state === 'failed') {
+                    // re-evaluate failed tests if indeed failed, bug, known or flaky
+
+                    let updated = false;
+
+                    // based from known issue -- manually identified thru json file
+                    if (knownIssue?.data) {
+                        knownIssue.data.forEach((k) => {
+                            if (k.spec_file === origSpec.file) {
+                                k.cases.forEach((c) => {
+                                    if (
+                                        c.title === caseDraft.full_title &&
+                                        ['bug', 'known', 'flaky'].includes(c.type)
+                                    ) {
+                                        caseDraft.state = c.type;
+                                        caseDraft.known_fail_ticket = c.ticket;
+                                        updated = true;
+                                    }
+                                });
+                            }
+                        });
+                    }
+
+                    // based from historical data -- automatically identified
+                    if (!updated && last_case_executions?.length) {
+                        const lastXRun = process.env.LAST_X_RUN
+                            ? parseInt(process.env?.LAST_X_RUN, 10)
+                            : 5;
+                        const lastConsecutiveFail = process.env.LAST_CONSECUTIVE_FAIL
+                            ? parseInt(process.env?.LAST_CONSECUTIVE_FAIL, 10)
+                            : 2;
+                        const lastXCaseExecutions = last_case_executions.filter(
+                            (_, index) => lastXRun > index
+                        );
+                        const allPassed = lastXCaseExecutions.reduce(
+                            (acc, val) => acc && val.state === 'passed',
+                            true
+                        );
+                        const firstTwoFailed = lastXCaseExecutions
+                            .filter((_, i) => i < lastConsecutiveFail)
+                            .reduce(
+                                (acc, val) =>
+                                    acc && ['failed', 'bug', 'known', 'flaky'].includes(val.state),
+                                true
+                            );
+
+                        if (allPassed) {
+                            // if all last x executions had passed then test is indeed "failed"
+                        } else if (firstTwoFailed) {
+                            // if the last two or probably more consecutive tests failed then test is "known"
+                            caseDraft.state = 'known';
+                        } else {
+                            // last tests were mixed of pass and fail then test is "flaky"
+                            caseDraft.state = 'flaky';
+                        }
+                    }
+                }
+
+                caseExecutions.push(caseDraft);
+            }
+
+            // save each case execution
+            const cases = await Promise.all(
+                caseExecutions.map((ce) => {
+                    return saveCaseExecution(ce);
+                })
             );
+
+            const specPatch: Partial<SpecExecution> = {
+                id: specId,
+                state: 'done', // explicitly set as done
+                pass: spec.pass,
+                pending: spec.pending,
+                skipped: spec.skipped,
+                duration: spec.duration,
+                test_start_at: spec.test_start_at,
+                test_end_at: spec.test_end_at,
+            };
+
+            if (spec.fail > 0) {
+                // recompute and regroup as failed, bug, known or flaky
+                const failedCount = recomputeSpecFailedCount(caseExecutions);
+                specPatch.fail = failedCount.failed;
+                specPatch.bug = failedCount.bug;
+                specPatch.known = failedCount.known;
+                specPatch.flaky = failedCount.flaky;
+            }
+
+            // get last specs executions
+            const { error: lastSpecError, last_spec_executions } = await getLastSpecExecutions(
+                spec.file,
+                repo,
+                branch,
+                parseBuild(build).buildSuffix
+            );
+            if (lastSpecError) {
+                // log for debugging only
+                console.log(lastSpecError);
+            }
+
+            if (last_spec_executions?.length) {
+                specPatch.last_execution = last_spec_executions;
+            }
+
+            // update spec as done
+            const { error: specError, spec: updatedSpecExecution } = await updateSpecsAsDone(
+                specPatch
+            );
+            if (specError || !updatedSpecExecution) {
+                return res.status(400).json({
+                    error: true,
+                    message: specError || 'Error updating specs',
+                });
+            }
+
+            // get specs that were done testing
+            const { error: doneSpecsError, specs: doneSpecs } = await getDoneSpecs(origCycle.id);
+            if (doneSpecsError || !doneSpecs) {
+                return res.status(400).json({
+                    error: true,
+                    message: doneSpecsError || 'Error getting specs',
+                });
+            }
+
+            // recompute cycle test values
+            const recomputedCycle = recomputeCycleTestValues(origCycle, doneSpecs);
 
             // do not update this field
             delete recomputedCycle.specs_registered;
@@ -147,6 +258,30 @@ async function endSpecExecution(req: NextApiRequest, res: NextApiResponse) {
         error: true,
         message: 'No ID found in request query.',
     });
+}
+
+export function recomputeSpecFailedCount(caseExecutions: Partial<CaseExecution>[] = []) {
+    return caseExecutions.reduce(
+        (acc: { failed: number; bug: number; known: number; flaky: number }, ce) => {
+            switch (ce.state) {
+                case 'failed':
+                    acc.failed += 1;
+                    break;
+                case 'bug':
+                    acc.bug += 1;
+                    break;
+                case 'known':
+                    acc.known += 1;
+                    break;
+                case 'flaky':
+                    acc.flaky += 1;
+                    break;
+            }
+
+            return acc;
+        },
+        { failed: 0, bug: 0, known: 0, flaky: 0 }
+    );
 }
 
 const handler = nextConnect();

@@ -8,7 +8,7 @@ import { saveKnownIssue } from '@lib/store/known_issue';
 import auth from '@middleware/auth';
 import type { Cycle, KnownIssue } from '@types';
 import { parseBuild } from '@lib/common_utils';
-import { defaultBuildSuffix } from '@lib/server_utils';
+import { onpremEnt } from '@lib/server_utils';
 
 type CyclesResponse = {
     cycles: Cycle[];
@@ -80,7 +80,7 @@ async function startCycle(req: NextApiRequest, res: NextApiResponse<Partial<Cycl
             }
 
             // get known issue by build_suffix
-            const buildSuffix = parseBuild(build.toString()).buildSuffix || defaultBuildSuffix;
+            const buildSuffix = parseBuild(build.toString()).buildSuffix || onpremEnt;
             let knownIssues: KnownIssue[] = [];
             try {
                 knownIssues = require(`../../../data/known_issue/${buildSuffix}.json`);

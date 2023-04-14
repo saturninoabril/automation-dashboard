@@ -39,7 +39,9 @@ function CycleList({ cycles }: Props) {
                     specs_registered,
                     pass,
                     fail,
-                    known_fail,
+                    bug,
+                    known,
+                    flaky,
                     pending,
                     skipped,
                     start_at: startAt,
@@ -147,10 +149,22 @@ function CycleList({ cycles }: Props) {
                                         <XCircleIcon />
                                     </div>
                                 ) : null}
-                                {known_fail ? (
+                                {bug ? (
                                     <div className="ml-1 mr-1 lg:ml-2 lg:mr-2 flex space-x-1 items-center text-amber-700">
-                                        <div>{known_fail}</div>
-                                        <XCircleIcon />
+                                        <div>{bug}</div>
+                                        <span className="h-6 w-5 text-center">{'B'}</span>
+                                    </div>
+                                ) : null}
+                                {known ? (
+                                    <div className="ml-1 mr-1 lg:ml-2 lg:mr-2 flex space-x-1 items-center text-amber-700">
+                                        <div>{known}</div>
+                                        <span className="h-6 w-5 text-center">{'K'}</span>
+                                    </div>
+                                ) : null}
+                                {flaky ? (
+                                    <div className="ml-1 mr-1 lg:ml-2 lg:mr-2 flex space-x-1 items-center text-amber-700">
+                                        <div>{flaky}</div>
+                                        <span className="h-6 w-5 text-center">{'F'}</span>
                                     </div>
                                 ) : null}
                                 {pending ? (

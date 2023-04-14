@@ -1,6 +1,6 @@
 import { getKnex } from '@knex';
 import CaseExecutionSchema from '@lib/schema/case_execution';
-import { CaseExecution } from '@types';
+import { CaseExecution, LastCaseExecution } from '@types';
 
 export async function getCaseExecutionsBy(
     cycleId: string,
@@ -73,6 +73,10 @@ export async function saveCaseExecution(caseExecution: Partial<CaseExecution>, t
         };
     }
 
+    if (value.last_execution) {
+        value.last_execution = JSON.stringify(value.last_execution);
+    }
+
     try {
         const knex = await getKnex();
         const queryBuilder = knex('case_executions');
@@ -90,5 +94,52 @@ export async function saveCaseExecution(caseExecution: Partial<CaseExecution>, t
         const message = 'Failed to save case execution.';
         console.log(message, error);
         return { error: message, caseExecution: null };
+    }
+}
+
+export async function getLastCaseExecutions(
+    fullTitle: string,
+    repo = 'mattermost-server',
+    branch = 'master',
+    buildLike = 'onprem-ent',
+    limit = 10
+): Promise<{ error: string | null; last_case_executions: LastCaseExecution[] | null }> {
+    try {
+        const knex = await getKnex();
+        const caseRes = await knex.raw(`
+            SELECT
+                ce.id,
+                ce.full_title,
+                ce.state,
+                ce.update_at,
+                ce.spec_execution_id,
+                se.file as spec_file,
+                ce.cycle_id,
+                cs.repo,
+                cs.branch,
+                cs.build,
+                cs.create_at AS cycle_create_at
+            FROM public.case_executions ce
+            LEFT JOIN spec_executions AS se ON se.id = ce.spec_execution_id
+            LEFT JOIN cycles AS cs ON cs.id = ce.cycle_id
+            WHERE
+                ce.full_title = $$${fullTitle}$$
+                AND ce.cycle_id IN (
+                    SELECT id from cycles
+                    WHERE
+                        state = 'done'
+                        AND repo = '${repo}'
+                        AND branch = '${branch}'
+                        AND build LIKE '%${buildLike}%'
+                    ORDER BY create_at DESC LIMIT ${limit * 2}
+                )
+            GROUP BY ce.id, cs.repo, cs.branch, cs.build, cycle_create_at, spec_file
+            ORDER BY ce.create_at DESC LIMIT ${limit}`);
+
+        return { error: null, last_case_executions: caseRes.rows };
+    } catch (error) {
+        const message = 'Error getting last case executions';
+        console.log(message, error);
+        return { error: message, last_case_executions: null };
     }
 }

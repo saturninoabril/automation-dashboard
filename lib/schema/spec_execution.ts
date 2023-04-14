@@ -12,6 +12,9 @@ const specExecutionSchema = Joi.object().keys({
     tests: Joi.number().min(0),
     pass: Joi.number().min(0),
     fail: Joi.number().min(0),
+    bug: Joi.number().min(0),
+    known: Joi.number().min(0),
+    flaky: Joi.number().min(0),
     pending: Joi.number().min(0),
     skipped: Joi.number().min(0),
     sort_weight: Joi.number().min(0),
@@ -24,6 +27,7 @@ const specExecutionSchema = Joi.object().keys({
     cycle_id: Joi.string()
         .guid({ version: ['uuidv4'] })
         .max(50),
+    last_execution: Joi.array(),
 });
 
 const patchableFields = [
@@ -31,11 +35,15 @@ const patchableFields = [
     'state',
     'pass',
     'fail',
+    'bug',
+    'known',
+    'flaky',
     'pending',
     'skipped',
     'duration',
     'test_start_at',
     'test_end_at',
+    'last_execution',
 ];
 
 export const getPatchableSpecExecutionFields = (data: Record<string, any>) => {

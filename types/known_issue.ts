@@ -11,11 +11,10 @@ export type KnownIssue = {
     cases: KnownIssueCase[];
 };
 
-type KnownIssueType = 'flaky' | 'bug' | 'require_verification';
+type KnownIssueType = 'known' | 'flaky' | 'bug' | 'require_verification';
 
 export type KnownIssueCase = {
     title: string;
-    is_known: boolean;
     type: KnownIssueType;
     ticket?: string;
 };
@@ -29,7 +28,6 @@ export type KnownIssueCaseObj = Record<
     string,
     {
         title: string;
-        is_known: boolean;
         type: KnownIssueType;
         ticket?: string;
     }

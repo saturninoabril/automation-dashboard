@@ -29,6 +29,7 @@ const caseExecutionSchema = Joi.object().keys({
     spec_execution_id: Joi.string()
         .guid({ version: ['uuidv4'] })
         .max(50),
+    last_execution: Joi.array(),
 });
 
 const patchableFields = ['key', 'key_step', 'state', 'duration'];
