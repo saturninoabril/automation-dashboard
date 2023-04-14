@@ -5,7 +5,7 @@ import nextConnect from 'next-connect';
 import { params } from '@lib/params';
 import { getSpecsWithCases } from '@lib/store/spec_execution';
 import { getKnownIssueByCycleID } from '@lib/store/known_issue';
-import { defaultKnownIssueType, getCaseTitle, knownIssuesToObject } from '@lib/server_utils';
+import { defaultKnownIssueType, getCaseTitle } from '@lib/server_utils';
 import { SpecExecution } from '@types';
 
 async function getSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
@@ -36,62 +36,6 @@ async function getSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
     const specs = specsRes.specs as SpecExecution[];
 
     const { knownIssue } = await getKnownIssueByCycleID(cycleId);
-    const knownIssuesObj = knownIssuesToObject(knownIssue?.data);
-
-    for (let i = 0; i < specs.length; i++) {
-        const spec = specs[i];
-
-        // reset values
-        spec.pass = 0;
-        spec.fail = 0;
-        spec.known_fail = 0;
-        spec.pending = 0;
-        spec.skipped = 0;
-
-        if (!spec.cases.length) {
-            continue;
-        }
-
-        for (let j = 0; j < spec.cases.length; j++) {
-            const caseExecution = spec.cases[j];
-
-            if (!caseExecution.id) {
-                continue;
-            }
-
-            switch (caseExecution.state) {
-                case 'passed':
-                    spec.pass += 1;
-                    break;
-                case 'failed':
-                    // prettier-ignore
-                    if (knownIssuesObj[spec.file]?.casesObj[getCaseTitle(caseExecution.title)]?.is_known) {
-                        const knownIssue = knownIssuesObj[spec.file].casesObj[getCaseTitle(caseExecution.title)];
-                        spec.known_fail += 1;
-                        spec.cases[j].state = 'known_fail';
-
-                        if (knownIssue.type) {
-                            spec.cases[j].known_fail_type = knownIssue.type;
-                        }
-                        if (knownIssue.ticket) {
-                            spec.cases[j].known_fail_ticket = knownIssue.ticket;
-                        }
-                    } else {
-                        spec.fail += 1;
-                    }
-
-                    break;
-                case 'skipped':
-                    spec.skipped += 1;
-                    break;
-                case 'pending':
-                    spec.pending += 1;
-                    break;
-                default:
-                    console.log('caseExecution state not counted', caseExecution.state);
-            }
-        }
-    }
 
     const requireVerification = specs
         .filter((spec) => spec.fail > 0)
@@ -102,7 +46,6 @@ async function getSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
                     .filter((ce) => ce.state === 'failed')
                     .map((ce) => ({
                         title: getCaseTitle(ce.title),
-                        is_known: false,
                         type: defaultKnownIssueType,
                     })),
             };

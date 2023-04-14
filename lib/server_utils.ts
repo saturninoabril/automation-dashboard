@@ -1,7 +1,8 @@
 import { KnownIssue, KnownIssueObj, KnownIssueCaseObj, Cycle, SpecExecution } from '@types';
 import { stateDone } from './constant';
 
-export const defaultBuildSuffix = 'onprem-ent';
+export const onpremEnt = 'onprem-ent';
+export const cloudEnt = 'cloud-ent';
 export const defaultKnownIssueType = 'require_verification';
 
 export function getCaseTitle(title: string[] = []) {
@@ -24,19 +25,14 @@ export function knownIssuesToObject(knownIssues?: KnownIssue[]) {
     }, {});
 }
 
-export function recomputeCycleTestValues(
-    cycle: Cycle,
-    specs: SpecExecution[],
-    knownIssues?: KnownIssue[]
-): Partial<Cycle> {
-    // transform as an object to easily workaround with the data
-    const knownIssuesObj = knownIssuesToObject(knownIssues);
-
+export function recomputeCycleTestValues(cycle: Cycle, specs: SpecExecution[]): Partial<Cycle> {
     let specsDone = 0;
     let duration = 0;
     let pass = 0;
     let fail = 0;
-    let knownFail = 0;
+    let bug = 0;
+    let known = 0;
+    let flaky = 0;
     let pending = 0;
     let skipped = 0;
 
@@ -62,13 +58,16 @@ export function recomputeCycleTestValues(
                     pass += 1;
                     break;
                 case 'failed':
-                    // prettier-ignore
-                    if (knownIssuesObj[spec.file]?.casesObj[getCaseTitle(caseExecution.title)]?.is_known) {
-                        knownFail += 1;
-                    } else {
-                        fail += 1;
-                    }
-
+                    fail += 1;
+                    break;
+                case 'bug':
+                    bug += 1;
+                    break;
+                case 'known':
+                    known += 1;
+                    break;
+                case 'flaky':
+                    flaky += 1;
                     break;
                 case 'skipped':
                     skipped += 1;
@@ -90,7 +89,9 @@ export function recomputeCycleTestValues(
         duration,
         pass,
         fail,
-        known_fail: knownFail,
+        bug,
+        known,
+        flaky,
         pending,
         skipped,
     };

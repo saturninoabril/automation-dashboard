@@ -22,8 +22,23 @@ export type CaseExecution = {
     update_at: string;
     cycle_id: string;
     spec_execution_id: string;
-    known_fail_type: string;
+    known_fail_type: string; // deprecated
     known_fail_ticket: string;
+    last_execution: LastCaseExecution[];
 };
 
-export type CaseState = 'pass' | 'fail' | 'known_fail' | 'pending' | 'skipped';
+export type CaseState = 'passed' | 'failed' | 'bug' | 'known' | 'flaky' | 'pending' | 'skipped';
+
+export type LastCaseExecution = {
+    id: string;
+    full_title: string;
+    state: CaseState;
+    update_at: string;
+    spec_execution_id: string;
+    spec_file: string;
+    cycle_id: string;
+    repo: string;
+    branch: string;
+    build: string;
+    cycle_create_at: string;
+};

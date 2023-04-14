@@ -9,7 +9,10 @@ export type Cycle = {
     duration: number;
     pass: number;
     fail: number;
-    known_fail: number;
+    bug: number;
+    known: number;
+    known_fail: number; // deprecated
+    flaky: number;
     pending: number;
     skipped: number;
     cypress_version: string;

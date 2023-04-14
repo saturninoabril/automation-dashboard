@@ -9,7 +9,10 @@ export type SpecExecution = {
     tests: number;
     pass: number;
     fail: number;
-    known_fail: number;
+    bug: number;
+    known: number;
+    known_fail: number; // deprecated
+    flaky: number;
     pending: number;
     skipped: number;
     sort_weight: number;
@@ -21,12 +24,32 @@ export type SpecExecution = {
     update_at: string;
     cycle_id: string;
     cases: CaseExecution[];
+    last_execution: LastSpecExecution[];
 };
 
 export type SpecExecutionState =
     | 'passed'
     | 'failed'
-    | 'known_fail'
+    | 'bug'
+    | 'known'
+    | 'flaky'
     | 'started'
     | 'timed_out'
     | 'on_queue';
+
+export type LastSpecExecution = {
+    id: string;
+    pass: number;
+    fail: number;
+    bug: number;
+    known: number;
+    flaky: number;
+    pending: number;
+    skipped: number;
+    update_at: string;
+    cycle_id: string;
+    repo: string;
+    branch: string;
+    build: string;
+    cycle_create_at: string;
+};

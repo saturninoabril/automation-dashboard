@@ -1,13 +1,30 @@
 import { getKnex } from '@knex';
 import { getPatchableSpecExecutionFields } from '@lib/schema/spec_execution';
 import { stateDone } from '@lib/constant';
-import { SpecExecution } from '@types';
+import { LastSpecExecution, SpecExecution } from '@types';
 
 type GetSpecsWithCasesResponse = {
     specs: SpecExecution[] | null;
     total: number;
     error: string | null;
 };
+
+export async function getSpecByID(id?: string) {
+    if (!id) {
+        return { error: 'Require spec ID', spec: null };
+    }
+
+    try {
+        const knex = await getKnex();
+        const spec = (await knex('spec_executions').where('id', id).first()) as SpecExecution;
+
+        return { error: null, spec };
+    } catch (error) {
+        const message = `Spec not found with id: "${id}"`;
+        console.log(message, error);
+        return { error: message, spec: null };
+    }
+}
 
 export async function getSpecsWithCases(
     cycleId: string,
@@ -107,6 +124,10 @@ export async function updateSpecsAsDone(
         };
     }
 
+    if (specPatch.last_execution) {
+        specPatch.last_execution = JSON.stringify(specPatch.last_execution);
+    }
+
     try {
         const knex = await getKnex();
         const queryBuilder = knex('spec_executions').where('id', patch.id);
@@ -128,5 +149,54 @@ export async function updateSpecsAsDone(
         const message = 'Error updating specs as done';
         console.log(message, error);
         return { error: message, spec: null };
+    }
+}
+
+export async function getLastSpecExecutions(
+    specFile: string,
+    repo = 'mattermost-server',
+    branch = 'master',
+    buildLike = 'onprem-ent',
+    limit = 10
+): Promise<{ error: string | null; last_spec_executions: LastSpecExecution[] | null }> {
+    try {
+        const knex = await getKnex();
+        const specRes = await knex.raw(`
+            SELECT
+                se.id,
+                se.pass,
+                se.fail,
+                se.bug,
+                se.known,
+                se.flaky,
+                se.pending,
+                se.skipped,
+                se.update_at,
+                se.cycle_id,
+                cs.repo,
+                cs.branch,
+                cs.build,
+                cs.create_at AS cycle_create_at
+            FROM public.spec_executions se
+            LEFT JOIN cycles AS cs ON cs.id = se.cycle_id
+            WHERE
+                se.file = '${specFile}'
+                AND se.cycle_id IN (
+                    SELECT id from cycles
+                    WHERE
+                        state = 'done'
+                        AND repo = '${repo}'
+                        AND branch = '${branch}'
+                        AND build LIKE '%${buildLike}%'
+                    ORDER BY create_at DESC LIMIT ${limit * 2}
+                )
+            GROUP BY se.id, cs.repo, cs.branch, cs.build, cycle_create_at
+            ORDER BY se.create_at DESC LIMIT ${limit}`);
+
+        return { error: null, last_spec_executions: specRes.rows };
+    } catch (error) {
+        const message = 'Error getting last spec executions';
+        console.log(message, error);
+        return { error: message, last_spec_executions: null };
     }
 }

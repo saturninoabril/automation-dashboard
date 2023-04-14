@@ -8,7 +8,7 @@ import { getSpecsWithCases } from '@lib/store/spec_execution';
 import { saveKnownIssue } from '@lib/store/known_issue';
 import { getCycleSummary, parseBuild } from '@lib/common_utils';
 import { generateTestReport } from '@lib/report';
-import { defaultBuildSuffix } from '@lib/server_utils';
+import { onpremEnt } from '@lib/server_utils';
 import auth from '@middleware/auth';
 import type { KnownIssue } from '@types';
 
@@ -58,9 +58,7 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
     // get known issue by build_suffix
     let knownIssues: KnownIssue[] = [];
     try {
-        knownIssues = require(`../../../data/known_issue/${
-            buildSuffix || defaultBuildSuffix
-        }.json`);
+        knownIssues = require(`../../../data/known_issue/${buildSuffix || onpremEnt}.json`);
     } catch (error) {
         // ignore error and use default empty array
     }
@@ -88,7 +86,7 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
     }
 
     // recompute cycle test values
-    const recomputedCycle = recomputeCycleTestValues(oldCycle, specs, knownIssues);
+    const recomputedCycle = recomputeCycleTestValues(oldCycle, specs);
 
     const out = {
         all_passed: false,
@@ -107,7 +105,9 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
         recomputedCycle.duration !== oldCycle.duration ||
         recomputedCycle.pass !== oldCycle.pass ||
         recomputedCycle.fail !== oldCycle.fail ||
-        recomputedCycle.known_fail !== oldCycle.known_fail ||
+        recomputedCycle.bug !== oldCycle.bug ||
+        recomputedCycle.known !== oldCycle.known ||
+        recomputedCycle.flaky !== oldCycle.flaky ||
         recomputedCycle.pending !== oldCycle.pending ||
         recomputedCycle.skipped !== oldCycle.skipped ||
         (recomputedCycle.state && recomputedCycle.state !== oldCycle.state)

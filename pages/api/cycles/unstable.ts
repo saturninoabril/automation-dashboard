@@ -185,7 +185,6 @@ async function getRawUnstableSpecs(cycleIDs: string[], buildSuffix: string) {
                     return (
                         knownIssuesObj[unstableRawSpec.spec_file].casesObj[ce.title] || {
                             ...ce,
-                            is_known: false,
                             type: defaultKnownIssueType,
                         }
                     );
@@ -195,7 +194,7 @@ async function getRawUnstableSpecs(cycleIDs: string[], buildSuffix: string) {
             }
 
             const newCases = unstableRawSpec.cases.map((ce) => {
-                return { ...ce, is_known: false, type: defaultKnownIssueType };
+                return { ...ce, type: defaultKnownIssueType };
             });
 
             return { ...unstableRawSpec, cases: newCases };
