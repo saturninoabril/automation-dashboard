@@ -6,7 +6,7 @@ import cycleSchema from '@lib/schema/cycle';
 import SpecExecutionSchema from '@lib/schema/spec_execution';
 import { saveKnownIssue } from '@lib/store/known_issue';
 import auth from '@middleware/auth';
-import type { Cycle, KnownIssue } from '@types';
+import type { Cycle, KnownIssueData } from '@types';
 import { parseBuild } from '@lib/common_utils';
 import { onpremEnt } from '@lib/server_utils';
 
@@ -81,16 +81,16 @@ async function startCycle(req: NextApiRequest, res: NextApiResponse<Partial<Cycl
 
             // get known issue by build_suffix
             const buildSuffix = parseBuild(build.toString()).buildSuffix || onpremEnt;
-            let knownIssues: KnownIssue[] = [];
+            let knownIssueData: KnownIssueData[] = [];
             try {
-                knownIssues = require(`../../../data/known_issue/${buildSuffix}.json`);
+                knownIssueData = require(`../../../data/known_issue/${buildSuffix}.json`);
             } catch (error) {
                 // ignore error and use default empty array
             }
 
             // save known issue to DB
-            if (knownIssues?.length) {
-                await saveKnownIssue(cycle[0].id, knownIssues, trx);
+            if (knownIssueData?.length) {
+                await saveKnownIssue(cycle[0].id, knownIssueData, trx);
             }
 
             return { cycle, executions };

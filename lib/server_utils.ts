@@ -1,28 +1,18 @@
-import { KnownIssue, KnownIssueObj, KnownIssueCaseObj, Cycle, SpecExecution } from '@types';
+import crypto from 'crypto';
+
+import { Cycle, KnownIssueData, LastCaseExecution, SpecExecution } from '@types';
 import { stateDone } from './constant';
 
 export const onpremEnt = 'onprem-ent';
 export const cloudEnt = 'cloud-ent';
 export const defaultKnownIssueType = 'require_verification';
 
-export function getCaseTitle(title: string[] = []) {
-    return title ? title.join(' > ') : '';
+export function getObjectHash(data: object) {
+    return crypto.createHash('sha256').update(JSON.stringify(data)).digest('hex');
 }
 
-export function knownIssuesToObject(knownIssues?: KnownIssue[]) {
-    if (!knownIssues?.length) {
-        return {};
-    }
-
-    return knownIssues.reduce<KnownIssueObj>((specs, spec) => {
-        const casesObj = spec.cases.reduce<KnownIssueCaseObj>((ces, ce) => {
-            ces[ce.title] = ce;
-            return ces;
-        }, {});
-
-        specs[spec.spec_file] = { ...spec, casesObj };
-        return specs;
-    }, {});
+export function getCaseTitle(title: string[] = []) {
+    return title ? title.join(' > ') : '';
 }
 
 export function recomputeCycleTestValues(cycle: Cycle, specs: SpecExecution[]): Partial<Cycle> {
@@ -102,4 +92,56 @@ export function recomputeCycleTestValues(cycle: Cycle, specs: SpecExecution[]): 
     }
 
     return recomputedCycle;
+}
+
+export function getCaseStateWithKnownIssue(
+    knownIssueData: KnownIssueData[],
+    specFile: string,
+    fullTitle: string
+) {
+    const out: { state: string | null; ticket?: string | null } = { state: null, ticket: null };
+
+    for (let i = 0; i < knownIssueData.length; i++) {
+        const knownIssue = knownIssueData[i];
+        if (knownIssue.spec_file === specFile) {
+            knownIssue.cases.forEach((c) => {
+                if (c.title === fullTitle && ['bug', 'known', 'flaky'].includes(c.type)) {
+                    out.state = c.type;
+
+                    if (c.ticket) {
+                        out.ticket = c.ticket;
+                    }
+                }
+            });
+        }
+    }
+
+    return out;
+}
+
+export function getCaseStateWithLastExecution(lastExecutions: LastCaseExecution[]) {
+    let state;
+    const lastXRun = process.env.LAST_X_RUN ? parseInt(process.env?.LAST_X_RUN, 10) : 5;
+    const recentConsecutive = process.env.RECENT_CONSECUTIVE
+        ? parseInt(process.env?.RECENT_CONSECUTIVE, 10)
+        : 2;
+    const lastXCaseExecutions = lastExecutions.filter((_, index) => lastXRun > index);
+    const recentConsecutivePassed = lastXCaseExecutions.reduce(
+        (acc, val) => acc && val.state === 'passed',
+        true
+    );
+    const recentConsecutiveFailed = lastXCaseExecutions
+        .filter((_, i) => i < recentConsecutive)
+        .reduce((acc, val) => acc && ['failed', 'bug', 'known', 'flaky'].includes(val.state), true);
+
+    if (recentConsecutivePassed) {
+        // if x recent consecutive tests passed then test is indeed "failed"
+    } else if (recentConsecutiveFailed) {
+        // if x recent consecutive tests failed then test is "known"
+        state = 'known';
+    } else {
+        // last tests were mixed of pass and fail then test is "flaky"
+        state = 'flaky';
+    }
+    return state;
 }

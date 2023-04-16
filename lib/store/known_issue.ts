@@ -1,7 +1,8 @@
 import crypto from 'crypto';
 
 import { getKnex } from '@knex';
-import { KnownIssue, KnownIssueSchema } from '@types';
+import { getObjectHash } from '@lib/server_utils';
+import { KnownIssueData, KnownIssue } from '@types';
 
 export async function getKnownIssueByCycleID(cycleID: string) {
     try {
@@ -9,7 +10,7 @@ export async function getKnownIssueByCycleID(cycleID: string) {
         const knownIssue = (await knex('known_issues')
             .where('cycle_id', cycleID)
             .orderBy('create_at', 'desc')
-            .first()) as KnownIssueSchema;
+            .first()) as KnownIssue;
 
         return { error: null, knownIssue };
     } catch (error) {
@@ -19,9 +20,9 @@ export async function getKnownIssueByCycleID(cycleID: string) {
     }
 }
 
-export async function saveKnownIssue(cycleID: string, data: KnownIssue[], trx?: any) {
+export async function saveKnownIssue(cycleID: string, data: KnownIssueData[], trx?: any) {
     try {
-        const hash = crypto.createHash('sha256').update(JSON.stringify(data)).digest('hex');
+        const hash = getObjectHash(data);
 
         const knex = await getKnex();
         const queryBuilder = knex('known_issues');
@@ -38,7 +39,7 @@ export async function saveKnownIssue(cycleID: string, data: KnownIssue[], trx?: 
             })
             .onConflict(['hash', 'cycle_id'])
             .ignore()
-            .returning('*')) as KnownIssueSchema;
+            .returning('*')) as KnownIssue;
 
         return { error: null, knownIssue: savedKnownIssue };
     } catch (error) {

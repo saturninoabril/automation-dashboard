@@ -2,7 +2,11 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
 import { getPatchableCycleFields } from '@lib/schema/cycle';
-import { recomputeCycleTestValues } from '@lib/server_utils';
+import {
+    getCaseStateWithKnownIssue,
+    getCaseStateWithLastExecution,
+    recomputeCycleTestValues,
+} from '@lib/server_utils';
 import { getCycleByID, updateCycle } from '@lib/store/cycle';
 import { getKnownIssueByCycleID } from '@lib/store/known_issue';
 import { getLastCaseExecutions, saveCaseExecution } from '@lib/store/case_execution';
@@ -98,53 +102,25 @@ async function endSpecExecution(req: NextApiRequest, res: NextApiResponse) {
 
                     // based from known issue -- manually identified thru json file
                     if (knownIssue?.data) {
-                        knownIssue.data.forEach((k) => {
-                            if (k.spec_file === origSpec.file) {
-                                k.cases.forEach((c) => {
-                                    if (
-                                        c.title === caseDraft.full_title &&
-                                        ['bug', 'known', 'flaky'].includes(c.type)
-                                    ) {
-                                        caseDraft.state = c.type;
-                                        caseDraft.known_fail_ticket = c.ticket;
-                                        updated = true;
-                                    }
-                                });
+                        const { state, ticket } = getCaseStateWithKnownIssue(
+                            knownIssue.data,
+                            origSpec.file,
+                            t.full_title
+                        );
+                        if (state) {
+                            if (ticket) {
+                                caseDraft.known_fail_ticket = ticket;
                             }
-                        });
+                            caseDraft.state = state;
+                            updated = true;
+                        }
                     }
 
                     // based from historical data -- automatically identified
                     if (!updated && last_case_executions?.length) {
-                        const lastXRun = process.env.LAST_X_RUN
-                            ? parseInt(process.env?.LAST_X_RUN, 10)
-                            : 5;
-                        const lastConsecutiveFail = process.env.LAST_CONSECUTIVE_FAIL
-                            ? parseInt(process.env?.LAST_CONSECUTIVE_FAIL, 10)
-                            : 2;
-                        const lastXCaseExecutions = last_case_executions.filter(
-                            (_, index) => lastXRun > index
-                        );
-                        const allPassed = lastXCaseExecutions.reduce(
-                            (acc, val) => acc && val.state === 'passed',
-                            true
-                        );
-                        const firstTwoFailed = lastXCaseExecutions
-                            .filter((_, i) => i < lastConsecutiveFail)
-                            .reduce(
-                                (acc, val) =>
-                                    acc && ['failed', 'bug', 'known', 'flaky'].includes(val.state),
-                                true
-                            );
-
-                        if (allPassed) {
-                            // if all last x executions had passed then test is indeed "failed"
-                        } else if (firstTwoFailed) {
-                            // if the last two or probably more consecutive tests failed then test is "known"
-                            caseDraft.state = 'known';
-                        } else {
-                            // last tests were mixed of pass and fail then test is "flaky"
-                            caseDraft.state = 'flaky';
+                        const state = getCaseStateWithLastExecution(last_case_executions);
+                        if (state) {
+                            caseDraft.state = state;
                         }
                     }
                 }

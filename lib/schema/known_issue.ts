@@ -12,4 +12,21 @@ const knownIssueSchema = Joi.object().keys({
         .max(50),
 });
 
+export const knownIssueDataSchema = Joi.object().keys({
+    spec_file: Joi.string().required(),
+    cases: Joi.array()
+        .items({
+            title: Joi.string().required(),
+            type: Joi.string().required().valid('bug', 'known', 'flaky'),
+            ticket: Joi.string().when('type', {
+                is: 'bug',
+                then: Joi.string()
+                    .regex(/^(MM-)\d+/)
+                    .required(),
+                otherwise: Joi.string(),
+            }),
+        })
+        .required(),
+});
+
 export default knownIssueSchema;
