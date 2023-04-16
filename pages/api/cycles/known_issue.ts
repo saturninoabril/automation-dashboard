@@ -10,7 +10,7 @@ import { getCycleSummary, parseBuild } from '@lib/common_utils';
 import { generateTestReport } from '@lib/report';
 import { onpremEnt } from '@lib/server_utils';
 import auth from '@middleware/auth';
-import type { KnownIssue } from '@types';
+import type { KnownIssueData } from '@types';
 
 async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
     const {
@@ -56,7 +56,7 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
     const { pipelineID, imageTag, buildSuffix } = parseBuild(oldCycle.build);
 
     // get known issue by build_suffix
-    let knownIssues: KnownIssue[] = [];
+    let knownIssues: KnownIssueData[] = [];
     try {
         knownIssues = require(`../../../data/known_issue/${buildSuffix || onpremEnt}.json`);
     } catch (error) {

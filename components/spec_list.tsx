@@ -6,12 +6,12 @@ import Codeblock from '@components/code_block';
 import { SearchIcon } from '@components/icon';
 import SpecListLoading from '@components/spec_list_loading';
 import SpecRow from '@components/spec_row';
-import { KnownIssue, SpecExecution, SpecExecutionState } from '@types';
+import { KnownIssueData, SpecExecution, SpecExecutionState } from '@types';
 
 type Props = {
     specs?: SpecExecution[];
     selectedSpecGroup?: SpecExecutionState;
-    requireVerification?: KnownIssue[];
+    requireVerification?: KnownIssueData[];
     build?: string;
 };
 

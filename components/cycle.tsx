@@ -14,7 +14,7 @@ import {
     getSpecsByState,
     isWithinTimeDuration,
 } from '@lib/client_utils';
-import { CaseState, KnownIssue, SpecExecution, SpecExecutionState } from '@types';
+import { CaseState, KnownIssueData, SpecExecution, SpecExecutionState } from '@types';
 
 type Props = {
     asPath: string;
@@ -62,7 +62,7 @@ function Cycle({ asPath, cycleId, repo, branch, build }: Props): React.ReactElem
     // Set to maximum while working on proper pagination
     const PER_PAGE = 1000;
     let specs: SpecExecution[] | undefined;
-    let requireVerification: KnownIssue[] | undefined;
+    let requireVerification: KnownIssueData[] | undefined;
 
     const specsRes = useSWR(
         `/api/executions/specs?cycle_id=${cycle?.id}&per_page=${PER_PAGE}`,

@@ -4,6 +4,7 @@
     "version": "0.2.0",
     "license": "MIT",
     "scripts": {
+        "test": "jest",
         "prepare": "husky install",
         "analyze": "BUNDLE_ANALYZE=both next build",
         "dev": "next dev -p 4000",
@@ -17,7 +18,7 @@
         "seed:create": "knex seed:make",
         "seed:run": "knex seed:run",
         "format": "npm run format:check --write",
-        "format:check": "prettier --check \"**/*.md\" \"*.js\" \"*.json\" \"{components,knex,lib,middleware,pages,public,script,types}/**/*.{js,ts,jsx,tsx}\" \"{components,knex,lib,middleware,pages,public,script,types}/*.{js,ts,jsx,tsx}\"",
+        "format:check": "prettier --check \"**/*.md\" \"*.js\" \"*.json\" \"{components,data,knex,lib,middleware,pages,public,script,types}/**/*.{js,ts,jsx,tsx}\" \"{components,knex,lib,middleware,pages,public,script,types}/*.{js,ts,jsx,tsx}\"",
         "lint": "next lint",
         "prettier:fix": "prettier --write .",
         "find:unused": "npx next-unused",
@@ -44,6 +45,8 @@
         "swr": "2.1.2"
     },
     "devDependencies": {
+        "@jest/globals": "29.5.0",
+        "@types/jest": "29.5.0",
         "@types/jsonwebtoken": "9.0.1",
         "@types/lodash.pickby": "4.6.7",
         "@types/node": "18.15.11",
@@ -55,6 +58,7 @@
         "eslint-config-next": "13.2.4",
         "eslint-config-prettier": "8.8.0",
         "husky": "8.0.3",
+        "jest": "29.5.0",
         "lint-staged": "13.2.0",
         "next-unused": "0.0.6",
         "postcss": "8.4.21",
@@ -62,6 +66,8 @@
         "prettier": "2.8.7",
         "tailwindcss": "3.3.1",
         "tailwindcss-hyphens": "0.1.0",
+        "ts-jest": "29.1.0",
+        "ts-node": "10.9.1",
         "typescript": "5.0.3"
     },
     "engines": {
