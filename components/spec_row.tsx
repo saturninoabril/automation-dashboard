@@ -16,10 +16,32 @@ import {
 } from '@components/icon';
 import Codeblock from '@components/code_block';
 import SpecStatus from '@components/spec_status';
-import { CaseExecution, SpecExecution } from '@types';
+import { CaseExecution, LastCaseExecution, SpecExecution } from '@types';
 import { formatDuration } from '@lib/client_utils';
 
 import fetcher from '@lib/fetcher';
+
+const useOutsideClick = (callback: () => void) => {
+    const ref = React.useRef<HTMLDivElement | null>(null);
+
+    React.useEffect(() => {
+        // @ts-ignore
+        const handleClick = (event) => {
+            // @ts-ignore
+            if (ref.current && !ref.current.contains(event.target)) {
+                callback();
+            }
+        };
+
+        document.addEventListener('click', handleClick, true);
+
+        return () => {
+            document.removeEventListener('click', handleClick, true);
+        };
+    }, [ref]);
+
+    return ref;
+};
 
 type Props = {
     spec: SpecExecution;
@@ -387,73 +409,10 @@ function CaseDetailView({ case_execution }: CaseDetailViewProps): React.ReactEle
                             <span className="pl-4 pr-4 bg-yellow-100 text-red-500">
                                 {'Last run'}
                             </span>
-                            <div className="flex flex-row p-4">
-                                {caseExecution.last_execution.map((le) => {
-                                    let iconComponent = <span>{le.state}</span>;
-                                    switch (le.state) {
-                                        case 'passed': {
-                                            iconComponent = (
-                                                <span className="text-green-600">
-                                                    <CheckCircleIcon />
-                                                </span>
-                                            );
-                                            break;
-                                        }
-
-                                        // show only as failed for all variants of failed tests
-                                        case 'failed':
-                                        case 'bug':
-                                        case 'known':
-                                        case 'flaky': {
-                                            iconComponent = (
-                                                <span className="text-red-400">
-                                                    <XCircleIcon />
-                                                </span>
-                                            );
-                                            break;
-                                        }
-
-                                        case 'skipped': {
-                                            iconComponent = (
-                                                <span className="text-purple-700">
-                                                    <FastForwardIcon />
-                                                </span>
-                                            );
-                                            break;
-                                        }
-
-                                        case 'pending': {
-                                            iconComponent = (
-                                                <span className="text-blue-700">
-                                                    <ExclamationCircleIcon />
-                                                </span>
-                                            );
-                                        }
-                                    }
-
-                                    return (
-                                        <OverlayTrigger
-                                            key={le.id + le.full_title}
-                                            placement={'bottom'}
-                                            overlay={
-                                                <Tooltip
-                                                    id={`tooltip-${le.id}`}
-                                                    className="text-sm text-left"
-                                                >
-                                                    <div className="text-sm text-left">
-                                                        <p className="font-bold">
-                                                            {dayjs(le.update_at).format('lll')}
-                                                        </p>
-                                                        <p>{le.build}</p>
-                                                        <p>{`"${le.full_title}"`}</p>
-                                                    </div>
-                                                </Tooltip>
-                                            }
-                                        >
-                                            {iconComponent}
-                                        </OverlayTrigger>
-                                    );
-                                })}
+                            <div className="flex flex-row p-4 overflow-y-auto">
+                                {caseExecution.last_execution.map((le) => (
+                                    <LastExecutionTooltip key={le.id} lastCaseExecution={le} />
+                                ))}
                             </div>
                         </div>
                         <hr />
@@ -512,6 +471,105 @@ function CaseDetailView({ case_execution }: CaseDetailViewProps): React.ReactEle
                 )}
             </td>
         </tr>
+    );
+}
+
+function LastExecutionTooltip({
+    lastCaseExecution,
+}: {
+    lastCaseExecution: LastCaseExecution;
+}): React.ReactElement {
+    const [show, setShow] = useState(false);
+    function handleClick() {
+        setShow(!show);
+    }
+
+    const ref = useOutsideClick(() => setShow(false));
+
+    let iconComponent = <span>{lastCaseExecution.state}</span>;
+    switch (lastCaseExecution.state) {
+        case 'passed': {
+            iconComponent = (
+                <span className="text-green-600" onClick={handleClick}>
+                    <CheckCircleIcon />
+                </span>
+            );
+            break;
+        }
+
+        // show only as failed for all variants of failed tests
+        case 'failed':
+        case 'bug':
+        case 'known':
+        case 'flaky': {
+            iconComponent = (
+                <span className="text-red-400" onClick={handleClick}>
+                    <XCircleIcon />
+                </span>
+            );
+            break;
+        }
+
+        case 'skipped': {
+            iconComponent = (
+                <span className="text-purple-700" onClick={handleClick}>
+                    <FastForwardIcon />
+                </span>
+            );
+            break;
+        }
+
+        case 'pending': {
+            iconComponent = (
+                <span className="text-blue-700" onClick={handleClick}>
+                    <ExclamationCircleIcon />
+                </span>
+            );
+            break;
+        }
+    }
+
+    return (
+        <OverlayTrigger
+            placement={'bottom'}
+            show={show}
+            overlay={
+                <Tooltip id={`tooltip-${lastCaseExecution.id}`} className="text-sm text-left">
+                    <div ref={ref} className="text-sm text-left">
+                        <p className="font-bold">
+                            {dayjs(lastCaseExecution.update_at).format('lll')}
+                        </p>
+                        <hr />
+                        <p>{lastCaseExecution.build}</p>
+                        <hr />
+                        <p>{`"${lastCaseExecution.full_title}"`}</p>
+                        {lastCaseExecution.error_display && (
+                            <>
+                                <hr />
+                                <Codeblock
+                                    code={lastCaseExecution.error_display}
+                                    language="javascript"
+                                />
+                            </>
+                        )}
+                        {lastCaseExecution.screenshot?.url && (
+                            <>
+                                <hr />
+                                <Image
+                                    src={lastCaseExecution.screenshot.url}
+                                    alt={`Screenshot for "${lastCaseExecution.full_title}"`}
+                                    height={270}
+                                    width={480}
+                                    layout="responsive"
+                                />
+                            </>
+                        )}
+                    </div>
+                </Tooltip>
+            }
+        >
+            {iconComponent}
+        </OverlayTrigger>
     );
 }
 

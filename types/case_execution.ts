@@ -36,6 +36,8 @@ export type LastCaseExecution = {
     update_at: string;
     spec_execution_id: string;
     spec_file: string;
+    error_display?: string;
+    screenshot?: Screenshot;
     cycle_id: string;
     repo: string;
     branch: string;

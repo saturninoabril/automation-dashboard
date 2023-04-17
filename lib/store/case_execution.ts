@@ -117,6 +117,8 @@ export async function getLastCaseExecutions(
                 ce.update_at,
                 ce.spec_execution_id,
                 se.file as spec_file,
+                ce.error_display,
+                ce.screenshot,
                 ce.cycle_id,
                 cs.repo,
                 cs.branch,
