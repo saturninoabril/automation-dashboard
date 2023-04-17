@@ -14,7 +14,7 @@ function Header({ subtitle, widerContent }: Props): React.ReactElement {
                     widerContent ? 'max-w-screen-xl' : 'max-w-screen-lg lg:p-0'
                 }`}
             >
-                <Link href="/" className="flex items-center" passHref>
+                <Link href="/" className="flex items-center no-underline" passHref>
                     <div className="flex flex-col justify-center">
                         <div className="font-bold text-gray-900 leading-tight text-2xl sm:text-3xl tracking-tight">
                             Test Automation Dashboard

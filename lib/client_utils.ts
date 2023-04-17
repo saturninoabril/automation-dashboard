@@ -117,6 +117,14 @@ function getSpecGroup(spec: SpecExecution) {
                 group.push('flaky');
             }
 
+            if (skipped > 0) {
+                group.push('skipped');
+            }
+
+            if (pending > 0) {
+                group.push('pending');
+            }
+
             return group;
         }
         case stateStarted: {
@@ -169,6 +177,17 @@ export function getSpecsGroupByCount(specsExecution: SpecExecution[] = []) {
 
             return acc;
         },
-        { passed: 0, failed: 0, bug: 0, known: 0, flaky: 0, started: 0, timed_out: 0, on_queue: 0 }
+        {
+            passed: 0,
+            failed: 0,
+            bug: 0,
+            known: 0,
+            flaky: 0,
+            skipped: 0,
+            pending: 0,
+            started: 0,
+            timed_out: 0,
+            on_queue: 0,
+        }
     );
 }

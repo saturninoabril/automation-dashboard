@@ -1,6 +1,7 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+@import 'bootstrap/dist/css/bootstrap.min.css';
 
 html {
     scroll-behavior: smooth;
@@ -80,6 +81,7 @@ ol.nested li:before {
     background-color: #fffbdd;
 }
 
+ul,
 ul.tree,
 ul.tree ul {
     list-style: none;
@@ -118,6 +120,18 @@ ul.tree li:last-child:before {
     border-left: 1px solid rgb(100, 100, 100);
 }
 
+hr {
+    margin: 0;
+}
+
+pre {
+    margin: 0;
+}
+
+p {
+    margin: 0;
+}
+
 /* 404 Page */
 
 .NotFoundPage {
@@ -151,6 +165,12 @@ ul.tree li:last-child:before {
     position: absolute;
     left: 10%;
     animation: move 6s linear infinite;
+}
+
+.tooltip-inner {
+    max-width: 350px;
+    /* If max-width does not work, try using width instead */
+    width: 350px;
 }
 
 @keyframes move {

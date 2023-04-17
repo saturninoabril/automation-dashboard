@@ -8,6 +8,7 @@ export function parseBuild(build = '') {
         pipelineID: '',
         imageTag: '',
         buildSuffix: '',
+        serverEdition: '',
     };
 
     const parts = build.split('-');

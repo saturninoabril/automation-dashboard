@@ -24,7 +24,7 @@ export type SpecExecution = {
     update_at: string;
     cycle_id: string;
     cases: CaseExecution[];
-    last_execution: LastSpecExecution[];
+    last_execution?: LastSpecExecution[];
 };
 
 export type SpecExecutionState =
@@ -33,6 +33,8 @@ export type SpecExecutionState =
     | 'bug'
     | 'known'
     | 'flaky'
+    | 'skipped'
+    | 'pending'
     | 'started'
     | 'timed_out'
     | 'on_queue';

@@ -61,7 +61,7 @@ function CycleList({ cycles }: Props) {
                     <li className={i !== 0 ? 'border-t border-gray-200' : ''} key={i}>
                         <Link
                             href={`/cycles/${id}`}
-                            className="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out"
+                            className="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out no-underline"
                             passHref
                         >
                             <div className="flex items-center px-4 sm:px-6 py-2">

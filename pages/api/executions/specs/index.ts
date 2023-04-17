@@ -33,7 +33,14 @@ async function getSpecExecutions(req: NextApiRequest, res: NextApiResponse) {
         });
     }
 
-    const specs = specsRes.specs as SpecExecution[];
+    let specs = specsRes.specs as SpecExecution[];
+    specs = specs.map((spec) => {
+        if (spec.last_execution) {
+            delete spec.last_execution;
+        }
+
+        return spec;
+    });
 
     const { knownIssue } = await getKnownIssueByCycleID(cycleId);
 

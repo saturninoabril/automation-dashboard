@@ -1,6 +1,7 @@
 import { getKnex } from '@knex';
 import { getPatchableSpecExecutionFields } from '@lib/schema/spec_execution';
-import { stateDone } from '@lib/constant';
+import { baseRepoBranch, stateDone } from '@lib/constant';
+import { getLastExecutionLimit } from '@lib/server_utils';
 import { LastSpecExecution, SpecExecution } from '@types';
 
 type GetSpecsWithCasesResponse = {
@@ -155,10 +156,11 @@ export async function updateSpecsAsDone(
 export async function getLastSpecExecutions(
     specFile: string,
     repo = 'mattermost-server',
-    branch = 'master',
     buildLike = 'onprem-ent',
-    limit = 10
+    limit = getLastExecutionLimit()
 ): Promise<{ error: string | null; last_spec_executions: LastSpecExecution[] | null }> {
+    const branch = baseRepoBranch[repo] || 'master';
+
     try {
         const knex = await getKnex();
         const specRes = await knex.raw(`

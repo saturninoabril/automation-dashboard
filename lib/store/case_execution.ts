@@ -1,5 +1,7 @@
 import { getKnex } from '@knex';
 import CaseExecutionSchema from '@lib/schema/case_execution';
+import { baseRepoBranch } from '@lib/constant';
+import { getLastExecutionLimit } from '@lib/server_utils';
 import { CaseExecution, LastCaseExecution } from '@types';
 
 export async function getCaseExecutionsBy(
@@ -100,10 +102,11 @@ export async function saveCaseExecution(caseExecution: Partial<CaseExecution>, t
 export async function getLastCaseExecutions(
     fullTitle: string,
     repo = 'mattermost-server',
-    branch = 'master',
     buildLike = 'onprem-ent',
-    limit = 10
+    limit = getLastExecutionLimit()
 ): Promise<{ error: string | null; last_case_executions: LastCaseExecution[] | null }> {
+    const branch = baseRepoBranch[repo] || 'master';
+
     try {
         const knex = await getKnex();
         const caseRes = await knex.raw(`

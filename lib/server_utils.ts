@@ -119,12 +119,22 @@ export function getCaseStateWithKnownIssue(
     return out;
 }
 
+export function getLastExecutionLimit() {
+    return process.env.LAST_EXECUTION_LIMIT ? parseInt(process.env?.LAST_EXECUTION_LIMIT, 10) : 10;
+}
+
+export function getLastXRun() {
+    return process.env.LAST_X_RUN ? parseInt(process.env?.LAST_X_RUN, 10) : 5;
+}
+
+export function getRecentConsecutive() {
+    return process.env.RECENT_CONSECUTIVE ? parseInt(process.env?.RECENT_CONSECUTIVE, 10) : 2;
+}
+
 export function getCaseStateWithLastExecution(lastExecutions: LastCaseExecution[]) {
     let state;
-    const lastXRun = process.env.LAST_X_RUN ? parseInt(process.env?.LAST_X_RUN, 10) : 5;
-    const recentConsecutive = process.env.RECENT_CONSECUTIVE
-        ? parseInt(process.env?.RECENT_CONSECUTIVE, 10)
-        : 2;
+    const lastXRun = getLastXRun();
+    const recentConsecutive = getRecentConsecutive();
     const lastXCaseExecutions = lastExecutions.filter((_, index) => lastXRun > index);
     const recentConsecutivePassed = lastXCaseExecutions.reduce(
         (acc, val) => acc && val.state === 'passed',
