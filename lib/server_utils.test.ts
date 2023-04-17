@@ -66,6 +66,8 @@ test('getCaseStateWithLastExecution', () => {
         update_at: 'update_at',
         spec_execution_id: 'spec_id',
         spec_file: 'spec_file',
+        error_display: 'error_display',
+        screenshot: { url: 'screenshot_url', taken_at: '2023-04-17', height: 5, width: 5 },
         cycle_id: 'cycle_id',
         repo: 'repo',
         branch: 'branch',
