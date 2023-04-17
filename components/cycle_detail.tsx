@@ -250,6 +250,34 @@ function CycleDetail({
                             <p>{`${specsGroup.flaky} flaky`}</p>
                         </div>
                     )}
+                    {specsGroup && specsGroup.skipped > 0 && (
+                        <div
+                            className={`flex space-x-2 cursor-pointer hover:bg-gray-200 ${
+                                !selectedSpecGroup || selectedSpecGroup === 'skipped'
+                                    ? 'text-purple-700'
+                                    : 'text-gray-300'
+                            }`}
+                            data-group="skipped"
+                            onClick={setSelectedGroup}
+                        >
+                            <ClipboardCheckIcon />
+                            <p>{`${specsGroup.skipped} skipped`}</p>
+                        </div>
+                    )}
+                    {specsGroup && specsGroup.pending > 0 && (
+                        <div
+                            className={`flex space-x-2 cursor-pointer hover:bg-gray-200 ${
+                                !selectedSpecGroup || selectedSpecGroup === 'pending'
+                                    ? 'text-blue-700'
+                                    : 'text-gray-300'
+                            }`}
+                            data-group="pending"
+                            onClick={setSelectedGroup}
+                        >
+                            <ClipboardCheckIcon />
+                            <p>{`${specsGroup.pending} pending`}</p>
+                        </div>
+                    )}
                     {specsGroup && specsGroup.started > 0 && (
                         <div
                             className={`flex space-x-2 cursor-pointer hover:bg-gray-200 ${

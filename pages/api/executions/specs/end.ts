@@ -83,7 +83,6 @@ async function endSpecExecution(req: NextApiRequest, res: NextApiResponse) {
                 const { error: lastCaseError, last_case_executions } = await getLastCaseExecutions(
                     t.full_title,
                     repo,
-                    branch,
                     parseBuild(build).buildSuffix
                 );
                 if (lastCaseError) {
@@ -159,7 +158,6 @@ async function endSpecExecution(req: NextApiRequest, res: NextApiResponse) {
             const { error: lastSpecError, last_spec_executions } = await getLastSpecExecutions(
                 spec.file,
                 repo,
-                branch,
                 parseBuild(build).buildSuffix
             );
             if (lastSpecError) {

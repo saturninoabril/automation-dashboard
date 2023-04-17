@@ -19,7 +19,7 @@ function Breadcrumb({ asPath = '' }: Props): React.ReactElement {
                     return (
                         <span className="flex space-x-2" key={i}>
                             <span>{'/'}</span>
-                            <Link href={`${link ? `/${link}` : ''}`} className="link">
+                            <Link href={`${link ? `/${link}` : ''}`} className="link no-underline">
                                 {path}
                             </Link>
                         </span>
