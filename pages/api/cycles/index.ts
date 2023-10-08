@@ -1,10 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
+import { getToken } from 'next-auth/jwt';
 import { Knex } from 'knex/types';
+import { getServerSession } from 'next-auth/next';
 
 import { getKnex } from '@knex';
 import { params } from '@lib/params';
 import type { Cycle } from '@types';
+
+import { authOptions } from '@pages/api/auth/[...nextauth]';
 
 type CyclesResponse = {
     cycles: Cycle[];
@@ -17,6 +21,12 @@ type CyclesResponse = {
 };
 
 async function getCycles(req: NextApiRequest, res: NextApiResponse<Partial<CyclesResponse>>) {
+    const token = await getToken({ req });
+    console.log('getCycles token', token);
+
+    const session = await getServerSession(req, res, authOptions);
+    console.log('getCycles session', session);
+
     try {
         const { limit, offset, page, perPage } = params(req.query);
         const { repo, branch, build } = req.query;

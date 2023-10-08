@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
+import { getToken } from 'next-auth/jwt';
 
 import { getPatchableCycleFields } from '@lib/schema/cycle';
 import { recomputeCycleTestValues } from '@lib/server_utils';
@@ -17,6 +18,9 @@ async function postKnownIssue(req: NextApiRequest, res: NextApiResponse) {
         body,
         query: { build, cycle_id: cycleID },
     } = req;
+
+    const token = await getToken({ req });
+    console.log('postKnownIssue token', token);
 
     let getCycleRes;
     if (cycleID) {

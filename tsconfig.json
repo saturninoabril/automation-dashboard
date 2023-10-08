@@ -16,6 +16,7 @@
         "incremental": true,
         "baseUrl": ".",
         "paths": {
+            "@pages/api/*": ["pages/api/*"],
             "@components/*": ["components/*"],
             "@components/icon": ["components/icon"],
             "@knex": ["knex"],
