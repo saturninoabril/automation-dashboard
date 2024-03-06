@@ -1,1 +1,11 @@
-[]
+[
+    {
+        "spec_file": "tests/integration/channels/enterprise/metrics/license_no_license_spec.js",
+        "cases": [
+            {
+                "title": "should disable metrics in BUILD_NUMBER != dev environments",
+                "type": "flaky"
+            }
+        ]
+    }
+]
