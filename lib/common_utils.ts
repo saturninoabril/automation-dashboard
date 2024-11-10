@@ -54,6 +54,7 @@ export function getCycleSummary(cycle: Cycle) {
         fail,
         passingRate: passingRate.toFixed(2),
         passingRateNumber: passingRate,
+        passAndFail,
         color,
         hexColor,
     };
