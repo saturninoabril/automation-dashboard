@@ -33,7 +33,11 @@ export function getCycleSummary(cycle: Cycle) {
     const { pass, fail, pending, skipped } = cycle;
 
     const totalCases = pass + fail + pending + skipped;
-    const passingRate = totalCases ? (pass / totalCases) * 100 : 0;
+
+    // The passing rate is calculated based solely on pass and fail outcomes,
+    // excluding known and flaky issues, pending and skipped status.
+    const passAndFail = pass + fail;
+    const passingRate = passAndFail ? (pass / passAndFail) * 100 : 0;
 
     let color;
     let hexColor;
