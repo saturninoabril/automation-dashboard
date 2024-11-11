@@ -51,7 +51,7 @@ function CycleList({ cycles }: Props) {
                 } = cycle;
 
                 const end = endAt || updateAt;
-                const { totalCases, passingRate, color } = getCycleSummary(cycle);
+                const { passAndFail, passingRate, color } = getCycleSummary(cycle);
                 const formattedStartDate = formatDate(startAt);
                 const formattedDuration = formatDuration({
                     startAt,
@@ -74,10 +74,10 @@ function CycleList({ cycles }: Props) {
                                             <span>
                                                 {specs_done} / {specs_registered} specs
                                             </span>
-                                            {startAt && totalCases > 0 && (
+                                            {startAt && passAndFail > 0 && (
                                                 <span className={`text-${color}`}>
-                                                    {pass} / {totalCases} cases passed{' '}
-                                                    {totalCases
+                                                    {pass} / {passAndFail} cases passed{' '}
+                                                    {passAndFail
                                                         ? `(${passingRate}%)` // prettier-ignore
                                                         : ''}
                                                 </span>
