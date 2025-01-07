@@ -7,5 +7,48 @@
                 "type": "flaky"
             }
         ]
+    },
+    {
+        "spec_file": "tests/integration/channels/custom_status/custom_status_expiry/custom_status_expiry_2_spec.ts",
+        "cases": [
+            {
+                "title": "MM-T4064_7 should show custom status expiry time in the user popover",
+                "type": "flaky"
+            },
+            {
+                "title": "MM-T4064_5 should show the set custom status with expiry when status dropdown is opened",
+                "type": "flaky"
+            },
+            {
+                "title": "MM-T4064_6 should show expiry time in the tooltip of custom status emoji in the post header",
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/enterprise/profile_popover/profile_popover_spec.ts",
+        "cases": [
+            {
+                "title": "MM-T9 Add User - Any user (can add users)",
+                "type": "flaky"
+            },
+            {
+                "title": "MM-T6 Add User - Channel Admins (Public only)",
+                "type": "flaky"
+            },
+            {
+                "title": "MM-T7 Add User — Team admins (Private only)",
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/integrations/slash_commands_spec.js",
+        "cases": [
+            {
+                "title": "MM-T688 /expand",
+                "type": "flaky"
+            }
+        ]
     }
 ]
