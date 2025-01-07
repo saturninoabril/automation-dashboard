@@ -41,5 +41,14 @@
                 "type": "flaky"
             }
         ]
+    },
+    {
+        "spec_file": "tests/integration/channels/integrations/slash_commands_spec.js",
+        "cases": [
+            {
+                "title": "MM-T688 /expand",
+                "type": "flaky"
+            }
+        ]
     }
 ]
