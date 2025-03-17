@@ -7,5 +7,23 @@
                 "type": "flaky"
             }
         ]
+    },
+    {
+        "spec_file": "tests/integration/channels/collapsed_reply_threads/unread_spec.ts",
+        "cases": [
+            {
+                "title": "MM-T5671 should handle mention counts correctly when marking a thread as unread and unfollowing it",
+                "type": "flaky"
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/playbooks/channels/general_actions_spec.js",
+        "cases": [
+            {
+                "title": "action settings are disabled for non-channel admin",
+                "type": "flaky"
+            }
+        ]
     }
 ]
