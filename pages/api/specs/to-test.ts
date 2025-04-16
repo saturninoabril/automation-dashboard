@@ -14,7 +14,48 @@ async function getSpecToTest(req: NextApiRequest, res: NextApiResponse) {
     try {
         // Support both GET and POST requests
         const data = req.method === 'GET' ? req.query : req.body;
-        const { repo, branch, build, server, files } = data;
+        const { repo, branch, build, server, files, cycle_id } = data;
+
+        // If cycle_id is provided, return all specs for that cycle
+        if (cycle_id) {
+            console.log(`Getting specs for cycle ID: ${cycle_id}`);
+            const knex = await getKnex();
+            
+            // First check if the cycle exists
+            const cycle = await knex('cycles').where('id', cycle_id).first();
+            if (!cycle) {
+                return res.status(404).json({
+                    error: true,
+                    message: `No cycle found with ID: ${cycle_id}`,
+                });
+            }
+            
+            // Get all specs for this cycle
+            const specs = await knex('spec_executions')
+                .where('cycle_id', cycle_id)
+                .select('id', 'file', 'state', 'runner', 'sort_weight', 'server', 'start_at', 'end_at')
+                .orderBy('sort_weight', 'asc')
+                .orderBy('file', 'asc');
+            
+            // Get counts of specs in different states
+            const specCounts = await knex('spec_executions')
+                .where('cycle_id', cycle_id)
+                .select('state')
+                .count('* as count')
+                .groupBy('state');
+            
+            const stateMap = specCounts.reduce((acc, item) => {
+                acc[item.state || 'null'] = parseInt(item.count);
+                return acc;
+            }, {});
+            
+            return res.status(200).json({
+                cycle,
+                specs,
+                spec_counts: stateMap,
+                total: specs.length
+            });
+        }
 
         // If accessed directly in browser without parameters, show a simple form
         if (req.method === 'GET' && (!repo && !branch && !build)) {
@@ -30,27 +71,55 @@ async function getSpecToTest(req: NextApiRequest, res: NextApiResponse) {
                         input { padding: 8px; width: 300px; }
                         button { margin-top: 15px; padding: 8px 15px; background: #4CAF50; color: white; border: none; cursor: pointer; }
                         pre { background: #f4f4f4; padding: 10px; border-radius: 5px; }
+                        .tab { display: none; }
+                        .tab-button { 
+                            background: #f1f1f1; 
+                            border: none; 
+                            padding: 10px 20px; 
+                            cursor: pointer; 
+                            margin-right: 5px;
+                        }
+                        .tab-button.active { 
+                            background: #ddd; 
+                        }
                     </style>
                 </head>
                 <body>
                     <h1>Spec Test API</h1>
-                    <p>This endpoint is used to get the next spec to test.</p>
                     
-                    <form action="/api/specs/to-test" method="get">
-                        <label for="repo">Repository:</label>
-                        <input type="text" id="repo" name="repo" placeholder="e.g., mattermost-server" required>
-                        
-                        <label for="branch">Branch:</label>
-                        <input type="text" id="branch" name="branch" placeholder="e.g., master" required>
-                        
-                        <label for="build">Build:</label>
-                        <input type="text" id="build" name="build" placeholder="e.g., 1121" required>
-                        
-                        <label for="server">Server (optional):</label>
-                        <input type="text" id="server" name="server" placeholder="e.g., localhost:8065">
-                        
-                        <button type="submit">Get Next Spec</button>
-                    </form>
+                    <div>
+                        <button class="tab-button active" onclick="openTab(event, 'nextSpec')">Get Next Spec</button>
+                        <button class="tab-button" onclick="openTab(event, 'cycleSpecs')">Get Cycle Specs</button>
+                    </div>
+                    
+                    <div id="nextSpec" class="tab" style="display: block;">
+                        <p>This form is used to get the next spec to test.</p>
+                        <form action="/api/specs/to-test" method="get">
+                            <label for="repo">Repository:</label>
+                            <input type="text" id="repo" name="repo" placeholder="e.g., mattermost-server" required>
+                            
+                            <label for="branch">Branch:</label>
+                            <input type="text" id="branch" name="branch" placeholder="e.g., master" required>
+                            
+                            <label for="build">Build:</label>
+                            <input type="text" id="build" name="build" placeholder="e.g., 1121" required>
+                            
+                            <label for="server">Server (optional):</label>
+                            <input type="text" id="server" name="server" placeholder="e.g., localhost:8065">
+                            
+                            <button type="submit">Get Next Spec</button>
+                        </form>
+                    </div>
+                    
+                    <div id="cycleSpecs" class="tab">
+                        <p>This form is used to get all specs for a specific test cycle.</p>
+                        <form action="/api/specs/to-test" method="get">
+                            <label for="cycle_id">Cycle ID:</label>
+                            <input type="text" id="cycle_id" name="cycle_id" placeholder="e.g., 6ac421bc-6c21-4663-8e45-490f73c32a32" required>
+                            
+                            <button type="submit">Get Cycle Specs</button>
+                        </form>
+                    </div>
                     
                     <h2>API Documentation</h2>
                     <p>POST to this endpoint with the following JSON body:</p>
@@ -62,6 +131,33 @@ async function getSpecToTest(req: NextApiRequest, res: NextApiResponse) {
   "server": "optional-server-url"
 }
                     </pre>
+                    
+                    <p>Or to get all specs for a cycle:</p>
+                    <pre>
+{
+  "cycle_id": "6ac421bc-6c21-4663-8e45-490f73c32a32"
+}
+                    </pre>
+                    
+                    <script>
+                    function openTab(evt, tabName) {
+                        // Hide all tabs
+                        var tabs = document.getElementsByClassName("tab");
+                        for (var i = 0; i < tabs.length; i++) {
+                            tabs[i].style.display = "none";
+                        }
+                        
+                        // Remove active class from all tab buttons
+                        var tabButtons = document.getElementsByClassName("tab-button");
+                        for (var i = 0; i < tabButtons.length; i++) {
+                            tabButtons[i].className = tabButtons[i].className.replace(" active", "");
+                        }
+                        
+                        // Show the current tab and add active class to the button
+                        document.getElementById(tabName).style.display = "block";
+                        evt.currentTarget.className += " active";
+                    }
+                    </script>
                 </body>
                 </html>
             `);
