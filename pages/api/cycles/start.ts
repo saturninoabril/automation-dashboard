@@ -50,6 +50,27 @@ async function startCycle(req: NextApiRequest, res: NextApiResponse<Partial<Cycl
         }
 
         const knex = await getKnex();
+        
+        // Check if a cycle with the same repo, branch, and build already exists
+        const existingCycle = await knex('cycles')
+            .where({
+                repo: value.repo,
+                branch: value.branch,
+                build: value.build
+            })
+            .first();
+            
+        if (existingCycle) {
+            console.log(`Cycle already exists for ${value.repo}/${value.branch}/${value.build}, returning existing cycle`);
+            
+            // If files are provided, we can optionally update the existing cycle or add more specs
+            // For now, just return the existing cycle
+            return res.status(200).json({
+                cycle: existingCycle,
+                message: 'Cycle already exists'
+            });
+        }
+        
         const started = await knex.transaction(async (trx: any) => {
             const cycle = await knex('cycles')
                 .transacting(trx)
@@ -58,6 +79,7 @@ async function startCycle(req: NextApiRequest, res: NextApiResponse<Partial<Cycl
                     build: value.build,
                     repo: value.repo,
                     specs_registered: value.specs_registered,
+                    runner: body.runner || 'cypress', // Add runner field
                 })
                 .returning('*');
 

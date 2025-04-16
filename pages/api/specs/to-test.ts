@@ -203,18 +203,32 @@ async function getSpecToTest(req: NextApiRequest, res: NextApiResponse) {
                 });
             }
 
-            // Create cycle and spec executions in a transaction
-            const started = await knex.transaction(async (trx: any) => {
-                const newCycle = await knex('cycles')
-                    .transacting(trx)
-                    .insert({
-                        branch: value.branch,
-                        build: value.build,
-                        repo: value.repo,
-                        specs_registered: value.specs_registered,
-                        runner: 'playwright',
-                    })
-                    .returning('*');
+            // Check if a cycle with the same repo, branch, and build already exists
+            // This is a double-check in case a race condition occurred
+            const existingCycle = await knex('cycles')
+                .where({
+                    repo: value.repo,
+                    branch: value.branch,
+                    build: value.build
+                })
+                .first();
+                
+            if (existingCycle) {
+                console.log(`Cycle already exists for ${value.repo}/${value.branch}/${value.build}, using existing cycle`);
+                cycle = existingCycle;
+            } else {
+                // Create cycle and spec executions in a transaction
+                const started = await knex.transaction(async (trx: any) => {
+                    const newCycle = await knex('cycles')
+                        .transacting(trx)
+                        .insert({
+                            branch: value.branch,
+                            build: value.build,
+                            repo: value.repo,
+                            specs_registered: value.specs_registered,
+                            runner: 'playwright',
+                        })
+                        .returning('*');
 
                 const chunkSize = 30;
                 const newExecutions = files
@@ -252,11 +266,12 @@ async function getSpecToTest(req: NextApiRequest, res: NextApiResponse) {
                     await saveKnownIssue(newCycle[0].id, knownIssueData, trx);
                 }
 
-                return { cycle: newCycle[0], executions };
-            });
-            
-            cycle = started.cycle;
-            console.log(`Created new cycle with ID: ${cycle.id}`);
+                    return { cycle: newCycle[0], executions };
+                });
+                
+                cycle = started.cycle;
+                console.log(`Created new cycle with ID: ${cycle.id}`);
+            }
         }
 
         if (!cycle) {
