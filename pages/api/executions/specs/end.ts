@@ -17,7 +17,7 @@ import {
     updateSpecsAsDone,
 } from '@lib/store/spec_execution';
 import auth from '@middleware/auth';
-import { CaseExecution, SpecExecution, Screenshot } from '@types';
+import { CaseExecution, SpecExecution, Screenshot, CaseState } from '@types'; // Added CaseState
 import { parseBuild } from '@lib/common_utils';
 
 // Define interfaces for Playwright report structure (simplified)
@@ -377,13 +377,109 @@ async function endSpecExecution(req: NextApiRequest, res: NextApiResponse) {
 
             // update spec as done
             const { error: specError, spec: updatedSpecExecution } = await updateSpecsAsDone(
+                specPatch // Use the prepared specPatch object
+            );
+            if (specError || !updatedSpecExecution) {
+                return res.status(400).json({
+                    error: true,
+                    message: specError || 'Error updating specs',
+                });
+            }
+
+            // get specs that were done testing
+            // Fetch all done specs *including* the one just updated to recompute cycle accurately
+            const { error: doneSpecsError, specs: doneSpecs } = await getDoneSpecs(origCycle.id);
+            if (doneSpecsError || !doneSpecs) {
+                return res.status(400).json({
+                    error: true,
+                    message: doneSpecsError || 'Error getting specs',
+                });
+            }
+
+            // recompute cycle test values
+            const recomputedCycle = recomputeCycleTestValues(origCycle, doneSpecs);
+
+            // do not update this field
+            delete recomputedCycle.specs_registered;
+
+            const { error: cyclePatchError, value: cyclePatch } =
+                getPatchableCycleFields(recomputedCycle);
+            if (cyclePatchError) {
+                return res.status(400).json({
+                    error: true,
+                    message: cyclePatchError,
+                });
+            }
+
+            // update the cycle with recomputed values
+            const { error: updateCycleError, cycle: updatedCycle } = await updateCycle({
+                ...cyclePatch,
+                id: origCycle.id,
+                runner: origCycle.runner || runner, // Persist runner type on cycle if not already set
+            });
+            if (updateCycleError || !updatedCycle) {
+                return res.status(400).json({
+                    error: true,
+                    message: updateCycleError || 'Error updating a cycle',
+                });
+            }
+
+            return res.status(201).json({
+                cycle: updatedCycle,
+                spec: updatedSpecExecution,
+                cases, // Return the saved case executions
+            });
+        } catch (e) {
+            console.error("Error in endSpecExecution:", e); // Log the actual error
+            return res
+                .status(501)
+                .json({ error: true, message: 'Error while saving spec execution.' });
+        }
+    }
+
+    return res.status(400).json({
+        error: true,
+        message: 'Invalid request: Missing spec ID, runner, or payload.', // Updated error message
+    });
+}
+
+// --- Helper function to recompute spec failed counts based on final case states ---
+// Note: This function was duplicated in the provided file. Keeping one instance.
+// Consider moving this to lib/server_utils.ts if used elsewhere.
+export function recomputeSpecFailedCount(caseExecutions: Partial<CaseExecution>[] = []) {
+    return caseExecutions.reduce(
+        (acc: { failed: number; bug: number; known: number; flaky: number }, ce) => {
+            switch (ce.state) {
+                case 'failed':
+                    acc.failed += 1;
+                    break;
+                case 'bug':
+                    acc.bug += 1;
+                    break;
+                case 'known':
+                    acc.known += 1;
+                    break;
+                case 'flaky':
+                    acc.flaky += 1;
+                    break;
+            }
+
+            return acc;
+        },
+        { failed: 0, bug: 0, known: 0, flaky: 0 }
+    );
+}
+
+/* --- Remove duplicated/old logic block --- */
+/*
                     key: t.key,
                     key_step: t.key_step,
                     state: t.state,
-                    duration: t.duration,
-                    code: t.code,
-                    error_display: t.error_display,
-                    error_frame: t.error_frame,
+*/
+/* --- End of removed block --- */
+
+const handler = nextConnect();
+handler.use(auth).post(endSpecExecution);
                     screenshot: t.screenshot,
                     test_start_at: t.test_start_at,
                     cycle_id: origSpec.cycle_id,

@@ -55,4 +55,5 @@ export type LastSpecExecution = {
     branch: string;
     build: string;
     cycle_create_at: string;
+    runner?: 'cypress' | 'playwright'; // Added runner type
 };

@@ -41,16 +41,31 @@ export function recomputeCycleTestValues(cycle: Cycle, specs: SpecExecution[]): 
              // For now, we rely on the caller (endSpecExecution) to provide specs with cases.
             console.warn(`recomputeCycleTestValues: Spec ${spec.id} has no cases, skipping.`);
             continue;
+        // If spec state is not 'done', it shouldn't contribute to final counts yet.
+        // However, the current logic fetches doneSpecs, so this check might be redundant here.
+        // Keeping it for clarity in case the input `specs` source changes.
+        if (spec.state !== stateDone) {
+            continue;
         }
 
+        duration += spec.duration;
         specsDone += 1;
+
+        // Ensure spec has cases and they are loaded correctly
+        if (!spec.cases || spec.cases.length === 0) {
+             // If cases weren't loaded (e.g., from getDoneSpecs), skip this spec for recomputation
+             // Or potentially fetch cases here if necessary, but that could be inefficient.
+             // For now, we rely on the caller (endSpecExecution) to provide specs with cases.
+            console.warn(`recomputeCycleTestValues: Spec ${spec.id} has no cases, skipping.`);
+            continue;
+        }
 
         for (let j = 0; j < spec.cases.length; j++) {
             const caseExecution = spec.cases[j] as CaseExecution; // Cast for type safety
 
             // Ensure caseExecution has an id and state
             if (!caseExecution.id || !caseExecution.state) {
-                 console.warn(`recomputeCycleTestValues: Skipping case execution due to missing id or state:`, caseExecution);
+                 console.warn(`recomputeCycleTestValues: Skipping case execution in spec ${spec.id} due to missing id or state:`, caseExecution);
                 continue;
             }
 

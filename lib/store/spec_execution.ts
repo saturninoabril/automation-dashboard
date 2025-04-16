@@ -45,27 +45,16 @@ export async function getSpecsWithCases(
                 'title', ce.title,
                 'state', ce.state,
                 'duration', ce.duration,
-                'test_start_at', ce.test_start_at
-            json_build_object(
-                'id', ce.id,
-                'title', ce.title,
-                'state', ce.state,
-                'duration', ce.duration,
                 'test_start_at', ce.test_start_at,
                 'runner', ce.runner, // Include runner
                 'full_title', ce.full_title // Include full_title needed by recomputeCycleTestValues indirectly
-            json_build_object(
-                 'id', ce.id,
-                 'title', ce.title,
-                 'state', ce.state,
-                 'duration', ce.duration,
-                 'test_start_at', ce.test_start_at,
-                 'runner', ce.runner, // Include runner
-                 'full_title', ce.full_title // Include full_title
             )
         ) AS "cases"
         FROM spec_executions se
         LEFT JOIN case_executions AS ce ON ce.spec_execution_id = se.id
+                'state', ce.state,
+                'duration', ce.duration,
+                'test_start_at', ce.test_start_at,
         WHERE se.id IN (
             SELECT id from spec_executions
             WHERE cycle_id='${cycleId}'
@@ -102,7 +91,9 @@ export async function getDoneSpecs(
                     'title', ce.title,
                     'state', ce.state,
                     'duration', ce.duration,
-                    'test_start_at', ce.test_start_at
+                    'test_start_at', ce.test_start_at,
+                    'runner', ce.runner, // Include runner
+                    'full_title', ce.full_title // Include full_title
                 )
             ) AS "cases"
             FROM spec_executions se
