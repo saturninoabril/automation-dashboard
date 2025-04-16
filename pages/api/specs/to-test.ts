@@ -128,6 +128,7 @@ async function getSpecToTest(req: NextApiRequest, res: NextApiResponse) {
                             sort_weight: f.sortWeight || f.weight || 1,
                             cycle_id: newCycle[0].id,
                             runner: 'playwright',
+                            state: 'registered',
                         };
                     })
                     .map((ne: any) => {
@@ -170,10 +171,13 @@ async function getSpecToTest(req: NextApiRequest, res: NextApiResponse) {
         }
 
         // Find a spec that hasn't been started yet
+        // Look for specs with state 'registered' or null (default state)
         const spec = await knex('spec_executions')
-            .where({
-                cycle_id: cycle.id,
-                state: 'registered', // Assuming 'registered' is the initial state
+            .where('cycle_id', cycle.id)
+            .where(function() {
+                this.where('state', 'registered')
+                    .orWhereNull('state')
+                    .orWhere('state', '');
             })
             .orderBy('sort_weight', 'asc')
             .orderBy('file', 'asc')

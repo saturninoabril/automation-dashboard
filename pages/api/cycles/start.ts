@@ -70,6 +70,8 @@ async function startCycle(req: NextApiRequest, res: NextApiResponse<Partial<Cycl
                             file: f.file,
                             sort_weight: f.sortWeight || f.weight || 1,
                             cycle_id: cycle[0].id,
+                            state: 'registered',
+                            runner: f.runner || 'cypress',
                         };
                     })
                     .map((ne: any) => {
