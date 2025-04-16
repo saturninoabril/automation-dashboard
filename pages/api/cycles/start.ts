@@ -30,9 +30,11 @@ type FileWithWeight = {
 
 async function startCycle(req: NextApiRequest, res: NextApiResponse<Partial<CyclesResponse>>) {
     try {
-        const {
-            body: { branch, build, repo, files = [] },
-        } = req;
+        const { body } = req;
+        const { branch, build, repo } = body;
+        const files = Array.isArray(body.files) ? body.files : [];
+        
+        console.log('startCycle received:', { branch, build, repo, filesCount: files.length });
 
         const { value, error } = cycleSchema.validate({
             branch,
@@ -100,7 +102,11 @@ async function startCycle(req: NextApiRequest, res: NextApiResponse<Partial<Cycl
 
         return res.status(201).json(started);
     } catch (e) {
-        return res.status(501).json({ error: true });
+        console.error('Error in startCycle:', e);
+        return res.status(501).json({ 
+            error: true,
+            message: `Server error: ${e.message || 'Unknown error'}` 
+        });
     }
 }
 
