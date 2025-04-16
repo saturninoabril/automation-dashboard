@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 
-import { Cycle, KnownIssueData, LastCaseExecution, SpecExecution } from '@types';
+import { Cycle, KnownIssueData, LastCaseExecution, SpecExecution, CaseExecution } from '@types'; // Added CaseExecution
 import { stateDone } from './constant';
 
 export const onpremEnt = 'onprem-ent';
@@ -34,12 +34,23 @@ export function recomputeCycleTestValues(cycle: Cycle, specs: SpecExecution[]): 
             continue;
         }
 
+        // Ensure spec has cases and they are loaded correctly
+        if (!spec.cases || spec.cases.length === 0) {
+             // If cases weren't loaded (e.g., from getDoneSpecs), skip this spec for recomputation
+             // Or potentially fetch cases here if necessary, but that could be inefficient.
+             // For now, we rely on the caller (endSpecExecution) to provide specs with cases.
+            console.warn(`recomputeCycleTestValues: Spec ${spec.id} has no cases, skipping.`);
+            continue;
+        }
+
         specsDone += 1;
 
         for (let j = 0; j < spec.cases.length; j++) {
-            const caseExecution = spec.cases[j];
+            const caseExecution = spec.cases[j] as CaseExecution; // Cast for type safety
 
-            if (!caseExecution.id) {
+            // Ensure caseExecution has an id and state
+            if (!caseExecution.id || !caseExecution.state) {
+                 console.warn(`recomputeCycleTestValues: Skipping case execution due to missing id or state:`, caseExecution);
                 continue;
             }
 

@@ -26,6 +26,7 @@ export type Cycle = {
     end_at: string;
     create_at: string;
     update_at: string;
+    runner?: 'cypress' | 'playwright'; // Added runner type
 };
 
 export type CycleState = 'done' | 'started' | 'timed_out' | 'on_queue';

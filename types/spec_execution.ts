@@ -25,6 +25,7 @@ export type SpecExecution = {
     cycle_id: string;
     cases: CaseExecution[];
     last_execution?: LastSpecExecution[];
+    runner?: 'cypress' | 'playwright'; // Added runner type
 };
 
 export type SpecExecutionState =

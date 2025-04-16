@@ -1,13 +1,20 @@
+// Make Screenshot fields optional and add Playwright specific ones
 export type Screenshot = {
-    url: string;
-    taken_at: string;
-    height: number;
-    width: number;
+    // Cypress fields
+    url?: string;
+    taken_at?: string;
+    height?: number;
+    width?: number;
+    // Playwright fields
+    name?: string;
+    contentType?: string;
+    path?: string;
+    body?: string; // Base64 content
 };
 
 export type CaseExecution = {
     id: string;
-    title: Array<string>;
+    title: Array<string>; // Keep for Cypress, may need generation for Playwright
     full_title: string;
     key: string;
     key_step: string;
@@ -22,9 +29,13 @@ export type CaseExecution = {
     update_at: string;
     cycle_id: string;
     spec_execution_id: string;
-    known_fail_type: string; // deprecated
-    known_fail_ticket: string;
-    last_execution: LastCaseExecution[];
+    known_fail_type?: string; // deprecated
+    known_fail_ticket?: string;
+    last_execution?: LastCaseExecution[];
+    runner?: 'cypress' | 'playwright'; // Added runner type
+    // Optional fields for richer Playwright error info
+    error_stack?: string;
+    error_snippet?: string;
 };
 
 export type CaseState = 'passed' | 'failed' | 'bug' | 'known' | 'flaky' | 'pending' | 'skipped';
@@ -43,4 +54,5 @@ export type LastCaseExecution = {
     branch: string;
     build: string;
     cycle_create_at: string;
+    runner?: 'cypress' | 'playwright'; // Added runner type
 };

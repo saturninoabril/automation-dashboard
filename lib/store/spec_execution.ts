@@ -2,7 +2,7 @@ import { getKnex } from '@knex';
 import { getPatchableSpecExecutionFields } from '@lib/schema/spec_execution';
 import { baseRepoBranch, stateDone } from '@lib/constant';
 import { getLastExecutionLimit } from '@lib/server_utils';
-import { LastSpecExecution, SpecExecution } from '@types';
+import { LastSpecExecution, SpecExecution, CaseExecution } from '@types'; // Added CaseExecution
 
 type GetSpecsWithCasesResponse = {
     specs: SpecExecution[] | null;
@@ -46,6 +46,22 @@ export async function getSpecsWithCases(
                 'state', ce.state,
                 'duration', ce.duration,
                 'test_start_at', ce.test_start_at
+            json_build_object(
+                'id', ce.id,
+                'title', ce.title,
+                'state', ce.state,
+                'duration', ce.duration,
+                'test_start_at', ce.test_start_at,
+                'runner', ce.runner, // Include runner
+                'full_title', ce.full_title // Include full_title needed by recomputeCycleTestValues indirectly
+            json_build_object(
+                 'id', ce.id,
+                 'title', ce.title,
+                 'state', ce.state,
+                 'duration', ce.duration,
+                 'test_start_at', ce.test_start_at,
+                 'runner', ce.runner, // Include runner
+                 'full_title', ce.full_title // Include full_title
             )
         ) AS "cases"
         FROM spec_executions se
@@ -143,6 +159,7 @@ export async function updateSpecsAsDone(
                 state: stateDone, // explicitly set as done
                 end_at: knex.fn.now(),
                 update_at: knex.fn.now(),
+                runner: specPatch.runner, // Ensure runner is saved
             })
             .returning('*');
         return { error: null, spec: specs[0] };
@@ -178,7 +195,8 @@ export async function getLastSpecExecutions(
                 cs.repo,
                 cs.branch,
                 cs.build,
-                cs.create_at AS cycle_create_at
+                cs.create_at AS cycle_create_at,
+                se.runner // Include runner
             FROM public.spec_executions se
             LEFT JOIN cycles AS cs ON cs.id = se.cycle_id
             WHERE

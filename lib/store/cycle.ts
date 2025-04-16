@@ -1,7 +1,7 @@
 import { getKnex } from '@knex';
 import { stateDone } from '@lib/constant';
 import { getPatchableCycleFields } from '@lib/schema/cycle';
-import type { Cycle } from '@types';
+import type { Cycle, SpecExecution } from '@types'; // Added SpecExecution
 
 type CycleByParams = {
     repo: string;
@@ -125,7 +125,11 @@ export async function updateCycle(
         }
 
         const cycles = await queryBuilder
-            .update({ ...cyclePatch, update_at: knex.fn.now() })
+            .update({
+                ...cyclePatch,
+                runner: patch.runner, // Ensure runner is saved
+                update_at: knex.fn.now()
+            })
             .returning('*');
 
         return { error: null, cycle: cycles[0] };

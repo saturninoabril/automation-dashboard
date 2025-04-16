@@ -1,5 +1,5 @@
 import { getKnex } from '@knex';
-import CaseExecutionSchema from '@lib/schema/case_execution';
+import CaseExecutionSchema, { getPatchableCaseExecutionFields } from '@lib/schema/case_execution'; // Updated import
 import { baseRepoBranch } from '@lib/constant';
 import { getLastExecutionLimit } from '@lib/server_utils';
 import { CaseExecution, LastCaseExecution } from '@types';
@@ -38,6 +38,7 @@ export async function getCaseExecutionsBy(
             'c.branch',
             'c.build',
             'c.repo',
+            'ce.runner', // Include runner
         ];
 
         const queryBuilder = knex('case_executions as ce')
@@ -67,10 +68,11 @@ export async function getCaseExecutionsBy(
 }
 
 export async function saveCaseExecution(caseExecution: Partial<CaseExecution>, trx?: any) {
-    const { value, error } = CaseExecutionSchema.validate(caseExecution);
+    // Use getPatchableCaseExecutionFields for validation now
+    const { value, error } = getPatchableCaseExecutionFields(caseExecution);
     if (error) {
         return {
-            error: `Invalid case execution patch: ${error}`,
+            error: `Invalid case execution data: ${error}`,
             caseExecution: null,
         };
     }
@@ -87,8 +89,17 @@ export async function saveCaseExecution(caseExecution: Partial<CaseExecution>, t
             queryBuilder.transacting(trx);
         }
 
+        // Ensure runner and new error fields are included if present
+        const dataToInsert = {
+            ...value,
+            runner: caseExecution.runner, // Explicitly include runner
+            error_stack: caseExecution.error_stack, // Include new fields
+            error_snippet: caseExecution.error_snippet, // Include new fields
+            update_at: knex.fn.now(),
+        };
+
         const savedCaseExecution = (await queryBuilder
-            .insert({ ...value, update_at: knex.fn.now() })
+            .insert(dataToInsert)
             .returning('*')) as CaseExecution[];
 
         return { error: null, caseExecution: savedCaseExecution[0] };
@@ -123,7 +134,8 @@ export async function getLastCaseExecutions(
                 cs.repo,
                 cs.branch,
                 cs.build,
-                cs.create_at AS cycle_create_at
+                cs.create_at AS cycle_create_at,
+                ce.runner // Include runner
             FROM public.case_executions ce
             LEFT JOIN spec_executions AS se ON se.id = ce.spec_execution_id
             LEFT JOIN cycles AS cs ON cs.id = ce.cycle_id
