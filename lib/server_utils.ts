@@ -28,38 +28,23 @@ export function recomputeCycleTestValues(cycle: Cycle, specs: SpecExecution[]): 
 
     for (let i = 0; i < specs.length; i++) {
         const spec = specs[i];
-        duration += spec.duration;
 
-        if (!spec.cases.length) {
-            continue;
-        }
-
-        // Ensure spec has cases and they are loaded correctly
-        if (!spec.cases || spec.cases.length === 0) {
-             // If cases weren't loaded (e.g., from getDoneSpecs), skip this spec for recomputation
-             // Or potentially fetch cases here if necessary, but that could be inefficient.
-             // For now, we rely on the caller (endSpecExecution) to provide specs with cases.
-            console.warn(`recomputeCycleTestValues: Spec ${spec.id} has no cases, skipping.`);
-            continue;
-        // If spec state is not 'done', it shouldn't contribute to final counts yet.
-        // However, the current logic fetches doneSpecs, so this check might be redundant here.
-        // Keeping it for clarity in case the input `specs` source changes.
+        // Only count specs that are actually done
         if (spec.state !== stateDone) {
             continue;
         }
 
+        // Add duration and count this spec as done
         duration += spec.duration;
         specsDone += 1;
 
-        // Ensure spec has cases and they are loaded correctly
+        // Ensure spec has cases loaded; if not, warn but continue (spec is still done)
         if (!spec.cases || spec.cases.length === 0) {
-             // If cases weren't loaded (e.g., from getDoneSpecs), skip this spec for recomputation
-             // Or potentially fetch cases here if necessary, but that could be inefficient.
-             // For now, we rely on the caller (endSpecExecution) to provide specs with cases.
-            console.warn(`recomputeCycleTestValues: Spec ${spec.id} has no cases, skipping.`);
-            continue;
+            console.warn(`recomputeCycleTestValues: Done spec ${spec.id} has no cases loaded, skipping case counting for this spec.`);
+            continue; // Skip the inner loop for this spec
         }
 
+        // Loop through cases of the done spec
         for (let j = 0; j < spec.cases.length; j++) {
             const caseExecution = spec.cases[j] as CaseExecution; // Cast for type safety
 
