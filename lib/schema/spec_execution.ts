@@ -28,6 +28,7 @@ const specExecutionSchema = Joi.object().keys({
         .guid({ version: ['uuidv4'] })
         .max(50),
     last_execution: Joi.array(),
+    runner: Joi.string().valid('cypress', 'playwright').default('cypress'),
 });
 
 const patchableFields = [
@@ -44,6 +45,7 @@ const patchableFields = [
     'test_start_at',
     'test_end_at',
     'last_execution',
+    'runner',
 ];
 
 export const getPatchableSpecExecutionFields = (data: Record<string, any>) => {
