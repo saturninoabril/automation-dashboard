@@ -46,15 +46,12 @@ export async function getSpecsWithCases(
                 'state', ce.state,
                 'duration', ce.duration,
                 'test_start_at', ce.test_start_at,
-                'runner', ce.runner, // Include runner
-                'full_title', ce.full_title // Include full_title needed by recomputeCycleTestValues indirectly
+                'runner', ce.runner,
+                'full_title', ce.full_title
             )
         ) AS "cases"
         FROM spec_executions se
         LEFT JOIN case_executions AS ce ON ce.spec_execution_id = se.id
-                'state', ce.state,
-                'duration', ce.duration,
-                'test_start_at', ce.test_start_at,
         WHERE se.id IN (
             SELECT id from spec_executions
             WHERE cycle_id='${cycleId}'
@@ -92,8 +89,8 @@ export async function getDoneSpecs(
                     'state', ce.state,
                     'duration', ce.duration,
                     'test_start_at', ce.test_start_at,
-                    'runner', ce.runner, // Include runner
-                    'full_title', ce.full_title // Include full_title
+                    'runner', ce.runner,
+                    'full_title', ce.full_title
                 )
             ) AS "cases"
             FROM spec_executions se
@@ -187,7 +184,7 @@ export async function getLastSpecExecutions(
                 cs.branch,
                 cs.build,
                 cs.create_at AS cycle_create_at,
-                se.runner // Include runner
+                se.runner
             FROM public.spec_executions se
             LEFT JOIN cycles AS cs ON cs.id = se.cycle_id
             WHERE
