@@ -6,13 +6,38 @@ import { loadEnvConfig } from '@next/env';
 const dev = process.env.NODE_ENV !== 'production';
 const { JWT_SECRET, ALLOWED_USER, ALLOWED_ROLE } = loadEnvConfig('./', dev).combinedEnv;
 
+// Log loaded environment variables for debugging
+console.log('Auth Config - ALLOWED_USER:', ALLOWED_USER);
+console.log('Auth Config - ALLOWED_ROLE:', ALLOWED_ROLE);
+// Avoid logging JWT_SECRET in production environments
+if (dev) {
+    console.log('Auth Config - JWT_SECRET:', JWT_SECRET ? 'Loaded' : 'Not Loaded');
+}
+
+
 export function isTokenValid(req: NextApiRequest) {
+    console.log('isTokenValid: Checking token...'); // Log entry
     if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
-        const urlEncodedToken = req.headers.authorization.split(' ')[1];
-        const token = decodeURIComponent(urlEncodedToken);
-        const decoded = jwt.verify(token, JWT_SECRET);
-        return ALLOWED_USER.includes(decoded.user) && ALLOWED_ROLE.includes(decoded.role);
+        try {
+            const urlEncodedToken = req.headers.authorization.split(' ')[1];
+            const token = decodeURIComponent(urlEncodedToken);
+            console.log('isTokenValid: Token found, verifying...'); // Log step
+            const decoded = jwt.verify(token, JWT_SECRET);
+            console.log('isTokenValid: Token verified. Decoded payload:', decoded); // Log decoded payload
+
+            const userAllowed = ALLOWED_USER.includes(decoded.user);
+            const roleAllowed = ALLOWED_ROLE.includes(decoded.role);
+
+            console.log(`isTokenValid: User "${decoded.user}" allowed?`, userAllowed); // Log user check
+            console.log(`isTokenValid: Role "${decoded.role}" allowed?`, roleAllowed); // Log role check
+
+            return userAllowed && roleAllowed;
+        } catch (error) {
+            console.error('isTokenValid: Error verifying token:', error.message); // Log verification errors
+            return false;
+        }
     }
 
+    console.log('isTokenValid: No valid Bearer token found in Authorization header.'); // Log missing token
     return false;
 }
