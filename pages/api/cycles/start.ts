@@ -23,7 +23,9 @@ type CyclesResponse = {
 
 type FileWithWeight = {
     file: string;
-    sortWeight: number;
+    sortWeight?: number;
+    weight?: number;
+    shouldSkip?: boolean;
 };
 
 async function startCycle(req: NextApiRequest, res: NextApiResponse<Partial<CyclesResponse>>) {
@@ -64,7 +66,7 @@ async function startCycle(req: NextApiRequest, res: NextApiResponse<Partial<Cycl
                     .map((f: FileWithWeight) => {
                         return {
                             file: f.file,
-                            sort_weight: f.sortWeight,
+                            sort_weight: f.sortWeight || f.weight || 1,
                             cycle_id: cycle[0].id,
                         };
                     })

@@ -20,13 +20,24 @@ export function isTokenValid(req: NextApiRequest) {
     if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
         try {
             const urlEncodedToken = req.headers.authorization.split(' ')[1];
-            const token = decodeURIComponent(urlEncodedToken);
+            // Try both decoded and raw token to handle different client implementations
+            let token = urlEncodedToken;
+            try {
+                // Only decode if it's actually URL encoded
+                if (urlEncodedToken.includes('%')) {
+                    token = decodeURIComponent(urlEncodedToken);
+                }
+            } catch (decodeError) {
+                console.warn('isTokenValid: Error decoding token, using raw token:', decodeError.message);
+            }
+            
             console.log('isTokenValid: Token found, verifying...'); // Log step
             const decoded = jwt.verify(token, JWT_SECRET);
             console.log('isTokenValid: Token verified. Decoded payload:', decoded); // Log decoded payload
 
-            const userAllowed = ALLOWED_USER.includes(decoded.user);
-            const roleAllowed = ALLOWED_ROLE.includes(decoded.role);
+            // If ALLOWED_USER or ALLOWED_ROLE is empty or not defined, skip that check
+            const userAllowed = !ALLOWED_USER || ALLOWED_USER === '' || ALLOWED_USER.split(',').includes(decoded.user);
+            const roleAllowed = !ALLOWED_ROLE || ALLOWED_ROLE === '' || ALLOWED_ROLE.split(',').includes(decoded.role);
 
             console.log(`isTokenValid: User "${decoded.user}" allowed?`, userAllowed); // Log user check
             console.log(`isTokenValid: Role "${decoded.role}" allowed?`, roleAllowed); // Log role check
