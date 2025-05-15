@@ -25,5 +25,18 @@
                 "type": "flaky"
             }
         ]
+    },
+    {
+        "spec_file": "tests/integration/channels/custom_status/custom_status_expiry/custom_status_expiry_2_spec.ts",
+        "cases": [
+            {
+                "title": "MM-T4064_7 should show custom status expiry time in the user popover",
+                "type": "flaky"
+            },
+            {
+                "title": "MM-T4064_6 should show expiry time in the tooltip of custom status emoji in the post header",
+                "type": "flaky"
+            },
+        ]
     }
 ]
