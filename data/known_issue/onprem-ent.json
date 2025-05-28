@@ -36,7 +36,7 @@
             {
                 "title": "MM-T4064_6 should show expiry time in the tooltip of custom status emoji in the post header",
                 "type": "flaky"
-            },
+            }
         ]
     }
 ]
