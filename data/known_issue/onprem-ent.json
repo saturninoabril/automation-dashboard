@@ -36,7 +36,16 @@
             {
                 "title": "MM-T4064_6 should show expiry time in the tooltip of custom status emoji in the post header",
                 "type": "flaky"
-            },
+            }
+        ]
+    },
+    {
+        "spec_file": "tests/integration/channels/team_settings/remove_team_icon_spec.js",
+        "cases": [
+            {
+                "title": "MM-T391 Remove team icon",
+                "type": "flaky"
+            }
         ]
     }
 ]
